@@ -407,5 +407,12 @@
   "viewOwnershipType": {
     "personal": "Personal",
     "personalDescription": "Only you can see the view."
+  },
+  "serviceType": {
+    "localBaserowRowCommentCreated": "Row comment created",
+    "localBaserowRowCommentCreatedDescription": "Starts when a comment is placed on a row in the selected table."
+  },
+  "nodeType": {
+    "localBaserowRowCommentCreatedLabel": "A comment is placed in {tableName}"
   }
 }
