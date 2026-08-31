@@ -207,5 +207,4 @@ class AIIntegrationType(IntegrationType):
                         )
 
                 serialized["ai_settings"] = materialized_settings
-
         return serialized
