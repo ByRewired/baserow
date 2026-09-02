@@ -79,12 +79,13 @@
 
       <FormGroup
         v-if="values.interval === 'WEEK'"
+        :error="fieldHasErrors('day_of_week')"
         :label="$t('periodicForm.dayOfWeek')"
         required
         small-label
         class="margin-bottom-2"
       >
-        <Dropdown v-model="values.day_of_week" size="large">
+        <Dropdown v-model="v$.values.day_of_week.$model" size="large">
           <DropdownItem
             v-for="(value, key) in daysOfWeek"
             :key="key"
@@ -192,10 +193,11 @@ export default {
       return ['HOUR', 'DAY', 'WEEK', 'MONTH'].includes(this.values.interval)
     },
     showTimezoneField() {
-      // A MINUTE interval is a frequency rather than a time of day, and an HOUR
-      // interval only picks a minute past the hour, so neither depends on the
-      // timezone. Every offset in use is a whole number of minutes.
-      return ['DAY', 'WEEK', 'MONTH'].includes(this.values.interval)
+      // A MINUTE interval is a frequency rather than a time of day, so it's the
+      // only one which doesn't depend on the timezone. An HOUR interval's minute
+      // is a local one too: in a zone on a half hour offset, such as
+      // Asia/Kolkata, minute 0 of each local hour is minute 30 of each UTC hour.
+      return ['HOUR', 'DAY', 'WEEK', 'MONTH'].includes(this.values.interval)
     },
     intervalText() {
       switch (this.values.interval) {
@@ -260,6 +262,16 @@ export default {
           between: helpers.withMessage(
             this.$t('error.minMaxValueField', { min: 0, max: 23 }),
             between(0, 23)
+          ),
+        },
+        day_of_week: {
+          required: helpers.withMessage(
+            this.$t('error.requiredField'),
+            required
+          ),
+          between: helpers.withMessage(
+            this.$t('error.minMaxValueField', { min: 0, max: 6 }),
+            between(0, 6)
           ),
         },
         day_of_month: {
