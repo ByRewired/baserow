@@ -175,15 +175,27 @@ def test_calculate_next_periodic_run_minute_interval_ignores_timezone():
     assert (next_run - from_time) == timedelta(minutes=15)
 
 
-def test_calculate_next_periodic_run_hour_interval_ignores_timezone():
+def test_calculate_next_periodic_run_hour_interval_uses_local_minute():
     """
-    An HOUR interval only picks a minute past the hour, so it's calculated in UTC
-    and a timezone must not shift it.
+    An HOUR interval picks a minute past each hour, and that minute is a local one.
+    Most zones sit on a whole hour offset so their local minute is the UTC minute,
+    but a zone such as Asia/Kolkata (UTC+05:30) has minute 0 of every local hour
+    falling on minute 30 of every UTC hour.
     """
 
     from_time = datetime(2026, 7, 1, 10, 45, tzinfo=timezone.utc)
 
-    for tz in ["UTC", "Europe/Amsterdam", "Asia/Kolkata"]:
+    for tz, expected in [
+        ("UTC", datetime(2026, 7, 1, 11, 30, tzinfo=timezone.utc)),
+        # Whole hour offset, so the UTC minute is unchanged.
+        ("Europe/Amsterdam", datetime(2026, 7, 1, 11, 30, tzinfo=timezone.utc)),
+        # UTC+05:30: local minute 30 is UTC minute 0.
+        ("Asia/Kolkata", datetime(2026, 7, 1, 11, 0, tzinfo=timezone.utc)),
+        # UTC+05:45: local minute 30 is UTC minute 45.
+        ("Asia/Kathmandu", datetime(2026, 7, 1, 11, 45, tzinfo=timezone.utc)),
+        # UTC-02:30 in summer: local minute 30 is UTC minute 0.
+        ("America/St_Johns", datetime(2026, 7, 1, 11, 0, tzinfo=timezone.utc)),
+    ]:
         next_run = calculate_next_periodic_run(
             interval=PERIODIC_INTERVAL_HOUR,
             minute=30,
@@ -193,7 +205,39 @@ def test_calculate_next_periodic_run_hour_interval_ignores_timezone():
             from_time=from_time,
             tz=tz,
         )
-        assert next_run == datetime(2026, 7, 1, 11, 30, tzinfo=timezone.utc)
+        assert next_run == expected, tz
+        assert next_run.astimezone(ZoneInfo(tz)).minute == 30, tz
+        assert next_run > from_time, tz
+
+
+def test_calculate_next_periodic_run_hour_interval_advances_in_utc_across_dst():
+    """
+    Shifting the minute must not turn HOUR into wall clock arithmetic: across a
+    DST transition it still runs once per real hour rather than skipping or
+    repeating one.
+    """
+
+    # 2026-10-25 is the fall-back in Amsterdam: 03:00 CEST repeats as 02:00 CET.
+    # Starting inside the hour that is about to repeat.
+    from_time = datetime(2026, 10, 25, 0, 20, tzinfo=timezone.utc)
+    runs = []
+    for _ in range(3):
+        from_time = calculate_next_periodic_run(
+            interval=PERIODIC_INTERVAL_HOUR,
+            minute=15,
+            hour=0,
+            day_of_week=0,
+            day_of_month=1,
+            from_time=from_time,
+            tz="Europe/Amsterdam",
+        )
+        runs.append(from_time)
+
+    assert runs == [
+        datetime(2026, 10, 25, 1, 15, tzinfo=timezone.utc),
+        datetime(2026, 10, 25, 2, 15, tzinfo=timezone.utc),
+        datetime(2026, 10, 25, 3, 15, tzinfo=timezone.utc),
+    ]
 
 
 def test_calculate_next_periodic_run_without_an_interval_has_no_next_run():

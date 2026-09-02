@@ -40,11 +40,15 @@ def calculate_next_periodic_run(
     schedule is saved only gives "every Monday at 08:00 UTC", which stops meaning
     09:00 the moment the clocks change.
 
-    MINUTE and HOUR ignore `tz` and are calculated in UTC. MINUTE is a frequency
-    rather than a time of day, so it has to advance by real elapsed time: in a
-    fall-back overlap the local clock repeats an hour, which would turn "every 15
-    minutes" into a 75 minute gap. HOUR only picks a minute past the hour, and
-    every DST shift is a whole number of hours, so it can't be affected either.
+    MINUTE and HOUR are calculated in UTC instead. MINUTE is a frequency rather
+    than a time of day, so it has to advance by real elapsed time: in a fall-back
+    overlap the local clock repeats an hour, which would turn "every 15 minutes"
+    into a 75 minute gap. HOUR only picks a minute past the hour, but that minute
+    is still a local one: in a zone such as Asia/Kolkata (UTC+05:30) minute 0 of
+    every local hour is minute 30 of every UTC hour. So HOUR shifts the target
+    minute by the minute component of the zone's offset and then advances in UTC,
+    which keeps it at the chosen local minute without a DST transition being able
+    to skip or repeat an hour.
 
     On the two days a year where a local time is undefined, the standard library
     defaults apply: a time in a spring-forward gap resolves to the equivalent
@@ -68,20 +72,25 @@ def calculate_next_periodic_run(
     if from_time is None:
         from_time = timezone.now()
 
+    schedule_zone = ZoneInfo(tz or PERIODIC_TIMEZONE_DEFAULT)
     schedules_a_local_time = interval in [
         PERIODIC_INTERVAL_DAY,
         PERIODIC_INTERVAL_WEEK,
         PERIODIC_INTERVAL_MONTH,
     ]
-    zone = (
-        ZoneInfo(tz or PERIODIC_TIMEZONE_DEFAULT)
-        if schedules_a_local_time
-        else datetime_timezone.utc
-    )
+    zone = schedule_zone if schedules_a_local_time else datetime_timezone.utc
 
     # A naive `from_time` can't be converted, so it's assumed to already be UTC.
     if timezone.is_naive(from_time):
         from_time = from_time.replace(tzinfo=datetime_timezone.utc)
+
+    # The minute component of the zone's offset from UTC at `from_time`, e.g. 30
+    # for Asia/Kolkata (UTC+05:30) or St. John's (UTC-03:30), and 0 for any zone
+    # on a whole hour offset. The rare zone whose DST shift is not a whole hour,
+    # such as Australia/Lord_Howe, can be off by that shift for the single run
+    # which straddles its transition.
+    offset = schedule_zone.utcoffset(from_time) or timedelta(0)
+    offset_minutes = int(offset.total_seconds() // 60) % 60
 
     # The calculation below is wall clock arithmetic, so it runs on a naive time in
     # `zone`. Staying naive means a DST transition can't silently turn a `replace()`
@@ -94,8 +103,9 @@ def calculate_next_periodic_run(
         next_run = from_time + timedelta(minutes=interval_minutes)
 
     elif interval == PERIODIC_INTERVAL_HOUR:
-        # Run at the specified minute of each hour
-        next_run = from_time.replace(minute=minute)
+        # Run at the specified local minute of each hour. `from_time` is in UTC
+        # here, so the local minute is translated to the UTC minute it falls on.
+        next_run = from_time.replace(minute=(minute - offset_minutes) % 60)
         # If we've already passed this minute in the current hour, move to next hour
         if next_run <= from_time:
             next_run += timedelta(hours=1)
