@@ -167,7 +167,7 @@ def test_0026_backfill_coreperiodicservice_next_run_at_forwards(
 
 
 @pytest.mark.once_per_day_in_ci
-def test_0032_coreperiodicservice_timezone_defaults_existing_rows_to_utc(
+def test_0034_coreperiodicservice_timezone_defaults_existing_rows_to_utc(
     migrator, teardown_table_metadata
 ):
     """
@@ -177,8 +177,8 @@ def test_0032_coreperiodicservice_timezone_defaults_existing_rows_to_utc(
     doesn't quietly move anybody's live schedule.
     """
 
-    migrate_from = [("integrations", "0031_corestartworkflowservice")]
-    migrate_to = [("integrations", "0032_coreperiodicservice_timezone")]
+    migrate_from = [("integrations", "0033_coregotonodeservice")]
+    migrate_to = [("integrations", "0034_coreperiodicservice_timezone")]
 
     old_state = migrator.migrate(migrate_from)
 
