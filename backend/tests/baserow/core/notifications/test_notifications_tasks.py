@@ -75,7 +75,7 @@ def test_daily_report_is_sent_at_correct_time_according_to_user_timezone(
         assert user_1_summary_email.to == [user_1.email]
         assert (
             user_1_summary_email.get_subject()
-            == "You have 1 new notification - Baserow"
+            == "You have 1 new notification - ByRewired DB"
         )
 
         expected_context = {
@@ -118,7 +118,7 @@ def test_daily_report_is_sent_at_correct_time_according_to_user_timezone(
         assert user_2_summary_email.to == [user_2.email]
         assert (
             user_2_summary_email.get_subject()
-            == "You have 2 new notifications - Baserow"
+            == "You have 2 new notifications - ByRewired DB"
         )
 
         expected_context = {
@@ -202,7 +202,7 @@ def test_weekly_report_is_sent_at_correct_date_and_time_according_to_user_timezo
         assert user_1_summary_email.to == [user_1.email]
         assert (
             user_1_summary_email.get_subject()
-            == "You have 1 new notification - Baserow"
+            == "You have 1 new notification - ByRewired DB"
         )
 
         expected_context = {
@@ -245,7 +245,7 @@ def test_weekly_report_is_sent_at_correct_date_and_time_according_to_user_timezo
         assert user_2_summary_email.to == [user_2.email]
         assert (
             user_2_summary_email.get_subject()
-            == "You have 2 new notifications - Baserow"
+            == "You have 2 new notifications - ByRewired DB"
         )
 
         expected_context = {

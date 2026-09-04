@@ -410,7 +410,7 @@ def test_not_all_notification_types_are_included_in_the_email_notification_summa
         assert user_1_summary_email.to == [user_1.email]
         assert (
             user_1_summary_email.get_subject()
-            == "You have 1 new notification - Baserow"
+            == "You have 1 new notification - ByRewired DB"
         )
 
         expected_context = {
@@ -513,7 +513,7 @@ def test_user_with_daily_email_notification_frequency_settings(
         assert user_1_summary_email.to == [user_1.email]
         assert (
             user_1_summary_email.get_subject()
-            == "You have 1 new notification - Baserow"
+            == "You have 1 new notification - ByRewired DB"
         )
 
         expected_context = {
@@ -577,7 +577,7 @@ def test_email_notifications_are_sent_only_after_setting_is_activated(
         assert user_1_summary_email.to == [user_1.email]
         assert (
             user_1_summary_email.get_subject()
-            == "You have 1 new notification - Baserow"
+            == "You have 1 new notification - ByRewired DB"
         )
 
         expected_context = {
@@ -630,7 +630,7 @@ def test_email_notifications_are_included_up_to_email_limit(
         assert user_1_summary_email.to == [user_1.email]
         assert (
             user_1_summary_email.get_subject()
-            == f"You have {limit + 1} new notifications - Baserow"
+            == f"You have {limit + 1} new notifications - ByRewired DB"
         )
 
         expected_context = {
@@ -975,11 +975,11 @@ def test_email_notifications_per_user_limit_with_multiple_users(
         email_by_recipient = {e.to[0]: e for e in summary_emails}
 
         u1_email = email_by_recipient[user_1.email]
-        assert u1_email.get_subject() == "You have 5 new notifications - Baserow"
+        assert u1_email.get_subject() == "You have 5 new notifications - ByRewired DB"
         assert u1_email.get_context()["new_notifications_count"] == 5
         assert u1_email.get_context()["unlisted_notifications_count"] == 2
 
         u2_email = email_by_recipient[user_2.email]
-        assert u2_email.get_subject() == "You have 4 new notifications - Baserow"
+        assert u2_email.get_subject() == "You have 4 new notifications - ByRewired DB"
         assert u2_email.get_context()["new_notifications_count"] == 4
         assert u2_email.get_context()["unlisted_notifications_count"] == 1

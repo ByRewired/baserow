@@ -490,7 +490,7 @@ def test_email_notifications_are_created_correctly_for_collaborators_added(
     assert len(summary_emails) == 1
     user_2_summary_email = summary_emails[0]
     assert user_2_summary_email.to == [user_2.email]
-    assert user_2_summary_email.get_subject() == "You have 1 new notification - Baserow"
+    assert user_2_summary_email.get_subject() == "You have 1 new notification - ByRewired DB"
 
     notif = NotificationRecipient.objects.get(recipient=user_2)
     notification_url = f"http://localhost:3000/notification/{notif.workspace_id}/{notif.notification_id}"
@@ -1058,7 +1058,7 @@ def test_email_notifications_are_created_correctly_for_mentions_in_rich_text_fie
     assert len(summary_emails) == 1
     user_2_summary_email = summary_emails[0]
     assert user_2_summary_email.to == [user_2.email]
-    assert user_2_summary_email.get_subject() == "You have 1 new notification - Baserow"
+    assert user_2_summary_email.get_subject() == "You have 1 new notification - ByRewired DB"
 
     notif = NotificationRecipient.objects.get(recipient=user_2)
     notification_url = f"http://localhost:3000/notification/{notif.workspace_id}/{notif.notification_id}"
@@ -1223,7 +1223,7 @@ def test_email_notifications_show_unknown_user_for_anonymous_form_submissions(
     assert len(summary_emails) == 1
     user_2_summary_email = summary_emails[0]
     assert user_2_summary_email.to == [user_2.email]
-    assert user_2_summary_email.get_subject() == "You have 1 new notification - Baserow"
+    assert user_2_summary_email.get_subject() == "You have 1 new notification - ByRewired DB"
 
     notif = NotificationRecipient.objects.get(recipient=user_2)
     notification_url = f"http://localhost:3000/notification/{notif.workspace_id}/{notif.notification_id}"
