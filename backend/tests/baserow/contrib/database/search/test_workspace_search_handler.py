@@ -346,7 +346,7 @@ def test_workspace_row_search_handler_with_interesting_database(data_fixture):
     _assert_row_shape(rows[0])
 
     # Select/number/date fragments
-    res = do_search("Object")
+    res = do_search("M-1")
     rows = _row_results(res)
     assert len(rows) >= 1
     _assert_row_shape(rows[0])
