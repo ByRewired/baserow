@@ -532,6 +532,7 @@ def test_duplicate_views_with_multiple_select_has_filter(data_fixture):
     assert new_filters[0].value == "1"
 
 
+@pytest.mark.view_ownership
 @pytest.mark.django_db
 @patch("baserow.contrib.database.views.signals.views_reordered.send")
 def test_order_views(send_mock, data_fixture):
@@ -854,7 +855,7 @@ def test_field_type_single_field_num_queries(data_fixture, django_assert_num_que
     handler = ViewHandler()
 
     # Should be equal to the `test_field_type_changed_two_fields_num_queries`.
-    with django_assert_num_queries(11):
+    with django_assert_num_queries(9):
         handler.fields_type_changed([password_field_1])
 
     assert ViewFilter.objects.all().count() == 0
@@ -901,7 +902,7 @@ def test_field_type_changed_two_fields_num_queries(
     handler = ViewHandler()
 
     # Should be equal to the `test_field_type_single_field_num_queries`.
-    with django_assert_num_queries(11):
+    with django_assert_num_queries(9):
         handler.fields_type_changed([password_field_1, password_field_2])
 
     assert ViewFilter.objects.all().count() == 0

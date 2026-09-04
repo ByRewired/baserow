@@ -935,6 +935,7 @@ def test_import_export_form_view_with_allowed_select_options(data_fixture, api_c
     ]
 
 
+@pytest.mark.view_ownership
 @pytest.mark.django_db
 def test_import_export_view_ownership_type(data_fixture):
     workspace = data_fixture.create_workspace()

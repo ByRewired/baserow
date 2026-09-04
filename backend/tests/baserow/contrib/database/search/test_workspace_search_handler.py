@@ -45,7 +45,7 @@ def test_search_handler_query_count(data_fixture, django_assert_num_queries):
             user=user, workspace=workspace, query=q, limit=100, offset=0
         )
 
-    with django_assert_num_queries(5):
+    with django_assert_num_queries(4):
         result_data = handler.search_workspace(
             user=user, workspace=workspace, query="Database", limit=10, offset=0
         )
