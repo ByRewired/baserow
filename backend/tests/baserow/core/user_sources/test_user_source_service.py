@@ -5,7 +5,6 @@ import pytest
 
 from baserow.core.app_auth_providers.exceptions import IncompatibleUserSourceType
 from baserow.core.app_auth_providers.models import AppAuthProvider
-from baserow.core.app_auth_providers.registries import app_auth_provider_type_registry
 from baserow.core.exceptions import PermissionException
 from baserow.core.user_sources.exceptions import (
     UserSourceDoesNotExist,
@@ -14,6 +13,12 @@ from baserow.core.user_sources.exceptions import (
 from baserow.core.user_sources.models import UserSource
 from baserow.core.user_sources.registries import user_source_type_registry
 from baserow.core.user_sources.service import UserSourceService
+from baserow.test_utils.fixtures.app_auth_provider import (
+    get_app_auth_provider_type_or_skip,
+)
+from baserow.test_utils.fixtures.user_source import (
+    get_user_source_type_or_skip,
+)
 
 
 def pytest_generate_tests(metafunc):
@@ -56,8 +61,8 @@ def test_create_user_source_w_auth_source(data_fixture):
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
 
-    user_source_type = list(user_source_type_registry.get_all())[0]
-    app_auth_provider_type = list(app_auth_provider_type_registry.get_all())[0]
+    user_source_type = get_user_source_type_or_skip()
+    app_auth_provider_type = get_app_auth_provider_type_or_skip()
 
     user_source2 = UserSourceService().create_user_source(
         user,
@@ -74,8 +79,8 @@ def test_create_user_source_w_incompatible_auth_source(data_fixture):
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
 
-    user_source_type = list(user_source_type_registry.get_all())[0]
-    app_auth_provider_type = list(app_auth_provider_type_registry.get_all())[0]
+    user_source_type = get_user_source_type_or_skip()
+    app_auth_provider_type = get_app_auth_provider_type_or_skip()
 
     original_compatible = app_auth_provider_type.compatible_user_source_types
     app_auth_provider_type.compatible_user_source_types = []
@@ -102,7 +107,7 @@ def test_create_user_source_before(data_fixture):
         application=application, order="2.0000"
     )
 
-    user_source_type = list(user_source_type_registry.get_all())[0]
+    user_source_type = get_user_source_type_or_skip()
 
     user_source2 = UserSourceService().create_user_source(
         user,
@@ -136,7 +141,7 @@ def test_get_unique_orders_before_user_source_triggering_full_application_order_
         application=application, order="2.99999999999999999998"
     )
 
-    user_source_type = user_source_type_registry.get("local_baserow")
+    user_source_type = get_user_source_type_or_skip("local_baserow")
 
     user_source_created = UserSourceService().create_user_source(
         user,
@@ -182,7 +187,7 @@ def test_create_user_source_permission_denied(data_fixture, stub_check_permissio
     user = data_fixture.create_user()
     application = data_fixture.create_builder_application(user=user)
 
-    user_source_type = user_source_type_registry.get("local_baserow")
+    user_source_type = get_user_source_type_or_skip("local_baserow")
 
     with (
         stub_check_permissions(raise_permission_denied=True),

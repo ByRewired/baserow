@@ -19,6 +19,9 @@ from baserow.core.user_sources.registries import (
     user_source_type_registry,
 )
 from baserow.core.utils import MirrorDict
+from baserow.test_utils.fixtures.user_source import (
+    get_user_source_type_or_skip,
+)
 from baserow.test_utils.helpers import AnyStr
 
 
@@ -56,7 +59,7 @@ def test_create_user_source_check_uid(data_fixture, stub_user_source_registry):
         return f"{user_source.id}_test"
 
     with stub_user_source_registry(gen_uid_return=gen_uid):
-        first_type = list(user_source_type_registry.get_all())[0]
+        first_type = get_user_source_type_or_skip()
         user_source = UserSourceHandler().create_user_source(
             first_type, application=application, **first_type.prepare_values({}, user)
         )
@@ -69,7 +72,7 @@ def test_create_user_source_bad_application(data_fixture):
     user = data_fixture.create_user()
     application = data_fixture.create_database_application(user=user)
 
-    user_source_type = user_source_type_registry.get("local_baserow")
+    user_source_type = get_user_source_type_or_skip("local_baserow")
 
     with pytest.raises(ApplicationOperationNotSupported):
         UserSourceHandler().create_user_source(
@@ -106,7 +109,7 @@ def test_get_user_sources(data_fixture):
         user_source3.id,
     ]
 
-    first_user_source_type = list(user_source_type_registry.get_all())[0]
+    first_user_source_type = get_user_source_type_or_skip()
 
     assert isinstance(user_sources[0], first_user_source_type.model_class)
 
@@ -134,7 +137,7 @@ def test_update_user_source(data_fixture, stub_user_source_registry):
         return f"{user_source.id}_test"
 
     with stub_user_source_registry(gen_uid_return=gen_uid):
-        user_source_type = user_source_type_registry.get("local_baserow")
+        user_source_type = get_user_source_type_or_skip("local_baserow")
 
         user_source_updated = UserSourceHandler().update_user_source(
             user_source_type, user_source, integration=integration2
@@ -148,7 +151,7 @@ def test_update_user_source(data_fixture, stub_user_source_registry):
 def test_update_user_source_invalid_values(data_fixture):
     user_source = data_fixture.create_user_source_with_first_type()
 
-    user_source_type = user_source_type_registry.get("local_baserow")
+    user_source_type = get_user_source_type_or_skip("local_baserow")
 
     user_source_updated = UserSourceHandler().update_user_source(
         user_source_type, user_source, nonsense="hello"
@@ -327,6 +330,8 @@ def test_export_user_source(data_fixture):
 
 @pytest.mark.django_db
 def test_import_user_source(data_fixture):
+    get_user_source_type_or_skip("local_baserow")
+
     builder = data_fixture.create_builder_application()
     integration = data_fixture.create_local_baserow_integration()
 
@@ -369,6 +374,8 @@ def test_import_user_source(data_fixture):
 
 @pytest.mark.django_db
 def test_import_user_source_with_migrated_integration(data_fixture):
+    get_user_source_type_or_skip("local_baserow")
+
     builder = data_fixture.create_builder_application()
     integration = data_fixture.create_local_baserow_integration()
 
@@ -403,7 +410,7 @@ def test_export_then_import_user_source(data_fixture, stub_user_source_registry)
     builder = data_fixture.create_builder_application()
     integration = data_fixture.create_local_baserow_integration()
 
-    first_user_source_type = list(user_source_type_registry.get_all())[0]
+    first_user_source_type = get_user_source_type_or_skip()
 
     def gen_uid(user_source):
         return f"{user_source.id}_test"
@@ -534,7 +541,7 @@ def test_generate_update_user_count_chunk_queryset(data_fixture):
 
     ids_seen = []
     ids_expected = list(range(1, 11))
-    user_source_type = list(user_source_type_registry.get_all())[0]
+    user_source_type = get_user_source_type_or_skip()
     user_sources = data_fixture.create_user_sources_with_primary_keys(
         user_source_type, ids_expected, application=builder
     )
@@ -634,7 +641,7 @@ def test_update_all_user_source_counts_in_chunks(data_fixture):
     )
     email_field, name_field, role_field = fields
 
-    user_source_type = list(user_source_type_registry.get_all())[0]
+    user_source_type = get_user_source_type_or_skip()
     user_sources = data_fixture.create_user_sources_with_primary_keys(
         user_source_type,
         list(range(1, 11)),

@@ -10,8 +10,13 @@ from rest_framework.status import (
 )
 
 from baserow.core.app_auth_providers.models import AppAuthProvider
-from baserow.core.app_auth_providers.registries import app_auth_provider_type_registry
 from baserow.core.user_sources.models import UserSource
+from baserow.test_utils.fixtures.app_auth_provider import (
+    get_app_auth_provider_type_or_skip,
+)
+from baserow.test_utils.fixtures.user_source import (
+    get_user_source_type_or_skip,
+)
 
 
 @pytest.mark.django_db
@@ -106,6 +111,8 @@ def test_get_user_sources_w_auth_providers(api_client, data_fixture):
 
 @pytest.mark.django_db
 def test_create_user_source(api_client, data_fixture):
+    get_user_source_type_or_skip("local_baserow")
+
     user, token = data_fixture.create_user_and_token()
     workspace = data_fixture.create_workspace(user=user)
     application = data_fixture.create_builder_application(workspace=workspace)
@@ -182,6 +189,8 @@ def test_create_user_source_missing_type(api_client, data_fixture):
 
 @pytest.mark.django_db
 def test_create_user_source_w_auth_providers(api_client, data_fixture):
+    get_user_source_type_or_skip("local_baserow")
+
     user, token = data_fixture.create_user_and_token()
     workspace = data_fixture.create_workspace(user=user)
     application = data_fixture.create_builder_application(workspace=workspace)
@@ -223,6 +232,8 @@ def test_create_user_source_w_auth_providers(api_client, data_fixture):
 
 @pytest.mark.django_db
 def test_create_user_source_w_auth_providers_w_domain(api_client, data_fixture):
+    get_user_source_type_or_skip("local_baserow")
+
     user, token = data_fixture.create_user_and_token()
     workspace = data_fixture.create_workspace(user=user)
     application = data_fixture.create_builder_application(workspace=workspace)
@@ -301,7 +312,7 @@ def test_create_user_source_w_auth_provider_wrong_type(api_client, data_fixture)
     application = data_fixture.create_builder_application(workspace=workspace)
     integration = data_fixture.create_local_baserow_integration(application=application)
 
-    app_auth_provider_type = list(app_auth_provider_type_registry.get_all())[0]
+    app_auth_provider_type = get_app_auth_provider_type_or_skip()
 
     original_compatible = app_auth_provider_type.compatible_user_source_types
     app_auth_provider_type.compatible_user_source_types = []
@@ -333,6 +344,8 @@ def test_create_user_source_w_auth_provider_wrong_type(api_client, data_fixture)
 
 @pytest.mark.django_db
 def test_create_user_source_w_auth_provider_missing_type(api_client, data_fixture):
+    get_user_source_type_or_skip("local_baserow")
+
     user, token = data_fixture.create_user_and_token()
     workspace = data_fixture.create_workspace(user=user)
     application = data_fixture.create_builder_application(workspace=workspace)
@@ -365,6 +378,8 @@ def test_create_user_source_w_auth_provider_missing_type(api_client, data_fixtur
 def test_create_user_source_permission_denied(
     api_client, data_fixture, stub_check_permissions
 ):
+    get_user_source_type_or_skip("local_baserow")
+
     user, token = data_fixture.create_user_and_token()
     application = data_fixture.create_builder_application(user=user)
     integration = data_fixture.create_local_baserow_integration(application=application)
@@ -384,6 +399,8 @@ def test_create_user_source_permission_denied(
 
 @pytest.mark.django_db
 def test_create_user_source_application_does_not_exist(api_client, data_fixture):
+    get_user_source_type_or_skip("local_baserow")
+
     user, token = data_fixture.create_user_and_token()
 
     url = reverse("api:user_sources:list", kwargs={"application_id": 0})
@@ -399,6 +416,8 @@ def test_create_user_source_application_does_not_exist(api_client, data_fixture)
 
 @pytest.mark.django_db
 def test_create_user_source_bad_application_type(api_client, data_fixture):
+    get_user_source_type_or_skip("local_baserow")
+
     user, token = data_fixture.create_user_and_token()
     application = data_fixture.create_database_application(user=user)
     integration = data_fixture.create_local_baserow_integration(application=application)

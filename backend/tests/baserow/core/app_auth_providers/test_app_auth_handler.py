@@ -8,6 +8,9 @@ from baserow.core.app_auth_providers.models import AppAuthProvider
 from baserow.core.app_auth_providers.registries import app_auth_provider_type_registry
 from baserow.core.auth_provider.exceptions import AuthProviderModelNotFound
 from baserow.core.utils import MirrorDict
+from baserow.test_utils.fixtures.app_auth_provider import (
+    get_app_auth_provider_type_or_skip,
+)
 
 
 def pytest_generate_tests(metafunc):
@@ -82,7 +85,7 @@ def test_get_app_auth_providers(data_fixture):
         app_auth_provider3.id,
     ]
 
-    first_app_auth_provider_type = list(app_auth_provider_type_registry.get_all())[0]
+    first_app_auth_provider_type = get_app_auth_provider_type_or_skip()
 
     assert isinstance(app_auth_providers[0], first_app_auth_provider_type.model_class)
 
