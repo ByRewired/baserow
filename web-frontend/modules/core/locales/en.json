@@ -53,6 +53,10 @@
     "installing": "Installing",
     "installedTitle": "Template installed"
   },
+  "impersonateWarning": {
+    "title": "Viewing as {name}",
+    "stop": "Stop impersonating"
+  },
   "sidebar": {
     "createWorkspace": "Create workspace",
     "addNewWorkspace": "Add new workspace",

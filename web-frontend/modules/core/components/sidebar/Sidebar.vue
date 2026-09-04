@@ -1,5 +1,6 @@
 <template>
   <div class="sidebar" :class="{ 'sidebar--collapsed': collapsed }">
+    <SidebarImpersonateWarning></SidebarImpersonateWarning>
     <component
       :is="component"
       v-for="(component, index) in impersonateComponent"
@@ -94,6 +95,7 @@ import SidebarWithoutWorkspace from '@baserow/modules/core/components/sidebar/Si
 import SidebarAdmin from '@baserow/modules/core/components/sidebar/SidebarAdmin'
 import SidebarFoot from '@baserow/modules/core/components/sidebar/SidebarFoot'
 import SidebarMenu from '@baserow/modules/core/components/sidebar/SidebarMenu'
+import SidebarImpersonateWarning from '@baserow/modules/core/components/sidebar/SidebarImpersonateWarning'
 import SidebarAdminItem from './SidebarAdminItem.vue'
 
 export default {
@@ -105,6 +107,7 @@ export default {
     SidebarUserContext,
     SidebarMenu,
     SidebarFoot,
+    SidebarImpersonateWarning,
   },
   props: {
     applications: {
