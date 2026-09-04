@@ -36,7 +36,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV YARN_CACHE_FOLDER=/tmp/.yarn-cache
 
-RUN mkdir -p /baserow/web-frontend /baserow/premium/web-frontend /baserow/enterprise/web-frontend && \
+RUN mkdir -p /baserow/web-frontend && \
     chown -R $UID:$GID /baserow
 
 USER $UID:$GID
@@ -63,20 +63,14 @@ ENV YARN_CACHE_FOLDER=/tmp/.yarn-cache \
     NODE_OPTIONS="--max-old-space-size=4096" \
     NODE_ENV=production
 
-RUN mkdir -p /baserow/web-frontend /baserow/premium/web-frontend /baserow/enterprise/web-frontend && \
+RUN mkdir -p /baserow/web-frontend && \
     chown -R $UID:$GID /baserow/
 
 # Copy source code
 COPY --chown=$UID:$GID ./web-frontend /baserow/web-frontend/
-COPY --chown=$UID:$GID ./premium/web-frontend /baserow/premium/web-frontend/
-COPY --chown=$UID:$GID ./enterprise/web-frontend /baserow/enterprise/web-frontend/
 
 # Copy all dependencies so we can build the production files
 COPY --chown=$UID:$GID --from=builder-ci /baserow/web-frontend/node_modules /baserow/web-frontend/node_modules
-
-# Create symlinks because premium and enterprise are node packages
-RUN ln -s /baserow/web-frontend/node_modules/ /baserow/premium/web-frontend/node_modules \
-    && ln -s /baserow/web-frontend/node_modules/ /baserow/enterprise/web-frontend/node_modules
 
 COPY --from=tool-builder /usr/bin/dos2unix /usr/local/bin/dos2unix
 RUN dos2unix /baserow/web-frontend/docker/docker-entrypoint.sh \
@@ -127,17 +121,13 @@ RUN mkdir -p /baserow/reports /baserow/.cache /baserow/.yarn && \
 # Copy dependencies and source code
 COPY --chown=$UID:$GID ./eslint.config.mjs /baserow/eslint.config.mjs
 COPY --chown=$UID:$GID web-frontend /baserow/web-frontend
-COPY --chown=$UID:$GID premium/web-frontend /baserow/premium/web-frontend
-COPY --chown=$UID:$GID enterprise/web-frontend /baserow/enterprise/web-frontend
 
 COPY --chown=$UID:$GID --from=builder-ci /baserow/web-frontend/node_modules /baserow/web-frontend/node_modules
 COPY --chown=$UID:$GID --from=builder-prod /baserow/web-frontend/.nuxt /baserow/web-frontend/.nuxt
 COPY --chown=$UID:$GID --from=builder-prod /baserow/web-frontend/.output /baserow/web-frontend/.output
 
-# Create symlinks and cache directories (after COPY so they don't get overwritten)
-RUN ln -s /baserow/web-frontend/node_modules/ /baserow/premium/web-frontend/node_modules \
-    && ln -s /baserow/web-frontend/node_modules/ /baserow/enterprise/web-frontend/node_modules \
-    && mkdir -p /baserow/web-frontend/.cache /baserow/web-frontend/reports/coverage \
+# Create cache directories (after COPY so they don't get overwritten)
+RUN mkdir -p /baserow/web-frontend/.cache /baserow/web-frontend/reports/coverage \
     && chown -R $UID:$GID /baserow/web-frontend/.cache /baserow/web-frontend/reports
 
 COPY --chown=$UID:$GID tests /baserow/tests
@@ -198,7 +188,7 @@ RUN getent group $GID || groupadd --system --gid $GID ${DOCKER_USER} && \
     echo "${DOCKER_USER} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${DOCKER_USER} && \
     chmod 0440 /etc/sudoers.d/${DOCKER_USER}
 
-RUN mkdir -p /baserow/web-frontend /baserow/premium/web-frontend /baserow/enterprise/web-frontend && \
+RUN mkdir -p /baserow/web-frontend && \
     chown -R $UID:$GID /baserow
 
 USER $UID:$GID
@@ -225,10 +215,6 @@ RUN dos2unix /baserow/web-frontend/docker/docker-entrypoint.sh \
 
 COPY --chown=$UID:$GID web-frontend/package.json /baserow/web-frontend/package.json
 COPY --chown=$UID:$GID web-frontend/yarn.lock /baserow/web-frontend/yarn.lock
-
-# Create symlinks because premium and enterprise are node packages
-RUN ln -s /baserow/web-frontend/node_modules/ /baserow/premium/web-frontend/node_modules \
-    && ln -s /baserow/web-frontend/node_modules/ /baserow/enterprise/web-frontend/node_modules
 
 # Make sure these directories exist and are owned by the non-root user
 RUN mkdir -p /baserow/web-frontend/.nuxt /baserow/web-frontend/.cache /baserow/web-frontend/.nuxt-storybook /baserow/web-frontend/.output

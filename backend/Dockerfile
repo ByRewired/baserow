@@ -133,7 +133,7 @@ ENV UV_PYTHON_DOWNLOADS=0 \
     UV_VERBOSE=1 \
     PYTHONUNBUFFERED=1 \
     PATH="/baserow/venv/bin:$PATH" \
-    PYTHONPATH="/baserow/backend/src:/baserow/premium/backend/src:/baserow/enterprise/backend/src"
+    PYTHONPATH="/baserow/backend/src"
 
 # hadolint ignore=DL3022
 COPY --from=ghcr.io/astral-sh/uv:0.9.26 /uv /uvx /bin/
@@ -148,10 +148,6 @@ RUN --mount=type=cache,target=$UV_CACHE_DIR,sharing=locked,uid=$UID,gid=$GID \
     --mount=type=bind,source=LICENSE,target=/baserow/LICENSE \
     --mount=type=bind,source=backend/uv.lock,target=/baserow/backend/uv.lock \
     --mount=type=bind,source=backend/pyproject.toml,target=/baserow/backend/pyproject.toml \
-    --mount=type=bind,source=premium/LICENSE,target=/baserow/premium/LICENSE \
-    --mount=type=bind,source=premium/backend/pyproject.toml,target=/baserow/premium/backend/pyproject.toml \
-    --mount=type=bind,source=enterprise/LICENSE,target=/baserow/enterprise/LICENSE \
-    --mount=type=bind,source=enterprise/backend/pyproject.toml,target=/baserow/enterprise/backend/pyproject.toml \
     uv sync --frozen --no-dev --no-install-workspace --no-install-project \
     && find /baserow/venv -type f \( -name "*.c" -o -name "*.h" \) -not -path "*/autobahn/*" -delete \
     # Strip test/doc directories from site-packages (keep django/drf tests - used at runtime)
@@ -173,15 +169,11 @@ USER $UID:$GID
 WORKDIR /baserow/backend
 
 COPY --chown=$UID:$GID LICENSE /baserow/LICENSE
-COPY --chown=$UID:$GID premium/LICENSE /baserow/premium/LICENSE
-COPY --chown=$UID:$GID enterprise/LICENSE /baserow/enterprise/LICENSE
 
 # Install dev dependencies before copying source code to leverage caching
 RUN --mount=type=cache,target=$UV_CACHE_DIR,sharing=locked,uid=$UID,gid=$GID \
     --mount=type=bind,source=backend/uv.lock,target=/baserow/backend/uv.lock \
     --mount=type=bind,source=backend/pyproject.toml,target=/baserow/backend/pyproject.toml \
-    --mount=type=bind,source=premium/backend/pyproject.toml,target=/baserow/premium/backend/pyproject.toml \
-    --mount=type=bind,source=enterprise/backend/pyproject.toml,target=/baserow/enterprise/backend/pyproject.toml \
     uv sync --frozen --no-install-workspace --no-install-project \
     && find /baserow/venv -type f \( -name "*.c" -o -name "*.h" \) -not -path "*/autobahn/*" -delete \
     # Strip test/doc directories from site-packages (keep django/drf tests - used at runtime)
@@ -196,8 +188,6 @@ COPY --from=tool-builder /usr/bin/dos2unix /usr/local/bin/dos2unix
 # Copy source code and tests
 
 COPY --chown=$UID:$GID backend /baserow/backend
-COPY --chown=$UID:$GID premium/backend /baserow/premium/backend
-COPY --chown=$UID:$GID enterprise/backend /baserow/enterprise/backend
 
 COPY --chown=$UID:$GID tests /baserow/tests
 
@@ -207,7 +197,7 @@ WORKDIR /baserow/backend
 RUN dos2unix /baserow/backend/docker/docker-entrypoint.sh \
     && chmod a+x /baserow/backend/docker/docker-entrypoint.sh
 
-# Install the project with premium and enterprise plugins
+# Install the project
 RUN --mount=type=cache,target=$UV_CACHE_DIR,sharing=locked,uid=$UID,gid=$GID \
     uv sync --frozen \
     && find /baserow/venv -type f \( -name "*.c" -o -name "*.h" \) -not -path "*/autobahn/*" -delete \
@@ -234,16 +224,10 @@ WORKDIR /baserow/backend
 COPY --chown=$UID:$GID LICENSE /baserow/LICENSE
 COPY --chown=$UID:$GID backend /baserow/backend
 
-COPY --chown=$UID:$GID premium/LICENSE /baserow/premium/LICENSE
-COPY --chown=$UID:$GID premium/backend /baserow/premium/backend
-
-COPY --chown=$UID:$GID enterprise/LICENSE /baserow/enterprise/LICENSE
-COPY --chown=$UID:$GID enterprise/backend /baserow/enterprise/backend
-
 RUN dos2unix /baserow/backend/docker/docker-entrypoint.sh \
     && chmod a+x /baserow/backend/docker/docker-entrypoint.sh
 
-# Install the project with premium and enterprise workspaces
+# Install the project
 RUN --mount=type=cache,target=$UV_CACHE_DIR,sharing=locked,uid=$UID,gid=$GID \
     uv sync --frozen --no-dev \
     && find /baserow/venv -type f \( -name "*.c" -o -name "*.h" \) -not -path "*/autobahn/*" -delete \
@@ -275,7 +259,7 @@ ENV DOCKER_USER=baserow_docker_user \
     UV_PROJECT_ENVIRONMENT=/baserow/venv \
     UV_CACHE_DIR=/tmp/baserow_uv_cache \
     PATH="/baserow/venv/bin:$PATH" \
-    PYTHONPATH="/baserow/backend/src:/baserow/premium/backend/src:/baserow/enterprise/backend/src:/baserow/backend/tests:/baserow/premium/backend/tests:/baserow/enterprise/backend/tests" \
+    PYTHONPATH="/baserow/backend/src:/baserow/backend/tests" \
     DJANGO_SETTINGS_MODULE='baserow.config.settings.test'
 
 RUN groupadd --system --gid $GID ${DOCKER_USER} && \
@@ -290,7 +274,7 @@ COPY --from=quickjs-wasi-builder /usr/local/lib/baserow/qjs.wasm /usr/local/lib/
 COPY --from=ghcr.io/astral-sh/uv:0.9.26 /uv /uvx /bin/
 
 # Create baserow directory structure (including subdirs for COPY targets)
-RUN mkdir -p /baserow/backend/reports /baserow/premium/backend /baserow/enterprise/backend /baserow/media && \
+RUN mkdir -p /baserow/backend/reports /baserow/media && \
     chown -R $UID:$GID /baserow/
 
 # Copy the virtual environment and source code with tests
@@ -349,7 +333,7 @@ ENV DOCKER_USER=baserow_docker_user \
     UV_CACHE_DIR=/tmp/baserow_uv_cache_dev \
     PYTHONUNBUFFERED=1 \
     PATH=/baserow/venv/bin:$PATH \
-    PYTHONPATH=/baserow/backend/src:/baserow/premium/backend/src:/baserow/enterprise/backend/src:/baserow/backend/tests:/baserow/premium/backend/tests:/baserow/enterprise/backend/tests \
+    PYTHONPATH=/baserow/backend/src:/baserow/backend/tests \
     DJANGO_SETTINGS_MODULE=baserow.config.settings.dev
 
 RUN getent group $GID || groupadd --system --gid $GID ${DOCKER_USER} && \
@@ -367,7 +351,7 @@ COPY --from=quickjs-wasi-builder /usr/local/lib/baserow/qjs.wasm /usr/local/lib/
 COPY --from=ghcr.io/astral-sh/uv:0.9.26 /uv /uvx /bin/
 
 # Create directory structure to install dependencies
-RUN mkdir -p /baserow/backend/docker /baserow/premium/ /baserow/enterprise/ /baserow/media && \
+RUN mkdir -p /baserow/backend/docker /baserow/media && \
     chown -R $UID:$GID /baserow/
 
 USER $UID:$GID
@@ -375,14 +359,10 @@ WORKDIR /baserow/backend
 
 # Install all dependencies
 COPY --chown=$UID:$GID LICENSE /baserow/LICENSE
-COPY --chown=$UID:$GID premium/LICENSE /baserow/premium/LICENSE
-COPY --chown=$UID:$GID enterprise/LICENSE /baserow/enterprise/LICENSE
 
 RUN --mount=type=cache,target=$UV_CACHE_DIR,sharing=locked,uid=$UID,gid=$GID \
     --mount=type=bind,source=backend/uv.lock,target=/baserow/backend/uv.lock \
     --mount=type=bind,source=backend/pyproject.toml,target=/baserow/backend/pyproject.toml \
-    --mount=type=bind,source=premium/backend/pyproject.toml,target=/baserow/premium/backend/pyproject.toml \
-    --mount=type=bind,source=enterprise/backend/pyproject.toml,target=/baserow/enterprise/backend/pyproject.toml \
     uv sync --frozen --no-install-workspace --no-install-project
 
 # Configure tmux and bashrc
@@ -424,7 +404,7 @@ ENV POSTGRES_VERSION=15 \
     UV_PROJECT_ENVIRONMENT=/baserow/venv \
     PYTHONUNBUFFERED=1 \
     PATH="/baserow/venv/bin:$PATH" \
-    PYTHONPATH="/baserow/backend/src:/baserow/premium/backend/src:/baserow/enterprise/backend/src" \
+    PYTHONPATH="/baserow/backend/src" \
     DJANGO_SETTINGS_MODULE='baserow.config.settings.base'
 
 # Runtime dependencies only
@@ -458,13 +438,10 @@ COPY --chown=$UID:$GID --from=builder-prod /baserow/venv /baserow/venv/
 
 COPY --chown=$UID:$GID LICENSE /baserow/LICENSE
 COPY --chown=$UID:$GID --from=builder-prod /baserow/backend /baserow/backend/
-COPY --chown=$UID:$GID --from=builder-prod /baserow/premium /baserow/premium/
-COPY --chown=$UID:$GID --from=builder-prod /baserow/enterprise /baserow/enterprise/
 COPY --chown=$UID:$GID ./docs /baserow/docs/
 
 # Remove application tests and dev-only directories
-RUN rm -rf /baserow/backend/tests /baserow/premium/backend/tests \
-        /baserow/enterprise/backend/tests /baserow/backend/email_compiler
+RUN rm -rf /baserow/backend/tests /baserow/backend/email_compiler
 
 COPY --chown=$UID:$GID deploy/plugins/*.sh /baserow/plugins/
 

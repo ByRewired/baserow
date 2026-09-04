@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+from typing import Any, Optional
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -13,20 +15,34 @@ from baserow.core.generative_ai.generative_ai_model_types import (
     OpenRouterGenerativeAIModelType,
 )
 from baserow.core.generative_ai.registries import generative_ai_model_type_registry
-from baserow_premium.fields.ai_file import AIFile
+
+
+@dataclass
+class FakeAIFile:
+    """Stand-in for the file objects a field plugin hands to the model types."""
+
+    name: str
+    original_name: str
+    size: int
+    mime_type: str
+    content_bytes: bytes = b""
+    content: Optional[Any] = None
+    provider_file_id: str = ""
+
+    def read_content(self) -> bytes:
+        return self.content_bytes
 
 
 def _make_ai_file(
     name: str, size: int, mime_type: str = "text/plain", content_bytes: bytes = b""
-) -> AIFile:
-    ai_file = AIFile(
+) -> FakeAIFile:
+    return FakeAIFile(
         name=name,
         original_name=name,
         size=size,
         mime_type=mime_type,
+        content_bytes=content_bytes,
     )
-    ai_file.read_content = lambda: content_bytes  # type: ignore[assignment]
-    return ai_file
 
 
 def test_google_and_groq_model_types_are_registered():

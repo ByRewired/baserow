@@ -5,10 +5,7 @@ import { locales } from './locales.js'
 import { viteDevelopmentCompatibility } from './viteDevelopmentCompatibility.js'
 import pkg from '../package.json'
 
-function baserowModuleConfig(
-  premiumBase = '../premium/web-frontend',
-  enterpriseBase = '../enterprise/web-frontend'
-) {
+function baserowModuleConfig() {
   const additionalModulesCsv = process.env.ADDITIONAL_MODULES
   const additionalModules = additionalModulesCsv
     ? additionalModulesCsv
@@ -29,13 +26,6 @@ function baserowModuleConfig(
     `./modules/automation/module.js`,
     `./modules/integrations/module.js`,
   ]
-
-  if (!process.env.BASEROW_OSS_ONLY) {
-    baseModules.push(
-      premiumBase + '/modules/baserow_premium/module.js',
-      enterpriseBase + '/modules/baserow_enterprise/module.js'
-    )
-  }
 
   const modules = baseModules.concat(additionalModules)
 

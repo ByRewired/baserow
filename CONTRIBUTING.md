@@ -24,8 +24,6 @@ Well-described issues and feedback help us shape the product and are always welc
 
 If you have something specific in mind, contact us first through the [community forum](https://community.baserow.io/) or the contact form at https://baserow.io/contact. If we agree the change makes sense, we'll coordinate the approach with you before any code is written — only then should you open a PR.
 
-Note that the `premium/` and `enterprise/` directories contain licensed code that is not open to external contributions.
-
 ## Quality standards
 
 For coordinated contributions, see [Code quality](docs/development/code-quality.md) for our standards, linters, and testing expectations. The CI pipeline must pass and the security impact of every change must be considered.

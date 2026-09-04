@@ -1,5 +1,4 @@
 <template>
-  <!-- must be in sync with modules/baserow_enterprise/components/EnterpriseLogo.vue -->
   <component :is="getComponent()" v-if="getComponent()"></component>
   <template v-else>
     <div class="logo">

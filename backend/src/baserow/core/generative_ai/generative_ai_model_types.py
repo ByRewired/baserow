@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 from functools import cached_property
-from typing import TYPE_CHECKING, Any, Optional
+from typing import Any, Optional
 
 from django.conf import settings
 
@@ -10,10 +10,6 @@ from baserow.core.ai_provider.resolution import ScopedAIProviderState
 from baserow.core.models import Workspace
 
 from .registries import FileHandler, GenerativeAIModelType, get_known_model_names
-
-if TYPE_CHECKING:
-    from baserow_premium.fields.ai_file import AIFile
-
 
 _IMAGE_EXTENSIONS = {".gif", ".jpg", ".jpeg", ".png", ".webp"}
 _TEXT_EXTENSIONS = {".csv", ".html", ".json", ".md", ".txt", ".tex"}
@@ -141,7 +137,7 @@ class OpenAIFileHandler(FileHandler):
 
     def _upload(
         self,
-        ai_file: "AIFile",
+        ai_file: Any,
         workspace: Optional[Workspace] = None,
         settings_override: Optional[dict[str, Any]] = None,
     ) -> None:
@@ -162,7 +158,7 @@ class OpenAIFileHandler(FileHandler):
 
     def delete_file(
         self,
-        ai_file: "AIFile",
+        ai_file: Any,
         workspace: Optional[Workspace] = None,
         settings_override: Optional[dict[str, Any]] = None,
     ) -> None:
@@ -206,7 +202,7 @@ class AnthropicFileHandler(FileHandler):
 
     def _upload(
         self,
-        ai_file: "AIFile",
+        ai_file: Any,
         workspace: Optional[Workspace] = None,
         settings_override: Optional[dict[str, Any]] = None,
     ) -> None:
@@ -225,7 +221,7 @@ class AnthropicFileHandler(FileHandler):
 
     def delete_file(
         self,
-        ai_file: "AIFile",
+        ai_file: Any,
         workspace: Optional[Workspace] = None,
         settings_override: Optional[dict[str, Any]] = None,
     ) -> None:

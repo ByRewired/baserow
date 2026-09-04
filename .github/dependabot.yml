@@ -4,8 +4,6 @@ updates:
   # npm ecosystems
   # =============================================================================
   # Note: We only monitor directories with actual dependencies declared.
-  # /enterprise/web-frontend and /premium/web-frontend are excluded because
-  # they currently have no dependencies in their package.json files.
   # /integrations/zapier is excluded intentionally.
 
   - package-ecosystem: "npm"
@@ -16,11 +14,8 @@ updates:
   # =============================================================================
   # uv (Python) ecosystem
   # =============================================================================
-  # Note: We only monitor /backend because it manages the uv workspace centrally.
-  # The workspace is defined in backend/pyproject.toml with members including
-  # ../premium/backend and ../enterprise/backend, and backend/uv.lock contains
-  # all resolved dependencies. Separate entries for enterprise/premium backends
-  # would be redundant and cause duplicate update runs.
+  # Note: We only monitor /backend because backend/uv.lock contains all
+  # resolved Python dependencies.
 
   - package-ecosystem: "uv"
     directory: "/backend"

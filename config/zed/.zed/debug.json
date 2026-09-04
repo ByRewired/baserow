@@ -61,7 +61,7 @@
     "console": "integratedTerminal",
     "env": {
       // Relative paths work because cwd is the worktree root.
-      "PYTHONPATH": "backend/src:premium/backend/src:enterprise/backend/src",
+      "PYTHONPATH": "backend/src",
       "DJANGO_SETTINGS_MODULE": "baserow.config.settings.dev",
       // Point at your local Postgres. Override in .zed/debug.json if needed.
       "DATABASE_HOST": "localhost",
@@ -138,7 +138,7 @@
     "justMyCode": false,
     "console": "integratedTerminal",
     "env": {
-      "PYTHONPATH": "backend/src:premium/backend/src:enterprise/backend/src",
+      "PYTHONPATH": "backend/src",
       "DJANGO_SETTINGS_MODULE": "baserow.config.settings.dev",
       "DATABASE_HOST": "localhost",
     },
@@ -164,7 +164,7 @@
     "env": {
       // Absolute paths are required here because cwd is the backend sub-directory,
       // not the worktree root, so relative paths would not resolve correctly.
-      "PYTHONPATH": "$ZED_WORKTREE_ROOT/backend/src:$ZED_WORKTREE_ROOT/premium/backend/src:$ZED_WORKTREE_ROOT/enterprise/backend/src:$ZED_WORKTREE_ROOT/backend/flake8_plugins",
+      "PYTHONPATH": "$ZED_WORKTREE_ROOT/backend/src:$ZED_WORKTREE_ROOT/backend/flake8_plugins",
       "DJANGO_SETTINGS_MODULE": "baserow.config.settings.test",
       "DATABASE_HOST": "localhost",
     },
@@ -172,7 +172,7 @@
   {
     // ── backend: pytest all (with coverage) ────────────────────────────────
     //
-    // Runs the complete backend test suite across core, premium, and enterprise
+    // Runs the complete backend test suite
     // packages and produces an XML coverage report.
     //
     // This can take several minutes on a full run.  The report is written to:
@@ -192,15 +192,13 @@
       "--cov-config=$ZED_WORKTREE_ROOT/backend/.coveragerc",
       "--cov=baserow",
       "backend/tests/",
-      "premium/backend/tests/",
-      "enterprise/backend/tests/",
     ],
     "cwd": "$ZED_WORKTREE_ROOT",
     "python": "$ZED_WORKTREE_ROOT/.venv/bin/python",
     "justMyCode": false,
     "console": "integratedTerminal",
     "env": {
-      "PYTHONPATH": "backend/src:premium/backend/src:enterprise/backend/src",
+      "PYTHONPATH": "backend/src",
       "DJANGO_SETTINGS_MODULE": "baserow.config.settings.test",
       "DATABASE_HOST": "localhost",
     },

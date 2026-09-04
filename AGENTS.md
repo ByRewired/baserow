@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-Baserow is a monorepo. Core Django code lives in `backend/src`, shared backend tests in `backend/tests`, and the main Nuxt app in `web-frontend/` (`modules/`, `server/`, `test/`, `stories/`). Paid extensions mirror that layout in `premium/backend`, `premium/web-frontend`, `enterprise/backend`, and `enterprise/web-frontend`. End-to-end coverage lives in `e2e-tests/`. Product and contributor docs are in `docs/`, while deployment recipes are under `deploy/`.
+Baserow is a monorepo. Core Django code lives in `backend/src`, shared backend tests in `backend/tests`, and the main Nuxt app in `web-frontend/` (`modules/`, `server/`, `test/`, `stories/`). End-to-end coverage lives in `e2e-tests/`. Product and contributor docs are in `docs/`, while deployment recipes are under `deploy/`.
 
 ## Build, Test, and Development Commands
 
@@ -50,7 +50,7 @@ Reusable skills live in `.agents/skills/`. Each subdirectory is a self-contained
 | Skill directory                   | When to use                                                                                                                                                          |
 | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `add-django-config-env-var`       | Adding a new Django setting backed by an env var and propagating it to `base.py`, docker-compose files, `env-remap.mjs`, and `docs/installation/configuration.md`    |
-| `write-frontend-unit-test`        | Writing or fixing frontend unit tests in `web-frontend`, `premium/web-frontend`, or `enterprise/web-frontend`                                                        |
+| `write-frontend-unit-test`        | Writing or fixing frontend unit tests in `web-frontend`                                                                                                             |
 | `create-update-service`           | Creating or updating an integration type or service type in `contrib/integrations`                                                                                   |
 | `create-in-app-notification`      | Creating or updating a Baserow in-app notification for an event, including backend and frontend registration, target routing data, and duplicate-prevention behavior |
 | `add-update-builder-element-type` | Adding or updating an Application Builder element type across backend, frontend, migrations, registration, translations, icons, and targeted tests                   |

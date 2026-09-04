@@ -34,23 +34,17 @@
     "**/.nuxt/": true
   },
   "mypy.targets": [
-    "backend/src/",
-    "premium/backend/src/",
-    "enterprise/backend/src/"
+    "backend/src/"
   ],
   "python.analysis.typeCheckingMode": "off",
   "mypy.configFile": "backend/mypy.ini",
   "mypy.dmypyExecutable": "",
   "mypy.runUsingActiveInterpreter": true,
   "python.autoComplete.extraPaths": [
-    "${workspaceFolder}/backend/src",
-    "${workspaceFolder}/premium/backend/src",
-    "${workspaceFolder}/enterprise/backend/src"
+    "${workspaceFolder}/backend/src"
   ],
   "python.analysis.extraPaths": [
-    "${workspaceFolder}/backend/src",
-    "${workspaceFolder}/premium/backend/src",
-    "${workspaceFolder}/enterprise/backend/src"
+    "${workspaceFolder}/backend/src"
   ],
   "python.envFile": "${workspaceFolder}/.vscode/env",
   "stylelint.configFile": "${workspaceFolder}/web-frontend/.stylelintrc",

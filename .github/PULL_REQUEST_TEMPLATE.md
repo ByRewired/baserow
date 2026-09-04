@@ -7,7 +7,6 @@
 ### Checklist
 
 - [ ] A changelog entry has been added to `changelog/entries/unreleased` using `changelog/src/changelog.py`
-- [ ] New/updated **Premium/Enterprise features** are separated correctly in the premium or enterprise folder
 - [ ] The latest **Chrome and Firefox** have been used to test any new frontend features
 - [ ] [Documentation](https://github.com/baserow/baserow/blob/master/docs/index.md) has been updated
 - [ ] [Quality Standards](https://github.com/baserow/baserow/blob/master/CONTRIBUTING.md#quality-standards) are met

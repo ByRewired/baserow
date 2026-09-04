@@ -90,7 +90,6 @@ from baserow.core.psycopg import is_unique_violation_error
 from baserow.core.registries import ImportExportConfig
 from baserow.core.trash.handler import TrashHandler
 from baserow.test_utils.helpers import setup_interesting_test_table
-from baserow_premium.fields.field_types import AIFieldType
 
 
 @pytest.fixture(autouse=True)
@@ -382,13 +381,6 @@ def test_field_conversion_created_by(data_fixture):
 @pytest.mark.django_db
 def test_field_conversion_autonumber(data_fixture):
     _test_can_convert_between_fields(data_fixture, AutonumberFieldType.type)
-
-
-@pytest.mark.field_ai
-@pytest.mark.disabled_in_ci
-@pytest.mark.django_db
-def test_field_conversion_ai(data_fixture):
-    _test_can_convert_between_fields(data_fixture, AIFieldType.type)
 
 
 @pytest.mark.django_db

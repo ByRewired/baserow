@@ -47,9 +47,6 @@ from baserow.core.trash.handler import TrashHandler
 from baserow.core.user_files.handler import UserFileHandler
 from baserow.core.user_sources.registries import DEFAULT_USER_ROLE_PREFIX
 from baserow.test_utils.helpers import AnyStr
-from baserow_enterprise.integrations.local_baserow.user_source_types import (
-    LocalBaserowUserSourceType,
-)
 
 
 def test_builder_application_type_import_application_priority():
@@ -2109,78 +2106,6 @@ def test_ensure_new_element_roles_are_sanitized_during_import_for_default_roles(
             assert role == role.format(new_user_source.id)
         else:
             assert role == expected_roles[index]
-
-
-@pytest.mark.django_db
-@pytest.mark.parametrize(
-    "user_source_roles,element_roles,expected_roles",
-    [
-        (
-            [],
-            [],
-            [],
-        ),
-        (
-            [],
-            ["foo_role"],
-            [],
-        ),
-        (
-            ["foo_role"],
-            ["bar_role"],
-            [],
-        ),
-        (
-            ["foo_role"],
-            ["foo_role"],
-            ["foo_role"],
-        ),
-        (
-            ["foo_role", "bar_role", "baz_role"],
-            ["invalid_role_a", "bar_role", "invalid_role_b"],
-            ["bar_role"],
-        ),
-    ],
-)
-def test_ensure_new_element_roles_are_sanitized_during_import_for_roles(
-    data_fixture,
-    user_source_roles,
-    element_roles,
-    expected_roles,
-):
-    """
-    Ensure that during the import process, both the existing and new Element
-    roles are sanitized when using roles.
-    """
-
-    user = data_fixture.create_user()
-    workspace = data_fixture.create_workspace(user=user)
-    builder = data_fixture.create_builder_application(user=user, workspace=workspace)
-    page = data_fixture.create_builder_page(builder=builder)
-    integration = data_fixture.create_local_baserow_integration(
-        application=builder, authorized_user=user, name="test"
-    )
-    user_source = data_fixture.create_user_source_with_first_type(
-        application=builder, user=user, integration=integration
-    )
-    user_source.role_type = Element.ROLE_TYPES.ALLOW_ALL_EXCEPT
-    user_source.save()
-
-    old_element = data_fixture.create_builder_heading_element(page=page, level=2)
-    old_element.roles = element_roles
-    old_element.save()
-
-    config = ImportExportConfig(include_permission_data=True)
-    serialized = BuilderApplicationType().export_serialized(builder, config)
-
-    with patch.object(LocalBaserowUserSourceType, "get_roles") as m:
-        m.return_value = user_source_roles
-        builder = BuilderApplicationType().import_serialized(
-            workspace, serialized, config, {}
-        )
-
-    new_element = builder.visible_pages.all()[0].element_set.all()[0]
-    assert new_element.roles == expected_roles
 
 
 @pytest.mark.django_db

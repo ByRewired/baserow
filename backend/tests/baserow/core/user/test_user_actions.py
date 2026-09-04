@@ -19,7 +19,6 @@ from baserow.core.user.actions import (
 )
 from baserow.core.user.handler import UserHandler
 from baserow.throttling.types import RateLimit
-from baserow_enterprise.audit_log.models import AuditLogEntry
 
 
 @pytest.mark.django_db
@@ -107,7 +106,6 @@ def test_sign_in_user_action_type_action_log_limit(settings, data_fixture):
     user.refresh_from_db()
     assert str(user.last_login) == "2020-01-01 12:01:20+00:00"
     assert UserLogEntry.objects.count() == 2
-    assert AuditLogEntry.objects.filter(action_type="sign_in_user").count() == 2
 
 
 @pytest.mark.django_db

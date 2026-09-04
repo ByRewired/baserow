@@ -28,7 +28,7 @@ repos:
         language: system
         pass_filenames: true
         # Mirror the dirs ruff lints in `just b fix` (see backend/justfile)
-        files: ^(backend/(src|tests)|(premium|enterprise)/backend/(src|tests))/.*\.py$
+        files: ^backend/(src|tests)/.*\.py$
 
       - id: frontend-fix
         name: frontend lint & format (just f fix)
@@ -36,5 +36,5 @@ repos:
         language: system
         pass_filenames: true
         # Mirror the dirs eslint/stylelint/prettier run on in `just f fix`
-        files: ^(web-frontend|(premium|enterprise)/web-frontend)/.*\.(js|jsx|ts|tsx|vue|mjs|css|scss|json|md|html)$
+        files: ^web-frontend/.*\.(js|jsx|ts|tsx|vue|mjs|css|scss|json|md|html)$
         exclude: ^web-frontend/(\.nuxt|dist|\.output)/

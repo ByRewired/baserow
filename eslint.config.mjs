@@ -24,8 +24,6 @@ export const createBaserowConfig = ({ extraSourceFiles = [] } = {}) => {
     {
       files: [
         "web-frontend/**/*.{js,ts,mjs,mts,jsx,tsx,vue}",
-        "premium/web-frontend/**/*.{js,ts,mjs,mts,jsx,tsx,vue}",
-        "enterprise/web-frontend/**/*.{js,ts,mjs,mts,jsx,tsx,vue}",
         ...extraSourceFiles,
       ],
       languageOptions: {
@@ -53,11 +51,7 @@ export const createBaserowConfig = ({ extraSourceFiles = [] } = {}) => {
     },
     // Plugin specific overrides
     {
-      files: [
-        "premium/web-frontend/**/*.{js,ts,mjs,mts,jsx,tsx,vue}",
-        "enterprise/web-frontend/**/*.{js,ts,mjs,mts,jsx,tsx,vue}",
-        ...extraSourceFiles, // Apply these rules to plugins too
-      ],
+      files: [...extraSourceFiles],
       rules: {
         "vue/order-in-components": "off",
       },

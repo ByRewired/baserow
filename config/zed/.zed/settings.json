@@ -19,9 +19,7 @@
         },
         "python.analysis": {
           "extraPaths": [
-            "backend/src",
-            "premium/backend/src",
-            "enterprise/backend/src"
+            "backend/src"
           ]
         }
       }

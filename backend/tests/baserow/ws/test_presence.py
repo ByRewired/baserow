@@ -19,25 +19,6 @@ from baserow.ws.presence import (
     make_page_key,
 )
 
-VALID_ONE_SEAT_ENTERPRISE_LICENSE = (
-    # id: "1", instance_id: "1"
-    b"eyJ2ZXJzaW9uIjogMSwgImlkIjogIjUzODczYmVkLWJlNTQtNDEwZS04N2EzLTE2OTM2ODY2YjBiNiIsICJ2YWxpZF9mcm9tIjogIjIwMjItMTAtMDFUMDA6MDA6MDAiLCAidmFsaWRfdGhyb3VnaCI6ICIyMDY5LTA4LTA5VDIzOjU5OjU5IiwgInByb2R1Y3RfY29kZSI6ICJlbnRlcnByaXNlIiwgInNlYXRzIjogMSwgImlzc3VlZF9vbiI6ICIyMDIyLTEwLTI2VDE0OjQ4OjU0LjI1OTQyMyIsICJpc3N1ZWRfdG9fZW1haWwiOiAidGVzdEB0ZXN0LmNvbSIsICJpc3N1ZWRfdG9fbmFtZSI6ICJ0ZXN0QHRlc3QuY29tIiwgImluc3RhbmNlX2lkIjogIjEifQ==.B7aPXR0R4Fxr28AL7B5oopa2Yiz_MmEBZGdzSEHHLt4wECpnzjd_SF440KNLEZYA6WL1rhNkZ5znbjYIp6KdCqLdcm1XqNYOIKQvNTOtl9tUAYj_Qvhq1jhqSja-n3HFBjIh9Ve7a6T1PuaPLF1DoxSRGFZFXliMeJRBSzfTsiHiO22xRQ4GwafscYfUIWvIJJHGHtYEd9rk0tG6mfGEaQGB4e6KOsN-zw-bgLDBOKmKTGrVOkZnaGHBVVhUdpBn25r3CFWqHIApzUCo81zAA96fECHPlx_fBHhvIJXLsN5i3LdeJlwysg5SBO15Vt-tsdPmdcsec-fOzik-k3ib0A== "
-)
-
-
-def _enable_enterprise():
-    from baserow.core.cache import local_cache
-    from baserow.core.models import Settings
-    from baserow_premium.license.models import License
-
-    Settings.objects.update_or_create(defaults={"instance_id": "1"})
-    License.objects.get_or_create(
-        cached_untrusted_instance_wide=True,
-        defaults={"license": VALID_ONE_SEAT_ENTERPRISE_LICENSE.decode()},
-    )
-    local_cache.clear()
-
-
 SPACE_NAME = "test-space-1"
 PRESENCE_KEY = f"presence:{SPACE_NAME}"
 
@@ -105,27 +86,6 @@ def _make_mock_handler(user_id=7):
         consumer=consumer, web_socket_id="ws-test", user_id=user_id
     )
     return handler, consumer
-
-
-async def _create_enterprise_table_with_restricted_view(data_fixture):
-    setup = await database_sync_to_async(
-        lambda: (
-            _enable_enterprise(),
-            data_fixture.create_user_and_token(),
-            data_fixture.create_user_and_token(),
-        )
-    )()
-    _, (user_a, token_a), (user_b, token_b) = setup
-
-    _, _, table, restricted_view = await database_sync_to_async(
-        lambda: (
-            (w := data_fixture.create_workspace(user=user_a, members=[user_b])),
-            (db := data_fixture.create_database_application(workspace=w)),
-            (t := data_fixture.create_database_table(database=db)),
-            data_fixture.create_grid_view(table=t, ownership_type="restricted"),
-        )
-    )()
-    return user_a, token_a, user_b, token_b, table, restricted_view
 
 
 @pytest.mark.asyncio
@@ -555,45 +515,6 @@ async def test_table_page_subscribe_returns_members(data_fixture):
 @pytest.mark.asyncio
 @pytest.mark.django_db(transaction=True)
 @pytest.mark.websockets
-async def test_restricted_view_excluded_from_presence(data_fixture):
-    """Restricted views return None for presence — no join/members events."""
-
-    (
-        user_a,
-        token_a,
-        user_b,
-        token_b,
-        table,
-        restricted_view,
-    ) = await _create_enterprise_table_with_restricted_view(data_fixture)
-
-    comm_a, ws_a = await _connect(token_a)
-    await comm_a.send_json_to({"page": "table", "table_id": table.id})
-    await comm_a.receive_json_from(timeout=1)  # page_add
-    active_a = await comm_a.receive_json_from(timeout=1)
-    assert active_a["space"] == f"table-{table.id}"
-
-    comm_b, ws_b = await _connect(token_b)
-    await comm_b.send_json_to(
-        {
-            "page": "restricted_view",
-            "restricted_view_id": restricted_view.id,
-        }
-    )
-    page_add_b = await comm_b.receive_json_from(timeout=1)
-    assert page_add_b["type"] == "page_add"
-    # No presence.members expected — restricted views opt out
-    assert await comm_b.receive_nothing(timeout=0.5)
-    # Table subscriber should NOT see a join from the restricted view user
-    assert await comm_a.receive_nothing(timeout=0.5)
-
-    await comm_a.disconnect()
-    await comm_b.disconnect()
-
-
-@pytest.mark.asyncio
-@pytest.mark.django_db(transaction=True)
-@pytest.mark.websockets
 async def test_public_view_joins_table_presence_space(data_fixture):
     user_a, token_a = data_fixture.create_user_and_token()
     workspace = data_fixture.create_workspace(user=user_a)
@@ -609,37 +530,6 @@ async def test_public_view_joins_table_presence_space(data_fixture):
     assert members["type"] == "presence.members"
     assert members["space"] == f"table-{table.id}"
     assert members["entries"] == []
-
-    await comm_a.disconnect()
-
-
-@pytest.mark.asyncio
-@pytest.mark.django_db(transaction=True)
-@pytest.mark.websockets
-async def test_restricted_view_no_presence_entries_in_redis(data_fixture):
-    """Restricted view subscription creates no Redis presence entries."""
-
-    (
-        user_a,
-        token_a,
-        user_b,
-        token_b,
-        table,
-        restricted_view,
-    ) = await _create_enterprise_table_with_restricted_view(data_fixture)
-
-    comm_a, ws_a = await _connect(token_a)
-    await comm_a.send_json_to(
-        {
-            "page": "restricted_view",
-            "restricted_view_id": restricted_view.id,
-        }
-    )
-    await comm_a.receive_json_from(timeout=1)  # page_add
-    assert await comm_a.receive_nothing(timeout=0.5)
-
-    pids = await _presence_ids_in_redis(f"presence:table-{table.id}")
-    assert len(pids) == 0
 
     await comm_a.disconnect()
 
@@ -675,61 +565,6 @@ async def test_independent_space_isolation_on_partial_unsubscribe(
     # But the perm page (different space) should still have B's presence
     assert len(await _presence_ids_in_redis("presence:test-perm-space-1")) == 1
     assert len(await _presence_ids_in_redis("presence:test-space-1")) == 1  # only A
-
-    await comm_a.disconnect()
-    await comm_b.disconnect()
-
-
-@pytest.mark.asyncio
-@pytest.mark.django_db(transaction=True)
-@pytest.mark.websockets
-async def test_permission_revocation_no_presence_leave_for_restricted_view(
-    data_fixture,
-):
-    """Restricted view has no presence, so permission revocation produces
-    no presence.leave event on the table subscriber side."""
-
-    (
-        user_a,
-        token_a,
-        user_b,
-        token_b,
-        table,
-        restricted_view,
-    ) = await _create_enterprise_table_with_restricted_view(data_fixture)
-
-    comm_a, ws_a = await _connect(token_a)
-    await comm_a.send_json_to({"page": "table", "table_id": table.id})
-    await _drain(comm_a, timeout=0.5)
-
-    comm_b, ws_b = await _connect(token_b)
-    await comm_b.send_json_to(
-        {
-            "page": "restricted_view",
-            "restricted_view_id": restricted_view.id,
-        }
-    )
-    await _drain(comm_b, timeout=0.5)
-    await _drain(comm_a, timeout=0.5)
-
-    perm_group = f"permissions-restricted-view-{restricted_view.id}"
-    channel_layer = get_channel_layer()
-    await channel_layer.group_send(
-        perm_group,
-        {
-            "type": "users_removed_from_permission_group",
-            "user_ids_to_remove": [user_b.id],
-            "permission_group_name": perm_group,
-        },
-    )
-
-    b_frames = await _drain(comm_b, timeout=0.5)
-    assert any(f["type"] == "page_discard" for f in b_frames)
-
-    # No presence.leave on table side — restricted view had no presence
-    a_frames = await _drain(comm_a, timeout=0.5)
-    leaves = [f for f in a_frames if f["type"] == "presence.leave"]
-    assert len(leaves) == 0
 
     await comm_a.disconnect()
     await comm_b.disconnect()

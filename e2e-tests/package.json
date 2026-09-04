@@ -7,7 +7,6 @@
     "test": "playwright test --project=chrome",
     "test-ui": "playwright test --project=chrome --ui",
     "test-fast-only": "playwright test --project=chrome --grep @fast",
-    "test-enterprise-only": "playwright test --project=chrome --grep @enterprise",
     "test-search-only": "playwright test --project=chrome --grep @search",
     "test-search-only-debug": "playwright test --project=chrome --grep @search --debug",
     "test-builder": "playwright test --project=chrome --grep builder",

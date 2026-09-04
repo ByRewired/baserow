@@ -199,12 +199,11 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*" = ["S101", "S105", "S106", "S608", "F841"]
-"../**/tests/**/*" = ["S101", "S105", "S106", "S608", "F841"]
 "src/baserow/test_utils/**/*" = ["S101", "S105", "S106", "S608", "F841"]
 "src/baserow/config/settings/local.py" = ["S105"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["baserow", "baserow_premium", "baserow_enterprise"]
+known-first-party = ["baserow"]
 section-order = ["future", "standard-library", "django", "third-party", "first-party", "local-folder"]
 
 [tool.ruff.lint.isort.sections]
@@ -221,14 +220,9 @@ environments = ["sys_platform == 'linux'", "sys_platform == 'darwin'"]
 [tool.uv.sources]
 pysaml2 = { git = "https://github.com/baserow/pysaml2", rev = "f6c745d585c458bcb54bd648054fdf5123fe665c" }
 
-[tool.uv.workspace]
-members = ["../premium/backend", "../enterprise/backend"]
-
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "baserow.config.settings.test"
 python_files = ["test_*.py", "*_test.py"]
 pythonpath = [
     "tests",
-    "../premium/backend/tests",
-    "../enterprise/backend/tests",
 ]

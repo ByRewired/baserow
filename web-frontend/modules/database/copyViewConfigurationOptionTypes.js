@@ -275,9 +275,8 @@ export class DecorationsCopyOptionType extends CopyViewConfigurationOptionType {
   }
 
   isEnabled(sourceView, destView, workspaceId) {
-    // Deactivated decorator types, because the workspace has no premium
-    // license for example, are excluded so that the copy can't fail on the
-    // backend's license check.
+    // Deactivated decorator types are excluded so that the copy can't fail
+    // on the backend's own check.
     return (
       super.isEnabled(sourceView, destView, workspaceId) &&
       Object.values(this.app.$registry.getAll('viewDecorator')).some(

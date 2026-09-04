@@ -46,8 +46,6 @@ services:
     volumes:
       - ./docs:/baserow/docs
       - ./backend:/baserow/backend
-      - ./premium/backend/:/baserow/premium/backend
-      - ./enterprise/backend/:/baserow/enterprise/backend
       - ./deploy/plugins/:/baserow/plugins/
       - ./tests:/baserow/tests
     # Open stdin and tty so when attaching key input works as expected.
@@ -72,8 +70,6 @@ services:
       - "${BASEROW_HOST_PUBLISH_IP:-127.0.0.1}:${BASEROW_WEB_FRONTEND_DEV_PORT:-3000}:3000"
     volumes:
       - ./web-frontend:/baserow/web-frontend
-      - ./premium/web-frontend/:/baserow/premium/web-frontend
-      - ./enterprise/web-frontend/:/baserow/enterprise/web-frontend
       - ./tests/:/baserow/tests
       - ./deploy/plugins:/baserow/plugins
       # dev volumes to avoid polluting your local filesystem with build files or
@@ -102,8 +98,6 @@ services:
       - "${BASEROW_HOST_PUBLISH_IP:-127.0.0.1}:${BASEROW_STORYBOOK_PORT:-6006}:6006"
     volumes:
       - ./web-frontend:/baserow/web-frontend
-      - ./premium/web-frontend/:/baserow/premium/web-frontend
-      - ./enterprise/web-frontend/:/baserow/enterprise/web-frontend
       - ./tests/:/baserow/tests
       - ./deploy/plugins:/baserow/plugins
       # dev volumes to avoid polluting your local filesystem with build files or
@@ -130,8 +124,6 @@ services:
     volumes:
       - ./docs:/baserow/docs
       - ./backend:/baserow/backend
-      - ./premium/backend/:/baserow/premium/backend
-      - ./enterprise/backend/:/baserow/enterprise/backend
       - ./deploy/plugins:/baserow/plugins
     # Open stdin and tty so when attaching key input works as expected.
     stdin_open: true
@@ -150,8 +142,6 @@ services:
     volumes:
       - ./docs:/baserow/docs
       - ./backend:/baserow/backend
-      - ./premium/backend/:/baserow/premium/backend
-      - ./enterprise/backend/:/baserow/enterprise/backend
       - ./deploy/plugins:/baserow/plugins
     # Open stdin and tty so when attaching key input works as expected.
     stdin_open: true
@@ -168,8 +158,6 @@ services:
       - OTEL_TRACES_SAMPLER=always_on
     volumes:
       - ./backend:/baserow/backend
-      - ./premium/backend/:/baserow/premium/backend
-      - ./enterprise/backend/:/baserow/enterprise/backend
       - ./deploy/plugins:/baserow/plugins
     # Open stdin and tty so when attaching key input works as expected.
     stdin_open: true
@@ -198,8 +186,6 @@ services:
       REDIS_PASSWORD: ${REDIS_PASSWORD:?}
     volumes:
       - ./backend:/baserow/backend
-      - ./premium/backend/:/baserow/premium/backend
-      - ./enterprise/backend/:/baserow/enterprise/backend
       - ./deploy/plugins:/baserow/plugins
       - media:/baserow/media
     ports:

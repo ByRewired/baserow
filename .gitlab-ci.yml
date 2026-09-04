@@ -166,7 +166,7 @@ backend-lint:
     - .docker-image-test-stage
     - .skippable-job
   variables:
-    RUN_WHEN_CHANGES_MADE_IN: "backend/ premium/backend/ enterprise/backend/"
+    RUN_WHEN_CHANGES_MADE_IN: "backend/"
   script:
     - docker run --rm $BACKEND_CI_DEV_IMAGE lint
   needs:
@@ -188,7 +188,7 @@ backend-check-startup-python:
     POSTGRES_USER: baserow
     POSTGRES_PASSWORD: baserow
     POSTGRES_DB: baserow
-    RUN_WHEN_CHANGES_MADE_IN: "backend/ premium/backend/ enterprise/backend/ .gitlab-ci.yml"
+    RUN_WHEN_CHANGES_MADE_IN: "backend/ .gitlab-ci.yml"
     FF_NETWORK_PER_BUILD: 1
   script:
     - docker run --rm --network=host $BACKEND_CI_DEV_IMAGE ci-check-startup
@@ -224,7 +224,7 @@ backend-test-group-1:
     POSTGRES_PASSWORD: baserow
     POSTGRES_DB: baserow
     PYTEST_SPLIT_GROUP: 1
-    RUN_WHEN_CHANGES_MADE_IN: "backend/ premium/backend/ enterprise/backend/ .gitlab-ci.yml"
+    RUN_WHEN_CHANGES_MADE_IN: "backend/ .gitlab-ci.yml"
     DOWNLOAD_AND_UNPACK_ARTIFACTS_ON_SKIP: "true"
     FF_NETWORK_PER_BUILD: 1
   script:
@@ -406,7 +406,7 @@ web-frontend-lint:
   needs:
     - job: build-web-frontend-image
   variables:
-    RUN_WHEN_CHANGES_MADE_IN: "web-frontend/ premium/web-frontend/ enterprise/web-frontend/"
+    RUN_WHEN_CHANGES_MADE_IN: "web-frontend/"
   script:
     - docker run --rm $WEBFRONTEND_CI_DEV_IMAGE lint
 
@@ -419,7 +419,7 @@ web-frontend-test:
     - .skippable-job
     - .requires-lint
   variables:
-    RUN_WHEN_CHANGES_MADE_IN: "web-frontend/ premium/web-frontend/ enterprise/web-frontend/"
+    RUN_WHEN_CHANGES_MADE_IN: "web-frontend/"
     DOWNLOAD_AND_UNPACK_ARTIFACTS_ON_SKIP: "true"
   script:
     - mkdir reports/ -p

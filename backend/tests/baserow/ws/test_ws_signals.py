@@ -439,12 +439,9 @@ def test_workspace_user_added(
 
 
 @pytest.mark.django_db(transaction=True)
-@patch("baserow_enterprise.role.receivers.broadcast_to_users")
 @patch("baserow.ws.signals.broadcast_to_group")
 @pytest.mark.websockets
-def test_workspace_user_updated(
-    mock_broadcast_to_workspace, mock_broadcast_to_users, data_fixture
-):
+def test_workspace_user_updated(mock_broadcast_to_workspace, data_fixture):
     user_1 = data_fixture.create_user()
     user_2 = data_fixture.create_user()
     workspace = data_fixture.create_workspace()

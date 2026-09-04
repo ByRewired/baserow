@@ -167,13 +167,9 @@ jobs:
           filters: |
             backend:
               - 'backend/**'
-              - 'premium/backend/**'
-              - 'enterprise/backend/**'
               - '.github/workflows/ci.yml'
             frontend:
               - 'web-frontend/**'
-              - 'premium/web-frontend/**'
-              - 'enterprise/web-frontend/**'
               - '.github/workflows/ci.yml'
             dockerfiles:
               - '**/Dockerfile'
@@ -208,8 +204,8 @@ jobs:
       - name: Run ruff
         working-directory: backend
         run: |
-          uv run ruff check src/ ../premium/backend/src/ ../enterprise/backend/src/ tests/ ../premium/backend/tests/ ../enterprise/backend/tests/
-          uv run ruff format --check src/ ../premium/backend/src/ ../enterprise/backend/src/ tests/ ../premium/backend/tests/ ../enterprise/backend/tests/
+          uv run ruff check src/ tests/
+          uv run ruff format --check src/ tests/
 
   frontend-lint:
     name: Web-Frontend Lint

@@ -76,12 +76,12 @@ install:
 # =============================================================================
 
 # Run all linters (eslint + stylelint + prettier). Pass file paths to lint only those files
-# (repo-root-relative, e.g. web-frontend/modules/foo.js). Paths outside the three
-# frontend trees are silently skipped.
+# (repo-root-relative, e.g. web-frontend/modules/foo.js). Paths outside the
+# frontend tree are silently skipped.
 #
 # Each tool is invoked in the same cwd as the matching yarn script:
 #   - eslint runs from the repo root (where eslint.config.mjs lives and where
-#     "files: [premium/web-frontend/**/*]" path patterns can match correctly)
+#     "files: [web-frontend/**/*]" path patterns can match correctly)
 #   - stylelint and prettier run from web-frontend/ so their .stylelintignore and
 #     .prettierignore files (which live there) get auto-discovered
 # Per-file results therefore match the no-args path, with one intentional
@@ -106,7 +106,6 @@ check *ARGS:
     for f in "$@"; do
         case "$f" in
             web-frontend/*) rel="${f#web-frontend/}" ;;
-            premium/web-frontend/*|enterprise/web-frontend/*) rel="../$f" ;;
             *) continue ;;
         esac
         case "$f" in
@@ -150,7 +149,6 @@ fix *ARGS:
     for f in "$@"; do
         case "$f" in
             web-frontend/*) rel="${f#web-frontend/}" ;;
-            premium/web-frontend/*|enterprise/web-frontend/*) rel="../$f" ;;
             *) continue ;;
         esac
         case "$f" in

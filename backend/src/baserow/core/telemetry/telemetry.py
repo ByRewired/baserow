@@ -271,7 +271,7 @@ def _callable_name(value) -> str:
 
 
 def _create_baserow_signal_send_wrapper(tracer):
-    baserow_module_prefixes = ("baserow.", "baserow_premium.", "baserow_enterprise.")
+    baserow_module_prefixes = ("baserow.",)
 
     def trace_baserow_signal_send(wrapped, instance, args, kwargs):
         from django.dispatch import Signal
