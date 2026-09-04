@@ -309,26 +309,6 @@ def construct_all_possible_field_kwargs(
                 "label": "Open",
             }
         ],
-        "ai": [
-            {
-                "name": "ai",
-                "ai_generative_ai_type": "test_generative_ai",
-                "ai_generative_ai_model": "test_1",
-                "ai_output_type": "text",
-                "ai_prompt": "'Who are you?'",
-            },
-            {
-                "name": "ai_choice",
-                "ai_generative_ai_type": "test_generative_ai",
-                "ai_generative_ai_model": "test_1",
-                "ai_prompt": "'What are you?'",
-                "ai_output_type": "choice",
-                "select_options": [
-                    {"id": 5, "value": "Object", "color": "orange"},
-                    {"id": 6, "value": "Else", "color": "yellow"},
-                ],
-            },
-        ],
     }
     # If you have added a new field please add an entry into the dict above with any
     # test worthy combinations of kwargs
