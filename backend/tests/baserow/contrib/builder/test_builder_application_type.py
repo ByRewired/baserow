@@ -17,7 +17,6 @@ from baserow.contrib.builder.builder_beta_init_application import (
 )
 from baserow.contrib.builder.elements.models import (
     ColumnElement,
-    Element,
     HeadingElement,
     LinkElement,
     TableElement,

@@ -5,7 +5,6 @@ from unittest.mock import AsyncMock, Mock, patch
 from django.test import override_settings
 
 import pytest
-from channels.db import database_sync_to_async
 from channels.layers import get_channel_layer
 from channels.testing import WebsocketCommunicator
 

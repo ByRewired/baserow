@@ -458,10 +458,15 @@ def get_example_multiple_rows_metadata_serializer() -> serializers.Serializer:
     :return: A serializer containing a dictionary of row id to row metadata.
     """
 
-    per_row_serializer = get_example_row_metadata_serializer()
+    per_row_serializer = get_example_row_metadata_serializer()()
+
+    # Metadata types come from plugins. With none registered the per row
+    # serializer carries no fields, which the schema generator cannot turn into
+    # an `additionalProperties` schema, so document a free-form object instead.
+    child = per_row_serializer if per_row_serializer.fields else serializers.DictField()
 
     return serializers.DictField(
-        child=per_row_serializer(),
+        child=child,
         required=False,
         help_text="An object keyed by row id with a value being an object containing "
         "additional metadata about that row. A row might not have metadata and will "
