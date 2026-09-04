@@ -30,10 +30,8 @@ describe('Builder workflow action types', () => {
       'start_workflow',
       'http_request',
       'smtp_email',
-      'code',
       'ai_agent',
       'csv_file_reader',
-      'xls_file_reader',
       'slack_write_message',
     ])
   })
@@ -72,10 +70,10 @@ describe('Builder workflow action types', () => {
     const registry = testApp.getRegistry()
 
     expect(
-      ['csv_file_reader', 'xls_file_reader'].map(
+      ['csv_file_reader'].map(
         (type) => registry.get('workflowAction', type).group.id
       )
-    ).toEqual(['files', 'files'])
+    ).toEqual(['files'])
     expect(registry.get('workflowAction', 'csv_file_reader').iconColor).toBe(
       'muted-yellow'
     )

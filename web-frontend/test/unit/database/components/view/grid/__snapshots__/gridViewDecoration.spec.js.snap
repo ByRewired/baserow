@@ -104,6 +104,8 @@ exports[`GridView component with decoration > Default component with first_cell 
                   <a
                     class="grid-view__row-more"
                     row="[object Object]"
+                    table="[object Object]"
+                    workspace-id="1"
                   >
                     <i
                       class="baserow-icon-enlarge-row"
@@ -221,7 +223,6 @@ exports[`GridView component with decoration > Default component with first_cell 
               class="grid-view__description-options"
             >
               
-              <!--v-if-->
               
               <!--v-if-->
               <a
@@ -275,7 +276,6 @@ exports[`GridView component with decoration > Default component with first_cell 
               class="grid-view__description-options"
             >
               
-              <!--v-if-->
               
               <!--v-if-->
               <a
@@ -637,6 +637,8 @@ exports[`GridView component with decoration > Default component with row wrapper
                       <a
                         class="grid-view__row-more"
                         row="[object Object]"
+                        table="[object Object]"
+                        workspace-id="1"
                       >
                         <i
                           class="baserow-icon-enlarge-row"
@@ -749,7 +751,6 @@ exports[`GridView component with decoration > Default component with row wrapper
               class="grid-view__description-options"
             >
               
-              <!--v-if-->
               
               <!--v-if-->
               <a
@@ -803,7 +804,6 @@ exports[`GridView component with decoration > Default component with row wrapper
               class="grid-view__description-options"
             >
               
-              <!--v-if-->
               
               <!--v-if-->
               <a
@@ -1166,6 +1166,8 @@ exports[`GridView component with decoration > Default component with unavailable
                   <a
                     class="grid-view__row-more"
                     row="[object Object]"
+                    table="[object Object]"
+                    workspace-id="1"
                   >
                     <i
                       class="baserow-icon-enlarge-row"
@@ -1277,7 +1279,6 @@ exports[`GridView component with decoration > Default component with unavailable
               class="grid-view__description-options"
             >
               
-              <!--v-if-->
               
               <!--v-if-->
               <a
@@ -1331,7 +1332,6 @@ exports[`GridView component with decoration > Default component with unavailable
               class="grid-view__description-options"
             >
               
-              <!--v-if-->
               
               <!--v-if-->
               <a

@@ -98,12 +98,10 @@ describe('Automation node types', () => {
       'start_workflow',
       'http_request',
       'smtp_email',
-      'code',
       'iterator',
       'ai_agent',
       'router',
       'csv_file_reader',
-      'xls_file_reader',
       'goto',
       'slack_write_message',
     ])
@@ -123,10 +121,10 @@ describe('Automation node types', () => {
     const registry = testApp.getRegistry()
 
     expect(
-      ['csv_file_reader', 'xls_file_reader'].map(
+      ['csv_file_reader'].map(
         (type) => registry.get('node', type).group.id
       )
-    ).toEqual(['files', 'files'])
+    ).toEqual(['files'])
   })
 
   test('groups workflow nodes under Workflow', () => {

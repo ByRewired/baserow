@@ -58,15 +58,7 @@ exports[`Table Component Tests > Adding a row to a table increases the row count
             </teleport-stub>
           </div>
         </li>
-        <li class="header__filter-item">
-          <div disable-sort="false"><a class="header__filter-link"><i class="header__filter-icon iconoir-palette"></i><span class="header__filter-name">viewDecorator.decorator - 0</span></a>
-            <teleport-stub to="body">
-              <div class="context visibility-hidden">
-                <!--v-if-->
-              </div>
-            </teleport-stub>
-          </div>
-        </li>
+        <!--v-if-->
       </ul>
       <ul class="header__filter header__filter--full-width" table="[object Object]">
         <li class="header__filter-item">
@@ -165,7 +157,7 @@ exports[`Table Component Tests > Adding a row to a table increases the row count
                         <div class="grid-view__row-count grid-view__row-count--hide-on-hover" title="1">
                           <div class="grid-view__row-count-content">1</div>
                         </div>
-                        <div class="grid-view__row-drag"></div><a class="grid-view__row-more" row="[object Object]"><i class="baserow-icon-enlarge-row"></i></a>
+                        <div class="grid-view__row-drag"></div><a class="grid-view__row-more" row="[object Object]" workspace-id="1" table="[object Object]"><i class="baserow-icon-enlarge-row"></i></a>
                       </div>
                     </div>
                     <!--v-if-->
@@ -198,7 +190,7 @@ exports[`Table Component Tests > Adding a row to a table increases the row count
                     <!--v-if-->
                   </div>
                   <div class="grid-view__description-name" title="Name"><span>Name</span></div>
-                  <!--v-if--><span class="grid-view__description-options"><!--v-if--><!--v-if--><a class="grid-view__description-icon-trigger"><i class="iconoir-nav-arrow-down"></i></a></span>
+                  <!--v-if--><span class="grid-view__description-options"><!--v-if--><a class="grid-view__description-icon-trigger"><i class="iconoir-nav-arrow-down"></i></a></span>
                   <teleport-stub to="body">
                     <div class="context visibility-hidden context--overflow-scroll">
                       <!--v-if-->
@@ -213,7 +205,7 @@ exports[`Table Component Tests > Adding a row to a table increases the row count
                     <!--v-if-->
                   </div>
                   <div class="grid-view__description-name" title="Last name"><span>Last name</span></div>
-                  <!--v-if--><span class="grid-view__description-options"><!--v-if--><!--v-if--><a class="grid-view__description-icon-trigger"><i class="iconoir-nav-arrow-down"></i></a></span>
+                  <!--v-if--><span class="grid-view__description-options"><!--v-if--><a class="grid-view__description-icon-trigger"><i class="iconoir-nav-arrow-down"></i></a></span>
                   <teleport-stub to="body">
                     <div class="context visibility-hidden context--overflow-scroll">
                       <!--v-if-->
@@ -228,7 +220,7 @@ exports[`Table Component Tests > Adding a row to a table increases the row count
                     <!--v-if-->
                   </div>
                   <div class="grid-view__description-name" title="Notes"><span>Notes</span></div>
-                  <!--v-if--><span class="grid-view__description-options"><!--v-if--><!--v-if--><a class="grid-view__description-icon-trigger"><i class="iconoir-nav-arrow-down"></i></a></span>
+                  <!--v-if--><span class="grid-view__description-options"><!--v-if--><a class="grid-view__description-icon-trigger"><i class="iconoir-nav-arrow-down"></i></a></span>
                   <teleport-stub to="body">
                     <div class="context visibility-hidden context--overflow-scroll">
                       <!--v-if-->
@@ -397,15 +389,7 @@ exports[`Table Component Tests > Adding a row to a table increases the row count
             </teleport-stub>
           </div>
         </li>
-        <li class="header__filter-item">
-          <div disable-sort="false"><a class="header__filter-link"><i class="header__filter-icon iconoir-palette"></i><span class="header__filter-name">viewDecorator.decorator - 0</span></a>
-            <teleport-stub to="body">
-              <div class="context visibility-hidden">
-                <!--v-if-->
-              </div>
-            </teleport-stub>
-          </div>
-        </li>
+        <!--v-if-->
       </ul>
       <ul class="header__filter header__filter--full-width" table="[object Object]">
         <li class="header__filter-item">
@@ -504,7 +488,7 @@ exports[`Table Component Tests > Adding a row to a table increases the row count
                         <div class="grid-view__row-count grid-view__row-count--hide-on-hover" title="1">
                           <div class="grid-view__row-count-content">1</div>
                         </div>
-                        <div class="grid-view__row-drag"></div><a class="grid-view__row-more" row="[object Object]"><i class="baserow-icon-enlarge-row"></i></a>
+                        <div class="grid-view__row-drag"></div><a class="grid-view__row-more" row="[object Object]" workspace-id="1" table="[object Object]"><i class="baserow-icon-enlarge-row"></i></a>
                       </div>
                     </div>
                     <!--v-if-->
@@ -537,7 +521,7 @@ exports[`Table Component Tests > Adding a row to a table increases the row count
                     <!--v-if-->
                   </div>
                   <div class="grid-view__description-name" title="Name"><span>Name</span></div>
-                  <!--v-if--><span class="grid-view__description-options"><!--v-if--><!--v-if--><a class="grid-view__description-icon-trigger"><i class="iconoir-nav-arrow-down"></i></a></span>
+                  <!--v-if--><span class="grid-view__description-options"><!--v-if--><a class="grid-view__description-icon-trigger"><i class="iconoir-nav-arrow-down"></i></a></span>
                   <teleport-stub to="body">
                     <div class="context visibility-hidden context--overflow-scroll">
                       <!--v-if-->
@@ -552,7 +536,7 @@ exports[`Table Component Tests > Adding a row to a table increases the row count
                     <!--v-if-->
                   </div>
                   <div class="grid-view__description-name" title="Last name"><span>Last name</span></div>
-                  <!--v-if--><span class="grid-view__description-options"><!--v-if--><!--v-if--><a class="grid-view__description-icon-trigger"><i class="iconoir-nav-arrow-down"></i></a></span>
+                  <!--v-if--><span class="grid-view__description-options"><!--v-if--><a class="grid-view__description-icon-trigger"><i class="iconoir-nav-arrow-down"></i></a></span>
                   <teleport-stub to="body">
                     <div class="context visibility-hidden context--overflow-scroll">
                       <!--v-if-->
@@ -567,7 +551,7 @@ exports[`Table Component Tests > Adding a row to a table increases the row count
                     <!--v-if-->
                   </div>
                   <div class="grid-view__description-name" title="Notes"><span>Notes</span></div>
-                  <!--v-if--><span class="grid-view__description-options"><!--v-if--><!--v-if--><a class="grid-view__description-icon-trigger"><i class="iconoir-nav-arrow-down"></i></a></span>
+                  <!--v-if--><span class="grid-view__description-options"><!--v-if--><a class="grid-view__description-icon-trigger"><i class="iconoir-nav-arrow-down"></i></a></span>
                   <teleport-stub to="body">
                     <div class="context visibility-hidden context--overflow-scroll">
                       <!--v-if-->
