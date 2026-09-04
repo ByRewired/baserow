@@ -408,6 +408,7 @@ export default defineNuxtPlugin({
     $registry.registerNamespace('viewFilter')
     $registry.registerNamespace('viewOwnershipType')
     $registry.registerNamespace('fieldConstraint')
+    $registry.registerNamespace('fieldRule')
     $registry.registerNamespace('importer')
     $registry.registerNamespace('exporter')
     $registry.registerNamespace('dataSync')

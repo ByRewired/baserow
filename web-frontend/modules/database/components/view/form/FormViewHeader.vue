@@ -2,6 +2,7 @@
   <ul v-if="!tableLoading" class="header__filter header__filter--full-width">
     <li
       v-if="
+        hasMultipleModes &&
         $hasPermission(
           'database.table.view.update',
           view,
@@ -73,6 +74,13 @@ export default {
     },
   },
   computed: {
+    /**
+     * There is nothing to choose from if only one mode is registered, so the
+     * dropdown is then hidden instead of offering the already active mode.
+     */
+    hasMultipleModes() {
+      return Object.keys(this.$registry.getAll('formViewMode')).length > 1
+    },
     formUrl() {
       return (
         this.$config.public.publicWebFrontendUrl +

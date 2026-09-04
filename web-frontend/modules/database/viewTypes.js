@@ -32,6 +32,13 @@ import {
   ViewSettingsCopyOptionType,
 } from '@baserow/modules/database/copyViewConfigurationOptionTypes'
 
+/**
+ * Field rule types are provided by plugins. Without a registered type a table can
+ * never have rules, so there is no point in asking the backend for them.
+ */
+const hasFieldRuleTypes = (app) =>
+  Object.keys(app.$registry.getAll('fieldRule')).length > 0
+
 export class ViewType extends Registerable {
   /**
    * The icon class name that is used as convenience for the user to
@@ -688,6 +695,7 @@ export class GridViewType extends ViewType {
 
     if (
       !isPublic &&
+      hasFieldRuleTypes(this.app) &&
       this.app.$hasPermission(
         'database.table.field_rules.read_field_rules',
         view.table,
@@ -1043,6 +1051,7 @@ export const BaseBufferedRowViewTypeMixin = (Base) =>
 
       if (
         !isPublic &&
+        hasFieldRuleTypes(this.app) &&
         this.app.$hasPermission(
           'database.table.field_rules.read_field_rules',
           view.table,
