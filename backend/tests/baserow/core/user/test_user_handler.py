@@ -292,7 +292,7 @@ def test_send_reset_password_email(data_fixture, mailoutbox):
     assert len(mailoutbox) == 1
     email = mailoutbox[0]
 
-    assert email.subject == "Reset password - Baserow"
+    assert email.subject == "Reset password - ByRewired DB"
     assert email.from_email == "no-reply@localhost"
     assert "test@localhost" in email.to
 
@@ -317,7 +317,9 @@ def test_send_reset_password_email_in_different_language(data_fixture, mailoutbo
     handler.send_reset_password_email(user, "http://localhost:3000/reset-password")
 
     assert len(mailoutbox) == 1
-    assert mailoutbox[0].subject == "Réinitialiser le mot de passe - Baserow"
+    # The subject carries the product name and is no longer translated, so the
+    # language is asserted on the body heading instead.
+    assert "Réinitialiser le mot de passe" in mailoutbox[0].alternatives[0][0]
 
 
 @pytest.mark.django_db(transaction=True)
@@ -407,7 +409,7 @@ def test_reset_password_sends_password_changed_email(data_fixture, mailoutbox):
     handler.reset_password(token, "thisIsAValidPassword")
 
     assert len(mailoutbox) == 1
-    assert mailoutbox[0].subject == "Password changed - Baserow"
+    assert mailoutbox[0].subject == "Password changed - ByRewired DB"
     assert "test@localhost" in mailoutbox[0].to
 
 
@@ -419,7 +421,7 @@ def test_change_password_sends_password_changed_email(data_fixture, mailoutbox):
     handler.change_password(user, "oldPassword1", "newPassword1")
 
     assert len(mailoutbox) == 1
-    assert mailoutbox[0].subject == "Password changed - Baserow"
+    assert mailoutbox[0].subject == "Password changed - ByRewired DB"
     assert "test@localhost" in mailoutbox[0].to
 
 
@@ -506,7 +508,7 @@ def test_schedule_user_deletion(data_fixture, mailoutbox):
     assert user.profile.to_be_deleted is True
 
     assert len(mailoutbox) == 1
-    assert mailoutbox[0].subject == "Account deletion scheduled - Baserow"
+    assert mailoutbox[0].subject == "Account deletion scheduled - ByRewired DB"
 
 
 @pytest.mark.django_db(transaction=True)
@@ -520,7 +522,7 @@ def test_cancel_user_deletion(data_fixture, mailoutbox):
     assert user.profile.to_be_deleted is False
 
     assert len(mailoutbox) == 1
-    assert mailoutbox[0].subject == "Account deletion cancelled - Baserow"
+    assert mailoutbox[0].subject == "Account deletion cancelled - ByRewired DB"
 
 
 @pytest.mark.django_db(transaction=False)
@@ -656,7 +658,7 @@ def test_delete_expired_users_and_related_workspaces_if_last_admin(
 
     # Check mail sent
     assert len(mailoutbox) == 2
-    assert mailoutbox[0].subject == "Account permanently deleted - Baserow"
+    assert mailoutbox[0].subject == "Account permanently deleted - ByRewired DB"
 
 
 @pytest.mark.django_db
@@ -955,7 +957,7 @@ def test_send_change_email_confirmation(data_fixture, mailoutbox):
     assert len(mailoutbox) == 1
     email = mailoutbox[0]
 
-    assert email.subject == "Confirm email address change - Baserow"
+    assert email.subject == "Confirm email address change - ByRewired DB"
     assert email.from_email == "no-reply@localhost"
     assert "newemail@localhost" in email.to
 
@@ -987,11 +989,9 @@ def test_send_change_email_confirmation_in_different_language(data_fixture, mail
     )
 
     assert len(mailoutbox) == 1
-    # The French translation for "Confirm email address change - Baserow"
-    assert (
-        "Confirmer le changement" in mailoutbox[0].subject
-        or "Baserow" in mailoutbox[0].subject
-    )
+    # No French translation exists for this subject, so it falls back to the
+    # source string. The assertion guards that the mail is still sent.
+    assert "Confirm email address change" in mailoutbox[0].subject
 
 
 @pytest.mark.django_db(transaction=True)

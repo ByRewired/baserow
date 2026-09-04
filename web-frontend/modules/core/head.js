@@ -1,6 +1,6 @@
 export default {
-  title: 'Baserow',
-  titleTemplate: '%s | Baserow',
+  title: 'ByRewired DB',
+  titleTemplate: '%s | ByRewired DB',
   meta: [
     { charset: 'utf-8' },
     {

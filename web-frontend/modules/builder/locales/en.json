@@ -1107,7 +1107,7 @@
   },
   "dataGuidedTourStep": {
     "title": "Connect your data",
-    "content": "Link your Baserow tables here to display, filter, and update your data dynamically across different elements."
+    "content": "Link your ByRewired DB tables here to display, filter, and update your data dynamically across different elements."
   },
   "previewGuidedTourStep": {
     "title": "Your control center",

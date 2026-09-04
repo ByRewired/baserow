@@ -10,7 +10,7 @@
     "body": "Are you sure you want to delete this webhook? You will not be able to restore it later."
   },
   "webhookList": {
-    "noWebhooksMessage": "You have not created any webhooks yet. Webhooks can be used in order to inform 3rd party systems when a row in Baserow has been created, updated or deleted."
+    "noWebhooksMessage": "You have not created any webhooks yet. Webhooks can be used in order to inform 3rd party systems when a row in ByRewired DB has been created, updated or deleted."
   },
   "testWebhookModal": {
     "title": "Test webhook",
@@ -164,7 +164,7 @@
     "notFoundDescription": "Row or table is not found.",
     "requestEntityTooLargeDescription": "The request exceeded the maximum allowed payload size.",
     "internalErrorDescription": "The server encountered an unexpected condition.",
-    "badGatewayDescription": "Baserow is restarting or an unexpected outage is in progress.",
+    "badGatewayDescription": "ByRewired DB is restarting or an unexpected outage is in progress.",
     "unavailableDescription": "The server could not process your request in time."
   },
   "apiDocsTableFields": {
@@ -228,12 +228,12 @@
     "before": "Moves the row related to the given `row_id` before the row related to the provided value. If not provided, then the row will be moved to the end."
   },
   "apiDocsUploadFile": {
-    "description": "Uploads a file to Baserow by uploading the file contents directly. A `file` multipart is expected containing the file contents. The response can then be used to [upload a file to a row]({PUBLIC_BACKEND_URL}/api/redoc/#tag/Database-table-rows/operation/update_database_table_row).",
+    "description": "Uploads a file to ByRewired DB by uploading the file contents directly. A `file` multipart is expected containing the file contents. The response can then be used to [upload a file to a row]({PUBLIC_BACKEND_URL}/api/redoc/#tag/Database-table-rows/operation/update_database_table_row).",
     "file": "The `file` multipart containing the file contents."
   },
   "apiDocsUploadFileViaURL": {
-    "description": "Uploads a file to Baserow by downloading it from the provided URL. The response can then be used to [upload a file to a row]({PUBLIC_BACKEND_URL}/api/redoc/#tag/Database-table-rows/operation/update_database_table_row).",
-    "url": "The URL you would like Baserow to download and upload on your behalf."
+    "description": "Uploads a file to ByRewired DB by downloading it from the provided URL. The response can then be used to [upload a file to a row]({PUBLIC_BACKEND_URL}/api/redoc/#tag/Database-table-rows/operation/update_database_table_row).",
+    "url": "The URL you would like ByRewired DB to download and upload on your behalf."
   },
   "apiDocsTableUpdateRow": {
     "description": "Updates an existing {name} row.",
@@ -253,7 +253,7 @@
     "before": "If provided then the newly created rows will be positioned before the row with the provided id."
   },
   "apiDocsAuth": {
-    "description": "Baserow uses a simple token based authentication. You need to generate at least one database token in your {settingsLink} to use the endpoints described below. It is possible to give create, read, update and delete permissions up until table level per token. You can authenticate to the API by providing your token in the HTTP authorization bearer token header. All API requests must be authenticated and made over HTTPS.",
+    "description": "ByRewired DB uses a simple token based authentication. You need to generate at least one database token in your {settingsLink} to use the endpoints described below. It is possible to give create, read, update and delete permissions up until table level per token. You can authenticate to the API by providing your token in the HTTP authorization bearer token header. All API requests must be authenticated and made over HTTPS.",
     "settingsLink": "settings"
   },
   "apiDocsFilters": {
@@ -519,7 +519,7 @@
     "preparing": "Preparing data...",
     "importError": "Something went wrong during the file import",
     "fieldMappingTitle": "Field mapping",
-    "fieldMappingDescription": "We have automatically mapped the columns of the Baserow fields in your table. You can change them below. Any incompatible cell will remain empty after the import.",
+    "fieldMappingDescription": "We have automatically mapped the columns of the ByRewired DB fields in your table. You can change them below. Any incompatible cell will remain empty after the import.",
     "selectImportMessage": "Please select data to import.",
     "filePreview": "File content preview",
     "importPreview": "Import preview",
@@ -862,7 +862,7 @@
   },
   "apiDocsComponent": {
     "title": "REST API",
-    "intro": "After you have created your database schema and API key in the {settingsLink} your Baserow database provides his own REST API endpoints to create, read, update and delete rows.",
+    "intro": "After you have created your database schema and API key in the {settingsLink} your ByRewired DB database provides his own REST API endpoints to create, read, update and delete rows.",
     "settings": "settings",
     "selectApplicationTitle": "For which database do you want to see the documentation?",
     "signIn": "Sign in to get started",
@@ -911,7 +911,7 @@
     "stateFailed": "Failed",
     "stateFinished": "Finished",
     "stateDownloadingBase": "Downloading base schema",
-    "stateConverting": "Converting to Baserow",
+    "stateConverting": "Converting to ByRewired DB",
     "stateDownloadingFiles": "Downloading files",
     "stateImporting": "Importing",
     "stateImportingTable": "Importing table {table}",
@@ -1069,7 +1069,7 @@
   },
   "fieldPasswordSubForm": {
     "allowEndpointAuthentication": "Allow API endpoint authentication",
-    "allowEndpointAuthenticationHelp": "This exposes an endpoint where the row ID and password can be checked if it's correct. This allows using Baserow as authentication backend.",
+    "allowEndpointAuthenticationHelp": "This exposes an endpoint where the row ID and password can be checked if it's correct. This allows using ByRewired DB as authentication backend.",
     "description": "The password field can also be used by the user authentication in the application builder."
   },
   "rowEditFieldPassword": {
@@ -1093,7 +1093,7 @@
   },
   "databaseImportStep": {
     "title": "Import your data",
-    "description": "Move your data to Baserow, in just a few clicks.",
+    "description": "Move your data to ByRewired DB, in just a few clicks.",
     "tableNameLabel": "Table name",
     "tableNamePrefill": "{name}'s table"
   },
@@ -1179,7 +1179,7 @@
   },
   "templateOnboardingCancelModal": {
     "title": "Select a template to get started",
-    "description": "To skip the onboarding, select one of the templates below. Starting with a template is the best way to get to know Baserow because it sets up tables, fields and example data for you. You can always change or delete it later.",
+    "description": "To skip the onboarding, select one of the templates below. Starting with a template is the best way to get to know ByRewired DB because it sets up tables, fields and example data for you. You can always change or delete it later.",
     "continue": "Use this template"
   },
   "ViewFilterTypeDateUpgradeToMultiStep": {
@@ -1196,7 +1196,7 @@
     "description": "The iCal calendar sync, synchronizes automatically with the entries in the calendar file of the URL. It only supports the ICS (Internet Calendar and Scheduling) file type."
   },
   "postgreSQLDataSync": {
-    "description": "Synchronizes a PostgreSQL table with a Baserow table matching the provided details below. Note that when the synchronization starts, it will select all the rows in the provided table. Even though Baserow only selects data, we strongly recommend limiting the user to a read-only connection.",
+    "description": "Synchronizes a PostgreSQL table with a ByRewired DB table matching the provided details below. Note that when the synchronization starts, it will select all the rows in the provided table. Even though ByRewired DB only selects data, we strongly recommend limiting the user to a read-only connection.",
     "host": "Host",
     "username": "Username",
     "password": "Password",
@@ -1212,7 +1212,7 @@
     "create": "Create and sync table",
     "error": "Something went wrong during the sync",
     "autoAddLabel": "Auto add new properties",
-    "autoAddHelper": "Automatically adds and synchronizes newly available properties from the data source into the Baserow table. Note that in order for this to work, all properties must be synced.",
+    "autoAddHelper": "Automatically adds and synchronizes newly available properties from the data source into the ByRewired DB table. Note that in order for this to work, all properties must be synced.",
     "twoWaySyncLabel": "Two-way sync",
     "deleteUnmatchedRowsLabel": "Delete rows when they are deleted or hidden in the source",
     "deleteUnmatchedRowsHelper": "When enabled, rows that are deleted or no longer visible in the source are also deleted from this table on every sync. When disabled, those rows are kept and reused if the source row reappears.",
@@ -1318,8 +1318,8 @@
     "noUrl": "Enter a URL to open.",
     "staleReference": "This action uses a result from an action that no longer runs before it.",
     "unreadableReference": "This action uses a result from an action that no longer returns one.",
-    "noInstanceSmtp": "This Baserow instance has no SMTP server configured, so a button cannot send email.",
-    "instanceSmtpTurnedOff": "Sending through this Baserow instance's own SMTP server is turned off, so a button cannot send email."
+    "noInstanceSmtp": "This ByRewired DB instance has no SMTP server configured, so a button cannot send email.",
+    "instanceSmtpTurnedOff": "Sending through this ByRewired DB instance's own SMTP server is turned off, so a button cannot send email."
   },
   "openUrlWorkflowActionForm": {
     "url": "URL",

@@ -551,12 +551,10 @@ SIMPLE_JWT = {
 }
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Baserow API spec",
-    "DESCRIPTION": "For more information about our REST API, please visit "
-    "[this page](https://baserow.io/docs/apis%2Frest-api).\n\n"
-    "For more information about our deprecation policy, please visit "
-    "[this page](https://baserow.io/docs/apis%2Fdeprecations).",
-    "CONTACT": {"url": "https://baserow.io/contact"},
+    "TITLE": "ByRewired DB API spec",
+    "DESCRIPTION": "The REST API of this ByRewired DB instance. Every endpoint "
+    "below is served by the instance you are reading this from, and is "
+    "authenticated with either a database token or a JWT.",
     "LICENSE": {
         "name": "MIT",
         "url": "https://github.com/baserow/baserow/blob/develop/LICENSE",

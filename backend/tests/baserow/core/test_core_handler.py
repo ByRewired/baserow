@@ -555,7 +555,7 @@ def test_send_workspace_invitation_email(data_fixture, mailoutbox):
     assert len(mailoutbox) == 1
     email = mailoutbox[0]
 
-    assert email.subject == "You've been invited to collaborate on Baserow"
+    assert email.subject == "You've been invited to collaborate on ByRewired DB"
     assert email.from_email == "no-reply@localhost"
     assert workspace_invitation.email in email.to
 

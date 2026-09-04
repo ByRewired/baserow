@@ -13,7 +13,7 @@ class ResetPasswordEmail(BaseEmailMessage):
         super().__init__(*args, **kwargs)
 
     def get_subject(self):
-        return _("Reset password - Baserow")
+        return _("Reset password - ByRewired DB")
 
     def get_context(self):
         context = super().get_context()
@@ -33,7 +33,7 @@ class PasswordChangedEmail(BaseEmailMessage):
         super().__init__(*args, **kwargs)
 
     def get_subject(self):
-        return _("Password changed - Baserow")
+        return _("Password changed - ByRewired DB")
 
     def get_context(self):
         context = super().get_context()
@@ -50,7 +50,7 @@ class AccountDeletionScheduled(BaseEmailMessage):
         super().__init__(*args, **kwargs)
 
     def get_subject(self):
-        return _("Account deletion scheduled - Baserow")
+        return _("Account deletion scheduled - ByRewired DB")
 
     def get_context(self):
         context = super().get_context()
@@ -69,7 +69,7 @@ class AccountDeleted(BaseEmailMessage):
         super().__init__(*args, **kwargs)
 
     def get_subject(self):
-        return _("Account permanently deleted - Baserow")
+        return _("Account permanently deleted - ByRewired DB")
 
     def get_context(self):
         context = super().get_context()
@@ -87,7 +87,7 @@ class AccountDeletionCanceled(BaseEmailMessage):
         super().__init__(*args, **kwargs)
 
     def get_subject(self):
-        return _("Account deletion cancelled - Baserow")
+        return _("Account deletion cancelled - ByRewired DB")
 
     def get_context(self):
         context = super().get_context()
@@ -107,7 +107,7 @@ class ChangeEmailConfirmationEmail(BaseEmailMessage):
         super().__init__(*args, **kwargs)
 
     def get_subject(self):
-        return _("Confirm email address change - Baserow")
+        return _("Confirm email address change - ByRewired DB")
 
     def get_context(self):
         context = super().get_context()

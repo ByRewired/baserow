@@ -140,7 +140,7 @@
     "markAllAsRead": "Mark all as read",
     "clearAll": "Clear all",
     "noNotificationTitle": "You don't have any notifications",
-    "noNotification": "We'll notify you about important updates and any time you're mentioned on Baserow.",
+    "noNotification": "We'll notify you about important updates and any time you're mentioned on ByRewired DB.",
     "newNotificationsAvailable": "New notifications available",
     "refresh": "Refresh"
   },
@@ -189,7 +189,7 @@
     "errorInvalidPasswordTitle": "Invalid password",
     "errorInvalidPasswordMessage": "Could not delete your account because your password is invalid.",
     "errorUserIsLastAdminTitle": "Last administrator",
-    "errorUserIsLastAdminMessage": "Could not delete your account because your are the last administrator of this Baserow instance.",
+    "errorUserIsLastAdminMessage": "Could not delete your account because your are the last administrator of this ByRewired DB instance.",
     "accountDeletedSuccessTitle": "Account deletion scheduled",
     "accountDeletedSuccessMessage": "Your account has been scheduled to be deleted.",
     "workspaceLoadingError": "Workspaces checking has failed",
@@ -232,7 +232,7 @@
   },
   "exportWorkspaceModal": {
     "title": "Export",
-    "description": "Your data will be exported as a ZIP file, which can be imported into other Baserow instance.",
+    "description": "Your data will be exported as a ZIP file, which can be imported into other ByRewired DB instance.",
     "exportSettings": "Export settings",
     "export": "Export data",
     "reset": "Start new",
@@ -253,8 +253,8 @@
     "onlyStructureDescription": "If enabled, only the structure of the applications will be exported. The data will not be included."
   },
   "importWorkspaceModal": {
-    "title": "Import Baserow data",
-    "description": "You can import an existing Baserow data by uploading the .zip file from other Baserow instance.",
+    "title": "Import ByRewired DB data",
+    "description": "You can import an existing ByRewired DB data by uploading the .zip file from other ByRewired DB instance.",
     "import": "Import data",
     "upload": "Upload",
     "uploadAndImport": "Upload & Import",
@@ -269,11 +269,11 @@
     "selectAll": "Select all",
     "databases": "Databases",
     "applications": "Applications",
-    "successTitle": "Successfully imported the Baserow data",
+    "successTitle": "Successfully imported the ByRewired DB data",
     "successMessage": "Imported {count} applications",
     "signatureVerificationNote": "It's not possible to import a zip file from an untrusted source.",
     "invalidResourceTitle": "Invalid resource",
-    "invalidResourceMessage": "The provided file is not a valid Baserow export.",
+    "invalidResourceMessage": "The provided file is not a valid ByRewired DB export.",
     "untrustedPublicKeyTitle": "Untrusted signature",
     "untrustedPublicKeyMessage": "The provided file is signed with an untrusted public key. Ask your administrator to add the public key to the list of trusted keys or disable the signature verification to be able to import this file.",
     "importingState": "Importing...",
@@ -341,7 +341,7 @@
     "openaiApiKeyDescription": "Enter an OpenAI API key. [Instructions on getting an API key](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key).",
     "openaiOrganization": "Organization (optional)",
     "openaiModelsLabel": "Enabled Models",
-    "openaiModelsDescription": "Provide a comma-separated list of [OpenAI model identifiers](https://developers.openai.com/api/docs/models) that can be used in Baserow. For example: `gpt-5.6,gpt-5.6-terra,gpt-5.6-luna`.",
+    "openaiModelsDescription": "Provide a comma-separated list of [OpenAI model identifiers](https://developers.openai.com/api/docs/models) that can be used in ByRewired DB. For example: `gpt-5.6,gpt-5.6-terra,gpt-5.6-luna`.",
     "openaiModelIdentifierDescription": "Enter an [OpenAI model identifier](https://developers.openai.com/api/docs/models). For example: `gpt-5.6`, `gpt-5.6-terra`, or `gpt-5.6-luna`.",
     "openaiBaseUrl": "Base URL",
     "openaiBaseUrlDescription": "Uses the default OpenAI base URL by default if empty. Can optionally be changed to https://eu.api.openai.com/v1, https://&#60;your-resource-name&#62;.openai.azure.com, or any other OpenAI compatible API.",
@@ -349,38 +349,38 @@
     "anthropicApiKeyLabel": "API Key",
     "anthropicApiKeyDescription": "Enter an Anthropic API key. [Instructions on getting an API key](https://docs.anthropic.com/en/api/getting-started).",
     "anthropicModelsLabel": "Enabled Models",
-    "anthropicModelsDescription": "Provide a comma-separated list of [Anthropic model identifiers](https://platform.claude.com/docs/en/about-claude/models/overview) that can be used in Baserow. For example: `claude-sonnet-5,claude-opus-4-8,claude-haiku-4-5`.",
+    "anthropicModelsDescription": "Provide a comma-separated list of [Anthropic model identifiers](https://platform.claude.com/docs/en/about-claude/models/overview) that can be used in ByRewired DB. For example: `claude-sonnet-5,claude-opus-4-8,claude-haiku-4-5`.",
     "anthropicModelIdentifierDescription": "Enter an [Anthropic model identifier](https://platform.claude.com/docs/en/about-claude/models/overview). For example: `claude-sonnet-5`, `claude-opus-4-8`, or `claude-haiku-4-5`.",
     "mistral": "Mistral",
     "mistralApiKeyLabel": "API Key",
     "mistralApiKeyDescription": "Enter a Mistral API key. [Instructions on getting an API key](https://docs.mistral.ai/getting-started/quickstart/).",
     "mistralModelsLabel": "Enabled Models",
-    "mistralModelsDescription": "Provide a comma-separated list of [Mistral model identifiers](https://docs.mistral.ai/models/) that can be used in Baserow. For example: `mistral-large-latest,mistral-medium-latest,mistral-small-latest`.",
+    "mistralModelsDescription": "Provide a comma-separated list of [Mistral model identifiers](https://docs.mistral.ai/models/) that can be used in ByRewired DB. For example: `mistral-large-latest,mistral-medium-latest,mistral-small-latest`.",
     "mistralModelIdentifierDescription": "Enter a [Mistral model identifier](https://docs.mistral.ai/models/). For example: `mistral-large-latest`, `mistral-medium-latest`, or `mistral-small-latest`.",
     "ollama": "Ollama",
     "ollamaHostLabel": "Host",
     "ollamaHostDescription": "Provide the hostname to your [Ollama](https://ollama.com/) server. This typically runs locally on your own device.",
     "ollamaModelsLabel": "Enabled Models",
-    "ollamaModelsDescription": "Provide a comma-separated list of [models installed in Ollama](https://ollama.com/library). A model must be downloaded and installed before Baserow can use it. For example: `gemma3,qwen3,llama3.3`.",
+    "ollamaModelsDescription": "Provide a comma-separated list of [models installed in Ollama](https://ollama.com/library). A model must be downloaded and installed before ByRewired DB can use it. For example: `gemma3,qwen3,llama3.3`.",
     "ollamaModelIdentifierDescription": "Enter the identifier of a [model installed in Ollama](https://ollama.com/library). For example: `gemma3`, `qwen3`, or `llama3.3`.",
     "openRouter": "OpenRouter",
     "openRouterApiKeyLabel": "API Key",
     "openRouterApiKeyDescription": "Enter an OpenRouter API key. [Get an API key](https://openrouter.ai/settings/keys).",
     "openRouterOrganization": "Organization (optional)",
     "openRouterModelsLabel": "Enabled Models",
-    "openRouterModelsDescription": "Provide a comma-separated list of [OpenRouter model identifiers](https://openrouter.ai/models) that can be used in Baserow. For example: `openai/gpt-5.6,anthropic/claude-sonnet-5`.",
+    "openRouterModelsDescription": "Provide a comma-separated list of [OpenRouter model identifiers](https://openrouter.ai/models) that can be used in ByRewired DB. For example: `openai/gpt-5.6,anthropic/claude-sonnet-5`.",
     "openRouterModelIdentifierDescription": "Enter an [OpenRouter model identifier](https://openrouter.ai/models). For example: `openai/gpt-5.6` or `anthropic/claude-sonnet-5`.",
     "google": "Google Gemini",
     "googleApiKeyLabel": "API Key",
     "googleApiKeyDescription": "Enter a Google AI Studio API key. [Create or view an API key](https://aistudio.google.com/apikey).",
     "googleModelsLabel": "Enabled Models",
-    "googleModelsDescription": "Provide a comma-separated list of [Gemini model identifiers](https://ai.google.dev/gemini-api/docs/models) that can be used in Baserow. For example: `gemini-3.6-flash,gemini-3.5-flash`.",
+    "googleModelsDescription": "Provide a comma-separated list of [Gemini model identifiers](https://ai.google.dev/gemini-api/docs/models) that can be used in ByRewired DB. For example: `gemini-3.6-flash,gemini-3.5-flash`.",
     "googleModelIdentifierDescription": "Enter a [Gemini model identifier](https://ai.google.dev/gemini-api/docs/models). For example: `gemini-3.6-flash` or `gemini-3.5-flash`.",
     "groq": "Groq",
     "groqApiKeyLabel": "API Key",
     "groqApiKeyDescription": "Enter a Groq API key. [Create or view an API key](https://console.groq.com/keys).",
     "groqModelsLabel": "Enabled Models",
-    "groqModelsDescription": "Provide a comma-separated list of [Groq model identifiers](https://console.groq.com/docs/models) that can be used in Baserow. For example: `openai/gpt-oss-120b,openai/gpt-oss-20b`.",
+    "groqModelsDescription": "Provide a comma-separated list of [Groq model identifiers](https://console.groq.com/docs/models) that can be used in ByRewired DB. For example: `openai/gpt-oss-120b,openai/gpt-oss-20b`.",
     "groqModelIdentifierDescription": "Enter a [Groq model identifier](https://console.groq.com/docs/models). For example: `openai/gpt-oss-120b` or `openai/gpt-oss-20b`."
   },
   "generativeAIWorkspaceSettings": {
@@ -475,7 +475,7 @@
     "table": "Table",
     "tableDesc": "Create a new place to manage data in your database.",
     "importWorkspace": "Import data",
-    "importWorkspaceDesc": "Add existing data from a Baserow instance."
+    "importWorkspaceDesc": "Add existing data from a ByRewired DB instance."
   },
   "applicationForm": {
     "nameLabel": "Name",
@@ -556,12 +556,12 @@
   "dashboard": {
     "title": "Dashboard",
     "alertTitle": "We need your help!",
-    "alertText": "By sharing Baserow you are helping us to improve the product and to make it more useful for you.",
-    "tweetContent": "Check out {'@'}baserow an open source no-code database tool and Airtable alternative!",
-    "redditTitle": "'Baserow - An open source no-code database",
+    "alertText": "By sharing ByRewired DB you are helping us to improve the product and to make it more useful for you.",
+    "tweetContent": "Check out ByRewired DB, an open source no-code database tool and Airtable alternative!",
+    "redditTitle": "'ByRewired DB - An open source no-code database",
     "becomeGithubSponsor": "Become a GitHub sponsor",
     "starOnGitHub": "Star us on GitHub",
-    "shareOnTwitter": "Tweet about Baserow",
+    "shareOnTwitter": "Tweet about ByRewired DB",
     "shareOnReddit": "Share on Reddit",
     "shareOnFacebook": "Share on Facebook",
     "shareOnLinkedIn": "Share on LinkedIn",
@@ -570,10 +570,10 @@
     "knowledgeBase": "Knowledge base",
     "knowledgeBaseMessage": "Find answers to all of your questions",
     "tutorials": "Tutorials",
-    "tutorialsMessage": "Discover the potential of Baserow",
+    "tutorialsMessage": "Discover the potential of ByRewired DB",
     "apiDocumentation": "API documentation",
     "apiDocumentationMessage": "Learn more about our code",
-    "academy": "Baserow Academy",
+    "academy": "ByRewired DB Academy",
     "academyMessage": "Follow courses and become an expert",
     "emptyWorkspace": "This workspace is empty",
     "emptyWorkspaceMessage": "Get started by creating a new database or application.",
@@ -592,7 +592,7 @@
     "emailPlaceholder": "Enter your email address..",
     "passwordPlaceholder": "Enter your password..",
     "forgotPassword": "Forgot?",
-    "signUpText": "New to Baserow?",
+    "signUpText": "New to ByRewired DB?",
     "signUp": "Sign up",
     "displayPasswordLogin": "Log in using email and password",
     "redirecting": "Redirecting to authentication provider..."
@@ -604,7 +604,7 @@
     "repeatPasswordPlaceholder": "Repeat your new password",
     "submit": "Change password",
     "changed": "Password changed",
-    "message": "You can now login to Baserow using your new password.",
+    "message": "You can now login to ByRewired DB using your new password.",
     "errorInvalidLinkTitle": "Invalid link",
     "errorInvalidLinkMessage": "Could not reset the password because the link is invalid.",
     "errorLinkExpiredTitle": "Link expired",
@@ -618,7 +618,7 @@
     "title": "Confirm email change",
     "submit": "Confirm email change",
     "changed": "Email address changed",
-    "message": "Your email address has been successfully changed. You can now login to Baserow using your new email address.",
+    "message": "Your email address has been successfully changed. You can now login to ByRewired DB using your new email address.",
     "errorInvalidLinkTitle": "Invalid link",
     "errorInvalidLinkMessage": "Could not change the email address because the link is invalid.",
     "errorLinkExpiredTitle": "Link expired",
@@ -633,7 +633,7 @@
     "title": "Sign up",
     "disabled": "Sign up is disabled",
     "disabledMessage": "It's not possible to create an account because it has been disabled.",
-    "requireFirstUser": "Welcome to Baserow!",
+    "requireFirstUser": "Welcome to ByRewired DB!",
     "requireFirstUserMessage": "Please fill the form below to create the admin user.",
     "emailPlaceholder": "Enter your email address..",
     "namePlaceholder": "Enter your name..",
@@ -647,7 +647,7 @@
     "message": "Enter your email address and we’ll send you a link to reset your password.",
     "submit": "Send link",
     "confirmationTitle": "Check your email",
-    "confirmation": "We sent an email to {email}, which contains a link to reset your Baserow password.",
+    "confirmation": "We sent an email to {email}, which contains a link to reset your ByRewired DB password.",
     "disabled": "Forgot password is disabled",
     "disabledMessage": "It's not possible to reset the password because it has been disabled.",
     "loginText": "Already have account and password?",
@@ -656,15 +656,15 @@
   "settings": {
     "settingsTitle": "Admin settings",
     "baserowInstanceId": "Instance ID",
-    "instanceIdDescription": "The instance ID is the unique identifier of your Baserow copy.",
-    "baserowVersion": "Baserow version",
+    "instanceIdDescription": "The instance ID is the unique identifier of your ByRewired DB copy.",
+    "baserowVersion": "ByRewired DB version",
     "baserowVersionDescription": "The version number of this instance.",
     "accountRestrictions": "Account restrictions",
     "settingAllowResetPasswordName": "Allow resetting password",
     "settingAllowResetPasswordDescription": "By default, users can request a password reset link.",
     "settingAllowResetPasswordWarning": "Please note that you could lock yourself out of the system and that access can't be restored if you forget your password.",
     "settingAllowNewAccountsName": "Allow creating new accounts",
-    "settingAllowNewAccountsDescription": "By default, any user visiting your Baserow domain can sign up for a new account.",
+    "settingAllowNewAccountsDescription": "By default, any user visiting your ByRewired DB domain can sign up for a new account.",
     "settingAllowSignupsViaWorkspaceInvitationsName": "Allow signups via workspace invitations",
     "settingAllowSignupsViaWorkspaceInvitationDescription": "Even if the creation of new accounts is disabled, this option permits directly invited users to still create an account.",
     "settingAllowNonStaffCreateWorkspaceOperation": "Allow everyone to create new workspaces",
@@ -903,13 +903,13 @@
   },
   "reportAbuseModal": {
     "title": "Report abuse",
-    "description": "Do you believe this page is being used for phishing, impersonation, scams or other abusive purposes? Let the administrators of this Baserow instance know by submitting the form below.",
+    "description": "Do you believe this page is being used for phishing, impersonation, scams or other abusive purposes? Let the administrators of this ByRewired DB instance know by submitting the form below.",
     "submit": "Submit report",
     "close": "Close",
     "successTitle": "Thank you for your report",
-    "successDescription": "The report has been submitted and the administrators of this Baserow instance have been notified so that they can take action.",
+    "successDescription": "The report has been submitted and the administrators of this ByRewired DB instance have been notified so that they can take action.",
     "reportingDisabledTitle": "Reporting is disabled",
-    "reportingDisabledDescription": "Reporting abuse has been disabled by the administrator of this Baserow instance."
+    "reportingDisabledDescription": "Reporting abuse has been disabled by the administrator of this ByRewired DB instance."
   },
   "reportAbuseForm": {
     "nameLabel": "Your name",
@@ -1018,7 +1018,7 @@
     "howSales": "Sales outreach",
     "howOther": "Other",
     "country": "Country",
-    "share": "I'm okay with sharing this with the Baserow team"
+    "share": "I'm okay with sharing this with the ByRewired DB team"
   },
   "teamStep": {
     "description": "Which team are you on?",
@@ -1243,7 +1243,7 @@
     "userCountSummary": "{count} users ({lastUpdated})"
   },
   "academy": {
-    "learnMore": "Learn more at the Baserow academy"
+    "learnMore": "Learn more at the ByRewired DB academy"
   },
   "guidedTourStep": {
     "step": "{step} of {totalSteps}",
@@ -1259,12 +1259,12 @@
     "close": "Close"
   },
   "welcomeGuidedTourStep": {
-    "title": "Welcome to Baserow",
+    "title": "Welcome to ByRewired DB",
     "content": "Let’s take a quick tour to get you familiar with the basics. In just a few clicks, you’ll learn how to organize and visualize your data effortlessly",
     "buttonText": "Start the tour"
   },
   "controlCenterGuidedTourStep": {
-    "title": "Your Baserow Control Center",
+    "title": "Your ByRewired DB Control Center",
     "content": "The left sidebar helps you manage your workspace:\n\n- Home – Access your main dashboard.\n- Notifications – Stay updated on changes and mentions.\n- Invite Members – Collaborate by adding team members.\n- Trash – List and recover all your deleted items."
   },
   "createNewGuidedTourStep": {
@@ -1276,7 +1276,7 @@
     "createEndpoint": "Create endpoint",
     "createNewTitle": "Create MCP server endpoint",
     "backToOverview": "Back",
-    "noEndpointsMessage": "No MCP (Model Context Protocol) server endpoints have been added. These can be used to directly integrate with an LLM like Claude, and let the LLM perform actions directly in Baserow. Create a server endpoint to get started."
+    "noEndpointsMessage": "No MCP (Model Context Protocol) server endpoints have been added. These can be used to directly integrate with an LLM like Claude, and let the LLM perform actions directly in ByRewired DB. Create a server endpoint to get started."
   },
   "mcpEndpointForm": {
     "nameLabel": "Name",
@@ -1286,9 +1286,9 @@
     "detailLabel": "More details",
     "endpointURLIntro": "The MCP (Model Context Protocol) server URL can be added to any client that supports MCP servers. It's a unique endpoint that gives the LLM direct access to perform actions in the workspace on your behalf.",
     "reveal": "Reveal full URL",
-    "warning": "Treat your MCP URL like a password, as it has the ability to modify data in Baserow.",
-    "claudeInstructions": "Three simple steps to get started with Claude Desktop and the Baserow MCP.\n\n1. Open the Claude Desktop settings from the navigation bar. (⌘+,)\n1. Go to the \"Develop\" tab, and click on \"Edit Config\".\n1. Include the following JSON configuration in `claude_desktop_config.json`.",
-    "cursorInstructions": "Three simple steps to get started with Cursor and the Baserow MCP.\n\n1. Open Cursor settings (⇧+⌘+J)\n1. Navigate to the \"MCP\" tab and click \"Add MCP Server\"\n1. Add the following JSON configuration.",
+    "warning": "Treat your MCP URL like a password, as it has the ability to modify data in ByRewired DB.",
+    "claudeInstructions": "Three simple steps to get started with Claude Desktop and the ByRewired DB MCP.\n\n1. Open the Claude Desktop settings from the navigation bar. (⌘+,)\n1. Go to the \"Develop\" tab, and click on \"Edit Config\".\n1. Include the following JSON configuration in `claude_desktop_config.json`.",
+    "cursorInstructions": "Three simple steps to get started with Cursor and the ByRewired DB MCP.\n\n1. Open Cursor settings (⇧+⌘+J)\n1. Navigate to the \"MCP\" tab and click \"Add MCP Server\"\n1. Add the following JSON configuration.",
     "windsurfInstructions": "Two easy steps to set up MCP with Cascase in Windsurf.\n\n1. Navigate to Windsurf - Settings -> Advanced Settings or Command Palette -> Open Windsurf settings page.\n1. Scroll down to the Cascade section and you will find the option to add a new server, view existing servers, and a button to view the raw JSON config file at `mcp_config.json`. Add the following to it:"
   },
   "coreHTTPTriggerServiceForm": {

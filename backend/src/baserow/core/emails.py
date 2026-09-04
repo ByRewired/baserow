@@ -125,7 +125,7 @@ class WorkspaceInvitationEmail(BaseEmailMessage):
         # The subject must never contain user-controlled content like the inviter
         # name or the workspace name because that can be abused to send phishing
         # emails to anyone via workspace invitations.
-        return _("You've been invited to collaborate on Baserow")
+        return _("You've been invited to collaborate on ByRewired DB")
 
     def get_context(self):
         context = super().get_context()
@@ -165,9 +165,11 @@ class NotificationsSummaryEmail(BaseEmailMessage):
         count = self.new_notifications_count
 
         if count == 1:
-            return _("You have 1 new notification - Baserow")
+            return _("You have 1 new notification - ByRewired DB")
 
-        return _("You have %(count)d new notifications - Baserow") % {"count": count}
+        return _("You have %(count)d new notifications - ByRewired DB") % {
+            "count": count
+        }
 
     def get_context(self):
         context = super().get_context()
