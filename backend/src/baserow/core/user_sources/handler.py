@@ -356,9 +356,7 @@ class UserSourceHandler:
         :return: A queryset that can be used to update the user count in chunks.
         """
 
-        batch_per_hour = (
-            60 // settings.BASEROW_ENTERPRISE_USER_SOURCE_COUNTING_TASK_INTERVAL_MINUTES
-        )
+        batch_per_hour = 60 // settings.USER_SOURCE_COUNTING_TASK_INTERVAL_MINUTES
 
         return user_source_type.model_class.objects.annotate(
             idmod=F("id") % batch_per_hour

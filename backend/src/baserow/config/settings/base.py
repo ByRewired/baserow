@@ -1086,6 +1086,13 @@ STALE_MENTIONS_CLEANUP_INTERVAL_MINUTES = int(
 # of hours.
 BASEROW_UPDATE_WORKSPACE_STORAGE_USAGE_HOURS = 24
 
+# The interval in minutes that the user source user counting job runs at. The user
+# sources are divided over the batches that fit in an hour, so that not every user
+# source is counted in the same task. Must be a divisor of 60.
+USER_SOURCE_COUNTING_TASK_INTERVAL_MINUTES = int(
+    os.getenv("BASEROW_USER_SOURCE_COUNTING_TASK_INTERVAL_MINUTES", "") or 10
+)
+
 ONE_AM_CRONTAB_STR = "0 1 * * *"
 BASEROW_SEAT_USAGE_JOB_CRONTAB = get_crontab_from_env(
     "BASEROW_SEAT_USAGE_JOB_CRONTAB", default_crontab=ONE_AM_CRONTAB_STR
@@ -1285,6 +1292,13 @@ BASEROW_WEBHOOK_ROWS_ENTER_VIEW_BATCH_SIZE = int(
 )
 
 OAUTH_BACKEND_URL = os.getenv("BASEROW_OAUTH_BACKEND_URL") or PUBLIC_BACKEND_URL
+
+# By default an account can only be signed into with the auth provider it was
+# originally created with. Enabling this allows the same account to be used with
+# any configured SSO provider that reports the account's email address.
+BASEROW_ALLOW_MULTIPLE_SSO_PROVIDERS_FOR_SAME_ACCOUNT = str_to_bool(
+    os.getenv("BASEROW_ALLOW_MULTIPLE_SSO_PROVIDERS_FOR_SAME_ACCOUNT", "")
+)
 
 INTEGRATIONS_ALLOW_PRIVATE_ADDRESS = bool(
     os.getenv("BASEROW_INTEGRATIONS_ALLOW_PRIVATE_ADDRESS", False)

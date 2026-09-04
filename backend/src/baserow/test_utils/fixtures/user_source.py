@@ -1,7 +1,10 @@
-from typing import List
+from typing import List, Optional
 
 from django.contrib.contenttypes.models import ContentType
 
+import pytest
+
+from baserow.core.registry import InstanceTypeDoesNotExist
 from baserow.core.user_sources.models import UserSource
 from baserow.core.user_sources.registries import (
     UserSourceType,
@@ -9,9 +12,31 @@ from baserow.core.user_sources.registries import (
 )
 
 
+def get_user_source_type_or_skip(type_name: Optional[str] = None) -> UserSourceType:
+    """
+    Returns a registered user source type, or skips the test that asked for it when
+    it isn't available. User source types are provided by plugins, so a plain
+    installation doesn't necessarily have any of them.
+
+    :param type_name: The name of the required type. When omitted the first
+        registered type is returned.
+    :return: The requested user source type.
+    """
+
+    try:
+        if type_name is None:
+            return next(iter(user_source_type_registry.get_all()))
+        return user_source_type_registry.get(type_name)
+    except (StopIteration, InstanceTypeDoesNotExist):
+        pytest.skip(
+            f"The {type_name or 'first'} user source type is not registered because no "
+            f"plugin providing it is installed."
+        )
+
+
 class UserSourceFixtures:
     def create_user_source_with_first_type(self, **kwargs):
-        first_user_source_type = list(user_source_type_registry.get_all())[0]
+        first_user_source_type = get_user_source_type_or_skip()
         return self.create_user_source(first_user_source_type.model_class, **kwargs)
 
     def create_user_source(self, model_class, user=None, application=None, **kwargs):
@@ -47,6 +72,8 @@ class UserSourceFixtures:
     def create_user_table_and_role(self, user, builder, user_role, integration=None):
         """Helper to create a User table with a particular user role."""
 
+        user_source_type = get_user_source_type_or_skip("local_baserow")
+
         # Create the user table for the user_source
         user_table, user_fields, user_rows = self.build_table(
             user=user,
@@ -66,7 +93,7 @@ class UserSourceFixtures:
             user=user, application=builder
         )
         user_source = self.create_user_source(
-            user_source_type_registry.get("local_baserow").model_class,
+            user_source_type.model_class,
             application=builder,
             integration=integration,
             table=user_table,
@@ -80,6 +107,8 @@ class UserSourceFixtures:
     def create_local_baserow_table_user_source(
         self, application=None, integration=None, table=None, user=None, **kwargs
     ):
+        local_baserow_user_source_type = get_user_source_type_or_skip("local_baserow")
+
         if not application:
             if user is None:
                 user = self.create_user()
@@ -111,7 +140,6 @@ class UserSourceFixtures:
             name_field = table.field_set.get(name="Name")
             role_field = table.field_set.get(name="Role")
 
-        local_baserow_user_source_type = user_source_type_registry.get("local_baserow")
         return self.create_user_source(
             local_baserow_user_source_type.model_class,
             application=application,
