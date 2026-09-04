@@ -14,7 +14,10 @@
           </div>
           <div class="admin-settings__control">
             {{ instanceId }}
-            <a class="licenses__instance-id-copy" @click.prevent="handleCopy()">
+            <a
+              class="admin-settings__instance-id-copy"
+              @click.prevent="handleCopy()"
+            >
               {{ $t('action.copy') }}
               <Copied ref="instanceIdCopied" />
             </a>
@@ -380,3 +383,18 @@ onMounted(() => {
     settings.value.account_deletion_grace_delay
 })
 </script>
+
+<style lang="scss" scoped>
+@import '../../assets/scss/colors';
+
+.admin-settings__instance-id-copy {
+  position: relative;
+  margin-left: 8px;
+  font-size: 13px;
+  color: $color-primary-500;
+
+  &:hover {
+    color: $color-primary-600;
+  }
+}
+</style>

@@ -94,3 +94,17 @@ def on_db_connection(db):
         callback(connection)
 
     yield register
+
+
+def pytest_collection_modifyitems(config, items):
+    from baserow.contrib.database.views.registries import (
+        view_ownership_type_registry,
+    )
+
+    if "personal" in view_ownership_type_registry.registry:
+        return
+
+    skip = pytest.mark.skip(reason="the personal view ownership type is not installed")
+    for item in items:
+        if "view_ownership" in item.keywords:
+            item.add_marker(skip)
