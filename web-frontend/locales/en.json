@@ -452,6 +452,8 @@
     "snapshotOperationLimitExceededDescription": "You have reached a limit on the number of running snapshot operations. Please wait until previous operation finishes.",
     "disabledPasswordProviderTitle": "Password authentication is disabled.",
     "disabledPasswordProviderMessage": "Please use another authentication provider.",
+    "cannotDisableAllAuthProvidersTitle": "Last provider can't be disabled",
+    "cannotDisableAllAuthProvidersDescription": "At least one authentication provider must stay enabled, otherwise nobody can sign in. Enable another provider first, then disable this one.",
     "maxLocksPerTransactionExceededTitle": "PostgreSQL issue detected",
     "maxLocksPerTransactionExceededDescription": "ByRewired DB attempted to permanently delete the trashed items, but exceeded the available locks specified in `max_locks_per_transaction`.",
     "lastAdminTitle": "Can't remove last workspace admin",

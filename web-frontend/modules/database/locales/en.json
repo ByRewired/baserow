@@ -1279,7 +1279,7 @@
   },
   "createViewGuidedTourStep": {
     "title": "Personalize Your Views",
-    "content": "Create custom views like grid, calendar, kanban, or gallery to visualize your data exactly how you want it."
+    "content": "Create custom views like grid, gallery, or form to visualize your data exactly how you want it."
   },
   "createFormViewGuidedTourStep": {
     "title": "Create a Form",

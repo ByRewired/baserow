@@ -389,7 +389,7 @@
   },
   "generativeAIWorkspaceSettings": {
     "title": "Generative AI settings",
-    "description": "These settings can be used to optionally set generative AI configuration on workspace level. Features like the AI field can be disabled because they lack an API key for one of the supported models. By providing the settings here, you can enable those features. Leaving a value blank defaults back to the global instance settings. Note that everyone in the workspace will share these settings.",
+    "description": "These settings can be used to optionally set generative AI configuration on workspace level. Features like the AI prompt action can be disabled because they lack an API key for one of the supported models. By providing the settings here, you can enable those features. Leaving a value blank defaults back to the global instance settings. Note that everyone in the workspace will share these settings.",
     "providerTitle": "AI providers",
     "providerDescription": "Manage providers owned by this workspace or enable and disable providers inherited from the instance.",
     "sharedModelsTitle": "Shared across workspaces",
@@ -591,6 +591,9 @@
   "templateCard": {
     "viewMore": "View more"
   },
+  "authProviderTypes": {
+    "password": "Email and password"
+  },
   "login": {
     "title": "Welcome back",
     "emailPlaceholder": "Enter your email address..",
@@ -675,7 +678,7 @@
     "settingAllowNonStaffCreateWorkspaceOperationDescription": "By default, everyone can create new workspaces. Disable this to only allow staff to create new workspaces.",
     "settingAllowNonStaffCreateWorkspaceOperationWarning": "New users will have a workspace automatically created for them where they are an Admin.",
     "settingTrackWorkspaceUsage": "Track workspace usage",
-    "settingTrackWorkspaceUsageDescription": "Enables a nightly job that counts row and file usage per workspace, displayed on the premium workspace admin page.",
+    "settingTrackWorkspaceUsageDescription": "Enables a nightly job that counts row and file usage per workspace, displayed on the workspaces admin page.",
     "userSettings": "User",
     "settingUserDeletionGraceDelay": "Delete grace delay",
     "settingUserDeletionGraceDelayDescription": "This is the number of days without a login after which an account scheduled for deletion is permanently deleted.",
@@ -847,6 +850,12 @@
     "title": "Confirm removal from workspace",
     "confirmation": "Are you sure you want to remove {name} from {workspaceName}? This action cannot be undone.",
     "remove": "Remove"
+  },
+  "roles": {
+    "admin": {
+      "name": "Admin",
+      "description": "Can fully configure and edit workspaces and applications."
+    }
   },
   "editRoleContext": {
     "billableRolesLink": "Billable roles documentation",
