@@ -7,8 +7,6 @@ for file links and enforce access controls based on user authentication and work
 membership. However, it's important to weigh these benefits against potential
 performance costs and other considerations.
 
-Note that this is an enterprise feature.
-
 ## Configuration
 
 To enable secure file serving, you must configure the following environment variables
@@ -46,8 +44,6 @@ in your Baserow instance:
 - **Performance Cost**: Serving files through the backend can introduce a performance
   overhead. It may necessitate deploying additional backend (asgi or wsgi) workers to
   maintain fast response times.
-- **Enterprise License Required**: This feature requires a valid enterprise license to
-  activate.
 - **Domain Restrictions for Cookie-Based Authentication**: If using cookie-based user
   checks, the Baserow instance must be on the same domain or subdomains as the frontend.
   Cross-domain setups will not support this authentication method.
@@ -58,14 +54,13 @@ in your Baserow instance:
 
 ## Steps to Enable
 
-1. Ensure you have a valid enterprise license for Baserow.
-2. Configure the environment variables as described in the Configuration section above.
-3. If your files were previously served directly from a storage service like S3, adjust
+1. Configure the environment variables as described in the Configuration section above.
+2. If your files were previously served directly from a storage service like S3, adjust
    your storage service settings to ensure files are no longer publicly accessible.
    Baserow will now handle file serving.
-4. Consider the performance implications and plan for additional backend workers if
+3. Consider the performance implications and plan for additional backend workers if
    necessary.
-5. Inform users that they may need to sign in again to access files after these changes.
+4. Inform users that they may need to sign in again to access files after these changes.
 
 By following these steps and considerations, you can securely serve files through 
 Baserow, enhancing the security and control over file access within your organization.

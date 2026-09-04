@@ -23,19 +23,9 @@ appear in the AI field creation form.
 5. Verify: a provider configured only at instance level (no workspace override)
    still appears and works
 
-### 3. Licensing
-
-The AI field requires a **Premium** license. Verify:
-
-- Without Premium: AI field type is not available in the field creation dropdown
-- Without Premium: the generate button shows a Premium upgrade modal
-- With Premium: field creation and generation work normally
-- If a user who enabled auto-update loses Premium, auto-update stops for their
-  fields
-
 ## Field creation
 
-### 4. Basic creation
+### 3. Basic creation
 
 1. Create a table with a **Name** (text) column and a few rows
 2. Add an AI field — the form should show:
@@ -48,7 +38,7 @@ The AI field requires a **Premium** license. Verify:
 3. Set provider, model, and prompt (e.g. `Summarize: {Name}`)
 4. Save → field is created, cells are empty
 
-### 5. Output types
+### 4. Output types
 
 **Text output:**
 - Create an AI field with output type **Text**
@@ -61,7 +51,7 @@ The AI field requires a **Premium** license. Verify:
 - Verify: the AI response is fuzzy-matched to the closest option (e.g. model
   returns "positive" → maps to "Positive")
 
-### 6. File field support
+### 5. File field support
 
 1. Create a **File** field and upload a mix of images (.png, .jpg) and documents
    (.pdf, .csv, .docx)
@@ -80,14 +70,14 @@ The AI field requires a **Premium** license. Verify:
 
 ## Value generation
 
-### 7. Single cell generation
+### 6. Single cell generation
 
 1. Click an empty AI field cell → a **Generate** button appears
 2. Click Generate → value is produced for that row only
 3. On a populated cell, click to edit → a **Regenerate** button appears
 4. Click Regenerate → value is replaced
 
-### 8. Bulk generation
+### 7. Bulk generation
 
 1. Right-click the AI field header → **Generate values**
 2. In the dialog:
@@ -98,7 +88,7 @@ The AI field requires a **Premium** license. Verify:
 5. Verify with a filtered view: only rows matching the view's filters are
    generated
 
-### 9. Regeneration
+### 8. Regeneration
 
 - Single cell: click the cell → Regenerate button (visible when cell is not empty)
 - Bulk: use "Generate values" dialog without "Skip populated" → all cells are
@@ -107,7 +97,7 @@ The AI field requires a **Premium** license. Verify:
 
 ## Auto-update
 
-### 10. Auto-update behavior
+### 9. Auto-update behavior
 
 1. Create an AI field with a prompt referencing another field (e.g. `Categorize: {Status}`)
 2. Enable **Auto-update** and save
@@ -122,7 +112,7 @@ The AI field requires a **Premium** license. Verify:
 
 ## Error handling
 
-### 11. Configuration errors
+### 10. Configuration errors
 
 - Set an invalid API key at workspace level → generate → should show a clear
   error (not a stack trace)
@@ -131,7 +121,7 @@ The AI field requires a **Premium** license. Verify:
 - Use a file field with a provider that doesn't support files → rejected at save
   time
 
-### 12. Generation errors
+### 11. Generation errors
 
 - If the AI model returns an unparseable response for a choice field → the cell
   remains empty, no crash
@@ -140,7 +130,7 @@ The AI field requires a **Premium** license. Verify:
 
 ## Concurrency limits
 
-### 13. Job limits
+### 12. Job limits
 
 - Start a bulk generation on a field → try starting another on the same field →
   should be rejected (1 job per field)

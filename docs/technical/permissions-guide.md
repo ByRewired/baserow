@@ -407,7 +407,7 @@ If you want to create a new way to validate Permissions, you'll have to:
 
 The Permission system has been designed with these constraints in mind:
 
-- Must be extensible (to support RBAC from enterprise folder)
+- Must be extensible (to support role based access control on top of it)
 - Must be as much compatible with the previous system (The `.has_user` method)
   as possible
 - Must play well with realtime

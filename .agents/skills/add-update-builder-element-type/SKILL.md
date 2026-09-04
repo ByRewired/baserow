@@ -1,6 +1,6 @@
 ---
 name: Add Or Update Builder Element Type
-description: Add or update a Baserow Application Builder element type across backend models, backend ElementType registration, frontend element registry/components/forms/icons/translations, migrations, and targeted tests. Use when creating or changing an element shown in the builder add-element modal, page preview, public page rendering, form elements, collection elements, container elements, or enterprise-only builder elements.
+description: Add or update a Baserow Application Builder element type across backend models, backend ElementType registration, frontend element registry/components/forms/icons/translations, migrations, and targeted tests. Use when creating or changing an element shown in the builder add-element modal, page preview, public page rendering, form elements, collection elements, or container elements.
 version: 1.0.0
 ---
 
@@ -19,18 +19,15 @@ Prefer copying the nearest existing element with the same behavior:
 - Collection-backed element: `TableElement`, `RepeatElement`, `RecordSelectorElement`
 - Container element: `ColumnElement`, `SimpleContainerElement`, `FormContainerElement`
 - Multi-page container: `HeaderElement`, `FooterElement`
-- Enterprise-only element: `AuthFormElement`, `FileInputElement`
 
 ## First Step
 
 Before editing, identify:
 
-1. Open source core OSC, or Enterprise licensing (no premium for app builder elements).
-   Prompt the user for that information.
-2. Basic, form, collection, container, or multi-page behavior.
-3. Whether the type adds persisted fields.
-4. Whether fields are formulas and need formula import/export support.
-5. Whether the element has workflow events, form data, child elements, or data source
+1. Basic, form, collection, container, or multi-page behavior.
+2. Whether the type adds persisted fields.
+3. Whether fields are formulas and need formula import/export support.
+4. Whether the element has workflow events, form data, child elements, or data source
    content.
 
 Then inspect the closest existing implementation with `grep` instead of starting
@@ -39,34 +36,27 @@ patterns and target paths.
 
 Useful searches:
 
-- `grep -RInE "class .*Element\\(" backend/src/baserow/contrib/builder/elements/models.py enterprise/backend/src/baserow_enterprise/builder/elements/models.py`
-- `grep -RInE "class .*ElementType\\(" backend/src/baserow/contrib/builder/elements/element_types.py enterprise/backend/src/baserow_enterprise/builder/elements/element_types.py`
-- `grep -RInE "element_type_registry.register" backend/src/baserow/contrib/builder/apps.py enterprise/backend/src/baserow_enterprise/apps.py`
-- `grep -RInE "class .*ElementType extends" web-frontend/modules/builder/elementTypes.js enterprise/web-frontend/modules/baserow_enterprise/builder/elementTypes.js`
-- `grep -RInE "\\$registry.register\\('element'" web-frontend/modules/builder/plugin.js enterprise/web-frontend/modules/baserow_enterprise/plugin.js`
-- `grep -RInE "\"elementType\\." web-frontend/modules/builder/locales/en.json enterprise/web-frontend/modules/baserow_enterprise/locales/en.json`
+- `grep -RInE "class .*Element\\(" backend/src/baserow/contrib/builder/elements/models.py`
+- `grep -RInE "class .*ElementType\\(" backend/src/baserow/contrib/builder/elements/element_types.py`
+- `grep -RInE "element_type_registry.register" backend/src/baserow/contrib/builder/apps.py`
+- `grep -RInE "class .*ElementType extends" web-frontend/modules/builder/elementTypes.js`
+- `grep -RInE "\\$registry.register\\('element'" web-frontend/modules/builder/plugin.js`
+- `grep -RInE "\"elementType\\." web-frontend/modules/builder/locales/en.json`
 
 ## Backend Checklist
 
-For an OSC element, start in:
+Start in:
 
 - `backend/src/baserow/contrib/builder/elements/models.py`
 - `backend/src/baserow/contrib/builder/elements/element_types.py`
 - `backend/src/baserow/contrib/builder/apps.py`
 - `backend/src/baserow/contrib/builder/migrations/`
 
-For an enterprise element, use:
-
-- `enterprise/backend/src/baserow_enterprise/builder/elements/models.py`
-- `enterprise/backend/src/baserow_enterprise/builder/elements/element_types.py`
-- `enterprise/backend/src/baserow_enterprise/apps.py`
-- `enterprise/backend/src/baserow_enterprise/migrations/`
-
 When adding or updating a backend element:
 
 1. Add or update the Django model if new fields are persisted.
 2. Pick the right base model or mixin: `Element`, `FormElement`, `CollectionElement`,
-   `ContainerElement`, `MultiPageElement`, or the enterprise equivalent.
+   `ContainerElement`, or `MultiPageElement`.
 3. Add an `ElementType` subclass with stable `type` and `model_class`.
 4. Set `allowed_fields`, `serializer_field_names`, and
    `request_serializer_field_names` when create/update input differs from output.
@@ -87,7 +77,7 @@ the existing equivalent does.
 
 ## Frontend Checklist
 
-For an OSC element, start in:
+Start in:
 
 - `web-frontend/modules/builder/elementTypes.js`
 - `web-frontend/modules/builder/plugin.js`
@@ -96,14 +86,6 @@ For an OSC element, start in:
 - `web-frontend/modules/builder/assets/icons/`
 - `web-frontend/modules/builder/locales/en.json`
 - `web-frontend/modules/core/assets/scss/components/builder/elements/`
-
-For an enterprise element, use:
-
-- `enterprise/web-frontend/modules/baserow_enterprise/builder/elementTypes.js`
-- `enterprise/web-frontend/modules/baserow_enterprise/plugin.js`
-- `enterprise/web-frontend/modules/baserow_enterprise/builder/components/elements/`
-- `enterprise/web-frontend/modules/baserow_enterprise/assets/images/builder/`
-- `enterprise/web-frontend/modules/baserow_enterprise/assets/scss/components/`
 
 When adding or updating frontend behavior:
 
@@ -141,8 +123,8 @@ Check these hooks before inventing new behavior:
   `ContainerElementTypeMixin` and child rendering/drop zones.
 - Workflow events: use existing `ClickEvent`, `SubmitEvent`, dynamic event UID, and
   import/export patterns from button, form container, table, or menu elements.
-- Files: use existing user file serializer/import/export patterns from image or
-  enterprise file input elements.
+- Files: use existing user file serializer/import/export patterns from image
+  elements.
 
 ## Testing Expectations
 
@@ -154,22 +136,18 @@ Backend starting points:
 - `backend/tests/baserow/contrib/builder/elements/test_element_handler.py`
 - `backend/tests/baserow/contrib/builder/elements/test_element_service.py`
 - `backend/tests/baserow/contrib/builder/api/elements/`
-- `enterprise/backend/tests/baserow_enterprise_tests/builder/elements/test_element_types.py`
 
 Frontend starting points:
 
 - `web-frontend/test/unit/builder/elementTypes.spec.js`
 - `web-frontend/test/unit/builder/components/elements/components/`
-- `enterprise/web-frontend/test/unit/enterprise/builder/elementTypes.spec.js`
 
 Useful validation commands:
 
 - `just b test tests/baserow/contrib/builder/elements/test_element_types.py`
 - `just b test tests/baserow/contrib/builder/api/elements/`
-- `just b test enterprise/backend/tests/baserow_enterprise_tests/builder/elements/test_element_types.py`
 - `just f yarn test:core --run test/unit/builder/elementTypes.spec.js`
 - `just f yarn test:core --run test/unit/builder/components/elements/components/<Element>.spec.js`
-- `just f yarn test:enterprise --run ../enterprise/web-frontend/test/unit/enterprise/builder/elementTypes.spec.js`
 
 Minimum checks before finishing:
 
@@ -191,4 +169,3 @@ Minimum checks before finishing:
 - Do not forget generic `get_pytest_params`; many builder tests rely on it.
 - Do not bypass formula serializers for fields declared in `simple_formula_fields`.
 - Do not add broad abstractions for one element. Copy the closest local pattern first.
-- Do not place enterprise-only types in core registries.

@@ -7,7 +7,7 @@ description: Create or update a Baserow in-app notification for an event. Use wh
 
 Use this skill when a task is to add or update an in-app notification shown in Baserow's notification center.
 
-Do not invent a new notification architecture. This repo already has established backend and frontend patterns. Start from the closest existing notification type in the same product area: core, database, builder, automation, integration, premium, or enterprise.
+Do not invent a new notification architecture. This repo already has established backend and frontend patterns. Start from the closest existing notification type in the same product area: core, database, builder, automation, or integration.
 
 ## First Step
 
@@ -24,8 +24,6 @@ Useful starting points:
 
 - Core notification types: `backend/src/baserow/core/notification_types.py`
 - Database notification types: `backend/src/baserow/contrib/database/fields/notification_types.py`
-- Premium notification types: `premium/backend/src/baserow_premium/row_comments/notification_types.py`
-- Enterprise notification types: `enterprise/backend/src/baserow_enterprise/data_scanner/notification_types.py`
 - Backend notification APIs: `backend/src/baserow/core/notifications/handler.py`
 - Backend notification base classes: `backend/src/baserow/core/notifications/registries.py`
 - Frontend base notification type: `web-frontend/modules/core/notificationTypes.js`
@@ -57,8 +55,6 @@ Common backend registration points:
 
 - `backend/src/baserow/core/apps.py`
 - `backend/src/baserow/contrib/database/apps.py`
-- `premium/backend/src/baserow_premium/apps.py`
-- `enterprise/backend/src/baserow_enterprise/apps.py`
 
 ## Frontend Pattern
 
@@ -74,8 +70,6 @@ Common frontend registration points:
 
 - `web-frontend/modules/core/plugin.js`
 - `web-frontend/modules/database/plugin.js`
-- `premium/web-frontend/modules/baserow_premium/plugin.js`
-- `enterprise/web-frontend/modules/baserow_enterprise/plugin.js`
 
 ## Define The Target Clearly
 
@@ -202,8 +196,8 @@ Add the narrowest backend tests that prove:
 
 Useful existing tests:
 
-- `premium/backend/tests/baserow_premium_tests/row_comments/test_row_comments_notification_types.py`
-- `enterprise/backend/tests/baserow_enterprise_tests/data_scanner/test_data_scanner_notification_types.py`
+- `backend/tests/baserow/core/notifications/test_notification_types.py`
+- `backend/tests/baserow/contrib/database/field/test_field_notification_types.py`
 
 If you add custom frontend routing or rendering logic, add or update a focused frontend unit test near the notification type or component.
 
@@ -213,11 +207,11 @@ Use these searches to move quickly:
 
 Use `rg -n "<pattern>" <paths>` as a faster equivalent when `rg` is available.
 
-- `grep -RInE "class .*NotificationType" backend/src premium/backend/src enterprise/backend/src`
-- `grep -RInE "notification_type_registry.register" backend/src premium/backend/src enterprise/backend/src`
-- `grep -RInE "new .*NotificationType\\(context\\)" web-frontend premium/web-frontend enterprise/web-frontend`
-- `grep -RInE "NotificationHandler\\.create_direct_notification_for_users|UserNotificationsGrouper|create_broadcast_notification" backend/src premium/backend/src enterprise/backend/src`
-- `grep -RInE "data__contains=.*_id|get_notification_by\\(" backend/src premium/backend/src enterprise/backend/src`
+- `grep -RInE "class .*NotificationType" backend/src`
+- `grep -RInE "notification_type_registry.register" backend/src`
+- `grep -RInE "new .*NotificationType\\(context\\)" web-frontend`
+- `grep -RInE "NotificationHandler\\.create_direct_notification_for_users|UserNotificationsGrouper|create_broadcast_notification" backend/src`
+- `grep -RInE "data__contains=.*_id|get_notification_by\\(" backend/src`
 
 ## Guardrails
 

@@ -3,9 +3,8 @@
 The assistant eval suite runs the real agent against a live LLM to verify
 end-to-end behaviour: tool selection, schema compatibility, row creation, etc.
 
-All eval tests live under
-`enterprise/backend/tests/baserow_enterprise_tests/assistant/evals/` and are
-marked with `@pytest.mark.eval` so they are **skipped by default** in CI and
+All eval tests live in the `evals/` directory of the assistant test suite and
+are marked with `@pytest.mark.eval` so they are **skipped by default** in CI and
 local test runs.
 
 ## Prerequisites
@@ -25,11 +24,11 @@ export GROQ_API_KEY=gsk_...
 export BASEROW_BACKEND_LOG_LEVEL=WARNING
 
 # Run all evals with the default model (groq:openai/gpt-oss-120b)
-just b test ../enterprise/backend/tests/baserow_enterprise_tests/assistant/evals/ \
+just b test path/to/assistant/evals/ \
   -m eval -v
 
 # Run a single eval file
-just b test ../enterprise/backend/tests/baserow_enterprise_tests/assistant/evals/test_eval_core_builders.py \
+just b test path/to/assistant/evals/test_eval_core_builders.py \
   -m eval -v
 ```
 
@@ -57,7 +56,7 @@ The eval conftest reads API keys from the same `TEST_ENV_FILE` that
 
 ```bash
 TEST_ENV_FILE=.env.testing-local just b test \
-  ../enterprise/backend/tests/baserow_enterprise_tests/assistant/evals/ -m eval -v -s
+  path/to/assistant/evals/ -m eval -v -s
 ```
 
 Variables already present in `os.environ` take precedence.
@@ -66,7 +65,7 @@ Variables already present in `os.environ` take precedence.
 
 ```bash
 GROQ_API_KEY=... OPENAI_API_KEY=... EVAL_LLM_MODEL="groq:openai/gpt-oss-120b,openai:gpt-4o" \
-just b test ../enterprise/backend/tests/baserow_enterprise_tests/assistant/evals/ \
+just b test path/to/assistant/evals/ \
   -m eval -v -s
 ```
 
@@ -76,9 +75,7 @@ Each test will run once per model, with the model name shown in the test ID.
 
 File names follow the pattern `test_eval_{module}_{feature}.py`, where module
 maps to the tool directory (`core`, `database`, `automation`, `navigation`,
-`search_user_docs`). Browse
-`enterprise/backend/tests/baserow_enterprise_tests/assistant/evals/` for the
-full list. Each file defines its prompts as module-level `PROMPT_*` constants
+`search_user_docs`). Browse the `evals/` directory for the full list. Each file defines its prompts as module-level `PROMPT_*` constants
 at the top, making it easy to scan which scenarios are covered without reading
 the test bodies.
 
@@ -218,7 +215,7 @@ To force a fresh sync (e.g. after schema changes or new documentation):
 
 ```bash
 # Drop and recreate the test DB, then re-sync
-just b test ../enterprise/backend/tests/baserow_enterprise_tests/assistant/evals/test_eval_search_user_docs.py \
+just b test path/to/assistant/evals/test_eval_search_user_docs.py \
   -m eval -v -s --create-db
 ```
 
@@ -226,11 +223,11 @@ just b test ../enterprise/backend/tests/baserow_enterprise_tests/assistant/evals
 
 ```bash
 # Only search docs evals
-just b test ../enterprise/backend/tests/baserow_enterprise_tests/assistant/evals/test_eval_search_user_docs.py \
+just b test path/to/assistant/evals/test_eval_search_user_docs.py \
   -m eval -v -s
 
 # A single test case by parametrize ID
-just b test ../enterprise/backend/tests/baserow_enterprise_tests/assistant/evals/test_eval_search_user_docs.py \
+just b test path/to/assistant/evals/test_eval_search_user_docs.py \
   -m eval -v -s -k "vlookup-to-link-row"
 ```
 
@@ -250,7 +247,7 @@ LLM evals are inherently non-deterministic. If a test fails intermittently:
 - Use `EVAL_RETRIES` to automatically distinguish flakes from consistent bugs:
   ```bash
   EVAL_RETRIES=3 just b test \
-    ../enterprise/backend/tests/baserow_enterprise_tests/assistant/evals/test_eval_database_tables.py \
+    path/to/assistant/evals/test_eval_database_tables.py \
     -m eval -v -s
   ```
   A test that passes on retry is a flake; one that fails all 3 retries is a real problem.

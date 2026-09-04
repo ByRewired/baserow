@@ -7,8 +7,7 @@
 Run the unit test suite (no LLM needed):
 
 ```bash
-just b test -n auto ../enterprise/backend/tests/baserow_enterprise_tests/assistant/ \
-  -v --ignore=enterprise/backend/tests/baserow_enterprise_tests/assistant/evals
+just b test -n auto path/to/assistant/ -v --ignore=path/to/assistant/evals
 ```
 
 All tests must pass. These cover: assistant orchestrator, all tool modules,
@@ -23,8 +22,7 @@ the `search_user_docs` tool also require a running embedding service — set
 
 ```bash
 GROQ_API_KEY=gsk_... BASEROW_EMBEDDINGS_API_URL=http://... \
-just b test ../enterprise/backend/tests/baserow_enterprise_tests/assistant/evals/ \
-  -m eval -v -s
+just b test path/to/assistant/evals/ -m eval -v -s
 ```
 
 > **Note:** Evals are non-deterministic and are not guaranteed to pass every

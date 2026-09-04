@@ -1,7 +1,5 @@
 # Custom Client Scripts
 
-> **Enterprise feature** -- requires an active enterprise license.
-
 The `BASEROW_EXTRA_CLIENT_SCRIPT_URLS` environment variable lets self-hosted operators
 inject custom client-side JavaScript into every page without building a full plugin.
 Scripts are loaded in the `<head>` and execute before the application hydrates.
@@ -112,8 +110,6 @@ window.__baserow.hook('app:mounted', () => {
 
 ## Notes
 
-* Scripts are only loaded when the enterprise license includes the
-  `ENTERPRISE_SETTINGS` feature.
 * The `hook()` function accepts any
   [Nuxt lifecycle hook name](https://nuxt.com/docs/api/advanced/hooks#app-hooks-runtime).
   `app:mounted` is the most common choice for DOM manipulation.

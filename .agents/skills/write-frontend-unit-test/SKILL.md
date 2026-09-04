@@ -1,12 +1,12 @@
 ---
 name: Write Frontend Unit Test
-description: Write or update Baserow frontend unit tests for core, premium, or enterprise code using the repo's existing Vitest, Nuxt, Vue Test Utils, TestApp, and snapshot patterns.
+description: Write or update Baserow frontend unit tests using the repo's existing Vitest, Nuxt, Vue Test Utils, TestApp, and snapshot patterns.
 version: 1.0.0
 ---
 
 # Write Baserow Frontend Unit Tests
 
-Use this skill when a task is to add, fix, or extend a frontend unit test in `web-frontend`, `premium/web-frontend`, or `enterprise/web-frontend`.
+Use this skill when a task is to add, fix, or extend a frontend unit test in `web-frontend`.
 
 Do not invent a generic Vue testing style. This repo already has established patterns. Start by finding the closest existing spec and copy its setup shape.
 
@@ -18,7 +18,6 @@ Before editing, identify the test target:
 2. Vuex store logic
 3. Vue component mounted with the shared app context
 4. Nuxt/Vue 3 component mounted directly with `mountSuspended`
-5. Premium or enterprise variant of one of the above
 
 Then inspect the nearest existing spec in the same module area.
 
@@ -26,9 +25,9 @@ Useful searches:
 
 Use `rg` as a faster equivalent when it is available.
 
-- `find web-frontend/test premium/web-frontend/test enterprise/web-frontend/test -type f | grep '\.spec\.'`
-- `grep -RInE "new TestApp\\(|new PremiumTestApp\\(|mountSuspended\\(" web-frontend/test premium/web-frontend/test enterprise/web-frontend/test`
-- `grep -RInE "toMatchSnapshot\\(|vi\\.fn\\(|vi\\.spyOn\\(" web-frontend/test premium/web-frontend/test enterprise/web-frontend/test`
+- `find web-frontend/test -type f | grep '\.spec\.'`
+- `grep -RInE "new TestApp\\(|mountSuspended\\(" web-frontend/test`
+- `grep -RInE "toMatchSnapshot\\(|vi\\.fn\\(|vi\\.spyOn\\(" web-frontend/test`
 
 ## Tooling Used In This Repo
 
@@ -37,14 +36,13 @@ Current frontend unit tests use:
 - `vitest` for `describe`, `test`, `expect`, `vi`
 - `@vue/test-utils`
 - `@nuxt/test-utils/runtime` with `mountSuspended`
-- Repo helpers such as `TestApp`, `PremiumTestApp`, `MockServer`, and fixtures under `web-frontend/test`
+- Repo helpers such as `TestApp`, `MockServer`, and fixtures under `web-frontend/test`
 - Snapshot assertions for rendered HTML when the component output matters
 
 Important local files:
 
 - `web-frontend/vitest.setup.ts`
 - `web-frontend/test/helpers/testApp.js`
-- `premium/web-frontend/test/helpers/premiumTestApp.js`
 
 `vitest.setup.ts` already mocks i18n, UUID generation, and `WebSocket`. Reuse that environment instead of re-mocking those globally in each spec.
 
@@ -77,23 +75,20 @@ Good examples:
 - `web-frontend/test/unit/core/store/auth.spec.js`
 - `web-frontend/test/unit/builder/store/dataSource.spec.js`
 
-If the code lives in premium and needs premium-only auth/license behavior, use `PremiumTestApp`.
-
 ### Shared app component tests
 
 For many components, especially older patterns or components coupled to store, router, registry, or client behavior:
 
-1. Create `testApp = new TestApp()` or `new PremiumTestApp()`.
+1. Create `testApp = new TestApp()`.
 2. Mount with `testApp.mount(Component, { props, propsData, slots, listeners, global })`.
 3. Prefer the existing helper in the file, for example `mountComponent(...)`.
 4. Clean up with `await testApp.afterEach()`.
 
 `TestApp.mount` supports both `props` and legacy `propsData`, and converts `listeners` into Vue 3 event props. Match the nearby spec instead of rewriting all setup.
 
-Good examples:
+Good example:
 
 - `web-frontend/test/unit/core/components/dropdown.spec.js`
-- `premium/web-frontend/test/unit/premium/view/calendar/calendarView.spec.js`
 
 ### Direct `mountSuspended` component tests
 
@@ -140,18 +135,14 @@ Don't directly use vm properties.
 Prefer repo helpers over bespoke mocks:
 
 1. Use `testApp.mockServer` when the behavior depends on store-backed API calls.
-2. Use fixtures under `web-frontend/test/fixtures` and premium or enterprise fixture folders when suitable.
+2. Use fixtures under `web-frontend/test/fixtures` when suitable.
 3. Use `testApp.dontFailOnErrorResponses()` only when the test intentionally exercises failing responses.
 
 Do not build a large custom mock environment if `TestApp` already provides the needed app, client, registry, router, and store wiring.
 
 ## File Placement
 
-Follow the existing test tree:
-
-- Core: `web-frontend/test/unit/...`
-- Premium: `premium/web-frontend/test/unit/...`
-- Enterprise: `enterprise/web-frontend/test/unit/...`
+Follow the existing test tree under `web-frontend/test/unit/...`.
 
 Keep the spec near the feature area rather than creating a new generic test folder.
 
@@ -163,16 +154,14 @@ Examples:
 
 - `just f yarn test:core --run test/unit/core/components/dropdown.spec.js`
 - `just f yarn test:core --run test/unit/core/store/auth.spec.js`
-- `just f yarn test:premium --run ../premium/web-frontend/test/unit/premium/view/calendar/calendarView.spec.js`
-- `just f yarn test:enterprise --run ../enterprise/web-frontend/test/unit/enterprise/plugins.spec.js`
 
 If a snapshot changes intentionally, review the diff instead of blindly accepting it.
 
 ## Guardrails
 
 - Do not introduce Jest APIs. Use Vitest APIs already present in the repo.
-- Do not add a standalone mount helper when `TestApp` or `PremiumTestApp` already fits.
+- Do not add a standalone mount helper when `TestApp` already fits.
 - Do not over-mock store, router, or client dependencies if the real test helpers can provide them.
 - Do not mix unrelated styles in one file. Match the nearest local spec.
-- Do not leave out `afterEach` cleanup when using `TestApp` or `PremiumTestApp`.
+- Do not leave out `afterEach` cleanup when using `TestApp`.
 - Do not create broad integration-style tests when a focused unit test is enough.

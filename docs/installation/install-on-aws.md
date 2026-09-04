@@ -364,7 +364,7 @@ certain services inside the container.
 
 You should now have a fully running Baserow cluster. The first user to sign-up becomes
 the first "staff" instance-wide admin user. This user can then configure Baserow's
-in-tool settings, active enterprise licenses, promote other users to being staff etc.
+in-tool settings, promote other users to being staff etc.
 
 ## Option 2) Deploying Baserow as separate services to Fargate/ECS
 
@@ -607,8 +607,8 @@ complex to get working so if you need any help please post in
 our [community forums](https://community.baserow.io).
 
 The first user to sign-up becomes the first "staff" instance-wide admin user. This user
-can then configure Baserow's in-tool settings, active enterprise licenses, promote other
-users to being staff etc.
+can then configure Baserow's in-tool settings, promote other users to being staff
+etc.
 
 ## Upgrading Baserow
 

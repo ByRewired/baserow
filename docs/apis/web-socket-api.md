@@ -213,9 +213,3 @@ To stop receiving updates related to a page you are subscribed to, you will need
 * `view_decoration_deleted`
 * `view_field_options_updated`
 * `views_reordered`
-
-### Premium message types
-
-* `row_comment_created`
-* `row_comment_updated`
-* `row_comment_deleted`

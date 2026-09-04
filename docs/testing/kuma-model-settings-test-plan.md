@@ -14,8 +14,6 @@ choice per workspace.
 
 - The `ai-providers` feature flag is enabled (`FEATURE_FLAGS=*` or an explicit list
   containing `ai-providers`) on backend, celery and web-frontend.
-- An **Enterprise** license is active — Kuma is enterprise-only. AI fields need
-  **Premium**.
 - `BASEROW_ENTERPRISE_ASSISTANT_LLM_MODEL` **is set** together with the credentials
   its provider needs. This matters: the legacy fallback must exist, otherwise
   "unconfigured" and "disabled" look identical in the UI.
@@ -66,7 +64,7 @@ import os
 
 from baserow.core.ai_provider.handler import AIProviderHandler
 from baserow.core.models import Workspace
-from baserow_enterprise.assistant.model_profiles import resolve_assistant_model
+from baserow.assistant.model_profiles import resolve_assistant_model
 
 ids = [int(value) for value in os.environ.get("WORKSPACE_IDS", "").split(",") if value]
 scopes = [None] + list(Workspace.objects.filter(id__in=ids).order_by("id"))
@@ -143,8 +141,7 @@ refused instead — see 4.5.
 Verify:
 - The provider is created with all three models.
 - Each model row shows `Available for: AI fields, Kuma` and `Available for: AI fields`.
-  The order follows the feature registry (premium before enterprise), not the order
-  you ticked the boxes.
+  The order follows the feature registry, not the order you ticked the boxes.
 - A model with no boxes ticked saves, and its row shows
   `Not available to any listed feature`.
 
@@ -586,10 +583,9 @@ model rows and the **AI features** selection update live.
 
 ## 8. Permissions
 
-The error codes below are the ones an **Enterprise** instance returns, where the RBAC
-role permission manager denies first. Without RBAC the basic manager answers instead
-and you get `ERROR_USER_INVALID_GROUP_PERMISSIONS` — so run these with the licence
-this plan assumes, or the codes will not match.
+The error codes below are the ones the default permission managers return. An
+instance that adds a role based permission manager can deny earlier and answer with
+different codes, such as `ERROR_USER_INVALID_GROUP_PERMISSIONS`.
 
 ### 8.1 Instance settings need staff
 

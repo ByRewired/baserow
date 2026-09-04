@@ -25,8 +25,8 @@ Inspect the closest existing registry before editing. Useful patterns:
 
 Useful searches:
 
-- `rg -n "class .*Registry|_registry = .*Registry|\\.register\\(" backend/src premium/backend enterprise/backend`
-- `rg -n "register\\(new .*Type|registerNamespace|getOrderedList|getAll\\(" web-frontend premium/web-frontend enterprise/web-frontend`
+- `rg -n "class .*Registry|_registry = .*Registry|\\.register\\(" backend/src`
+- `rg -n "register\\(new .*Type|registerNamespace|getOrderedList|getAll\\(" web-frontend`
 - `rg -n "ModelRegistryMixin|CustomFieldsRegistryMixin|APIUrlsRegistryMixin|EasyImportExportMixin" backend/src`
 
 ## Backend Registry Shape

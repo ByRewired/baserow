@@ -110,9 +110,9 @@ When a service serializes a foreign key or path containing IDs, migrate it throu
   `services`.
 
 Examples: `CoreStartWorkflowServiceType.deserialize_property()` for workflow IDs,
-`CoreRouterServiceType` for edge UIDs, local Baserow service types for table/field
-IDs, and premium grouped aggregate services for nested field references. Add a
-regression test that imports with an old-to-new `id_mapping`.
+`CoreRouterServiceType` for edge UIDs, and local Baserow service types for
+table/field IDs. Add a regression test that imports with an old-to-new
+`id_mapping`.
 
 ## Product Surface Checklist
 

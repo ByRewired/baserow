@@ -7,8 +7,8 @@ providers. The architecture splits into two layers:
 
 - **Core layer** (`baserow.core.generative_ai`) — provider abstraction,
   prompt execution, file handling contract. Provider-agnostic.
-- **Premium layer** (`baserow_premium.fields`) — AI field type, handler
-  (orchestration), output types, job scheduling.
+- **AI field layer** — AI field type, handler (orchestration), output types,
+  job scheduling.
 
 ## Core: GenerativeAIModelType
 
@@ -50,7 +50,7 @@ The database-provider API supplies the available provider configuration, while
 the frontend registry supplies presentation and legacy workspace-setting
 behavior.
 
-## Premium: AIFieldHandler
+## AIFieldHandler
 
 `AIFieldHandler` is the single entry point for AI field operations:
 

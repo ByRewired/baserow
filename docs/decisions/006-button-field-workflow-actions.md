@@ -110,8 +110,7 @@ modules is a promising follow-up with the builder team, not a prerequisite.
 
 The first version registers service-backed types only: create, update, and delete
 row(s), backed by the existing Local Baserow services. External types (HTTP request,
-SMTP email, Slack) and code execution follow later, with the same premium or enterprise
-licensing those services already have elsewhere.
+SMTP email, Slack) and code execution follow later.
 
 Frontend-only actions (success toast, navigate to a URL or table, apply a temporary
 filter) will likely be wanted later. The `service` foreign key therefore goes on the

@@ -20,7 +20,7 @@ ActionTypes → Django ORM
 ```
 
 - **MCPTool** (`registries.py`) — Base class for all tools. Subclasses define a `type`, a Pydantic `input_schema`, and implement `_sync_call()`. Tools with `enabled = False` are registered but hidden from MCP clients.
-- **Services layer** (`services.py`) — Workspace-scoped database operations. Shared by both MCP tools and the enterprise AI assistant.
+- **Services layer** (`services.py`) — Workspace-scoped database operations. Shared by the MCP tools.
 - **Action types** — All mutations go through Baserow's action-type layer, so operations are undoable and audit-logged.
 - **Workspace isolation** — Every service function enforces workspace-scoped access. Tools cannot touch data outside the endpoint's workspace.
 
