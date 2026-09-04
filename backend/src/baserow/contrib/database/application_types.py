@@ -16,6 +16,8 @@ from django.urls import include, path
 from django.utils import translation
 from django.utils.translation import gettext as _
 
+from loguru import logger
+
 from baserow.contrib.database.api.serializers import DatabaseSerializer
 from baserow.contrib.database.db.schema import safe_django_schema_editor
 from baserow.contrib.database.fields.field_cache import FieldCache
@@ -26,6 +28,7 @@ from baserow.contrib.database.fields.utils.field_constraint import (
 from baserow.contrib.database.models import Database, Field, View
 from baserow.contrib.database.operations import ListTablesDatabaseTableOperationType
 from baserow.contrib.database.table.handler import TableHandler
+from baserow.contrib.database.views.exceptions import ViewTypeDoesNotExist
 from baserow.contrib.database.views.registries import view_type_registry
 from baserow.core.db import specific_queryset
 from baserow.core.handler import CoreHandler
@@ -955,7 +958,21 @@ class DatabaseApplicationType(ApplicationType):
         table_name = serialized_table["name"]
         cache: Dict[str, Any] = {}
         for serialized_view in serialized_table["views"]:
-            view_type = view_type_registry.get(serialized_view["type"])
+            try:
+                view_type = view_type_registry.get(serialized_view["type"])
+            except ViewTypeDoesNotExist:
+                # View types are contributed by plugins, so an export can name
+                # one this instance does not have. The rows are what matter, so
+                # skip the view rather than failing the whole import.
+                logger.warning(
+                    f"Skipping a {serialized_view['type']} view of table "
+                    f"{table_name} because that view type is not installed."
+                )
+                progress.increment(
+                    state=f"{IMPORT_SERIALIZED_IMPORTING_TABLE_STRUCTURE}{table_name}"
+                )
+                continue
+
             view_type.import_serialized(
                 table,
                 serialized_view,

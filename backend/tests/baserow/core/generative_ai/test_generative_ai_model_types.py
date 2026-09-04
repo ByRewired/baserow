@@ -27,7 +27,7 @@ class FakeAIFile:
     mime_type: str
     content_bytes: bytes = b""
     content: Optional[Any] = None
-    provider_file_id: str = ""
+    provider_file_id: Optional[str] = None
 
     def read_content(self) -> bytes:
         return self.content_bytes
