@@ -1070,6 +1070,12 @@
     "workspaces": "Workspaces",
     "aiProviders": "AI providers"
   },
+  "aiProviderModelFeature": {
+    "aiFields": "AI fields",
+    "aiFieldsDescription": "Each AI field picks its own model from the eligible models.",
+    "kuma": "Kuma",
+    "kumaDescription": "The AI assistant uses one model per scope and needs tool calling."
+  },
   "aiProviderAdmin": {
     "title": "AI providers",
     "description": "Manage the instance-level providers and models available to workspaces and automations.",

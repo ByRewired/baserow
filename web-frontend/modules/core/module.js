@@ -83,6 +83,9 @@ export default defineNuxtModule({
         baserowMaxFieldTextLength: 1_000_000,
         baserowDisableSupport: '',
         baserowIntegrationsPeriodicMinuteMin: '1',
+        // Declared so the remapped assistant model variable can override it; an
+        // undeclared key is ignored by the runtime config.
+        baserowEnterpriseAssistantLlmModel: '',
         mediaUrl: 'http://localhost:4000/media/',
         sentryDsn: '',
         sentryEnvironment: '',

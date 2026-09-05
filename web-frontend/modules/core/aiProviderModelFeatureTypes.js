@@ -42,3 +42,49 @@ export class AIProviderModelFeatureType extends Registerable {
     return ''
   }
 }
+
+export class AIFieldsAIProviderModelFeatureType extends AIProviderModelFeatureType {
+  static getType() {
+    return 'ai_fields'
+  }
+
+  getOrder() {
+    return 10
+  }
+
+  getName() {
+    return this.app.$i18n.t('aiProviderModelFeature.aiFields')
+  }
+
+  getDescription() {
+    return this.app.$i18n.t('aiProviderModelFeature.aiFieldsDescription')
+  }
+}
+
+export class KumaAIProviderModelFeatureType extends AIProviderModelFeatureType {
+  static getType() {
+    return 'kuma'
+  }
+
+  getOrder() {
+    return 20
+  }
+
+  getName() {
+    return this.app.$i18n.t('aiProviderModelFeature.kuma')
+  }
+
+  getDescription() {
+    return this.app.$i18n.t('aiProviderModelFeature.kumaDescription')
+  }
+
+  supportsLegacyModel() {
+    return true
+  }
+
+  getLegacyModel() {
+    // The assistant reads this model from the environment of the process it runs
+    // in, so the option can only be offered when this process was given it too.
+    return this.app.$config?.public?.baserowEnterpriseAssistantLlmModel || ''
+  }
+}

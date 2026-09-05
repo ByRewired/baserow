@@ -522,6 +522,21 @@ class CoreConfig(AppConfig):
         generative_ai_model_type_registry.register(OllamaGenerativeAIModelType())
         generative_ai_model_type_registry.register(OpenRouterGenerativeAIModelType())
 
+        from baserow.core.ai_provider.feature_types import (
+            AIFieldsAIProviderModelFeatureType,
+            KumaAIProviderModelFeatureType,
+        )
+        from baserow.core.ai_provider.registries import (
+            ai_provider_model_feature_type_registry,
+        )
+
+        ai_provider_model_feature_type_registry.register(
+            AIFieldsAIProviderModelFeatureType()
+        )
+        ai_provider_model_feature_type_registry.register(
+            KumaAIProviderModelFeatureType()
+        )
+
         # Must import the Posthog signal, otherwise it won't work.
         import baserow.core.posthog  # noqa: F403, F401
 

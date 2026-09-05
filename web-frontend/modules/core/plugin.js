@@ -32,6 +32,10 @@ import {
   GroqModelType,
 } from '@baserow/modules/core/generativeAIModelTypes'
 import {
+  AIFieldsAIProviderModelFeatureType,
+  KumaAIProviderModelFeatureType,
+} from '@baserow/modules/core/aiProviderModelFeatureTypes'
+import {
   UploadFileUserFileUploadType,
   UploadViaURLUserFileUploadType,
 } from '@baserow/modules/core/userFileUploadTypes'
@@ -194,6 +198,15 @@ export default defineNuxtPlugin({
     registry.register('generativeAIModel', new MistralModelType(context))
     registry.register('generativeAIModel', new OllamaModelType(context))
     registry.register('generativeAIModel', new OpenRouterModelType(context))
+
+    registry.register(
+      'aiProviderModelFeature',
+      new AIFieldsAIProviderModelFeatureType(context)
+    )
+    registry.register(
+      'aiProviderModelFeature',
+      new KumaAIProviderModelFeatureType(context)
+    )
 
     registry.register(
       'permissionManager',
