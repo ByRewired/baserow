@@ -42,14 +42,17 @@ describe('getEnabledCopyOptionKeys', () => {
       'default_row_values',
     ])
 
+    // Decorators come from a plugin, so a plain installation has none to copy.
     const decorator = Object.values(registry.getAll('viewDecorator'))[0]
-    const isDeactivatedSpy = vi
-      .spyOn(Object.getPrototypeOf(decorator), 'isDeactivated')
-      .mockReturnValue(false)
-    expect(
-      getEnabledCopyOptionKeys(registry, view('grid'), view('grid'))
-    ).toContain('decorations')
-    isDeactivatedSpy.mockRestore()
+    if (decorator) {
+      const isDeactivatedSpy = vi
+        .spyOn(Object.getPrototypeOf(decorator), 'isDeactivated')
+        .mockReturnValue(false)
+      expect(
+        getEnabledCopyOptionKeys(registry, view('grid'), view('grid'))
+      ).toContain('decorations')
+      isDeactivatedSpy.mockRestore()
+    }
   })
 
   test('grid to gallery disables grid specific options', () => {
