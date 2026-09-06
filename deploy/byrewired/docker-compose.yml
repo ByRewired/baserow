@@ -1,0 +1,54 @@
+# Single host deployment of ByRewired DB behind a Cloudflare tunnel.
+#
+# The tunnel dials out to Cloudflare and reaches the app over the internal
+# network, so no port is published on the host and the instance needs no
+# inbound security rule.
+services:
+  byrewired:
+    image: byrewired/all-in-one:latest
+    container_name: byrewired
+    restart: unless-stopped
+    environment:
+      # Must be the address people actually visit. The frontend builds its
+      # asset and websocket urls from this, and realtime silently stops
+      # working when it does not match.
+      BASEROW_PUBLIC_URL: ${BASEROW_PUBLIC_URL:?set this to the public https url}
+      SECRET_KEY: ${SECRET_KEY:?generate one with openssl rand -hex 32}
+      BASEROW_JWT_SIGNING_KEY: ${BASEROW_JWT_SIGNING_KEY:?generate one with openssl rand -hex 32}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:?set a database password}
+      # Gunicorn holds the request workers, celery runs exports, webhooks and
+      # the automation nodes. Two and one fit comfortably in 4GB.
+      BASEROW_AMOUNT_OF_GUNICORN_WORKERS: ${GUNICORN_WORKERS:-2}
+      BASEROW_AMOUNT_OF_WORKERS: ${CELERY_WORKERS:-1}
+    volumes:
+      # Postgres data and uploaded files both live here. Losing this volume
+      # loses the installation.
+      - byrewired_data:/baserow/data
+    networks:
+      - byrewired
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost/api/_health/"]
+      interval: 30s
+      timeout: 10s
+      # The first boot runs migrations and builds the search indexes.
+      start_period: 240s
+      retries: 5
+
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: byrewired-tunnel
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN:?copy this from the cloudflare zero trust dashboard}
+    depends_on:
+      byrewired:
+        condition: service_healthy
+    networks:
+      - byrewired
+
+volumes:
+  byrewired_data:
+
+networks:
+  byrewired:
