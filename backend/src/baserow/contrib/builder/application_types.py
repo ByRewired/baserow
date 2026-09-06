@@ -652,7 +652,9 @@ class BuilderApplicationType(ApplicationType):
                 for slot in sorted(
                     by_slot, key=lambda s: min(e.id for e in by_slot[s])
                 ):
-                    ordered.extend(sorted(by_slot[slot], key=lambda e: (e.order, e.id)))
+                    ordered.extend(
+                        sorted(by_slot[slot], key=lambda e: (e.compat_order, e.id))
+                    )
                 return [
                     {
                         "type": element.get_type().type,
