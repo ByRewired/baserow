@@ -165,12 +165,6 @@
           'children': list([
           ]),
           'place_in_container': '',
-          'type': 'auth_form',
-        }),
-        dict({
-          'children': list([
-          ]),
-          'place_in_container': '',
           'type': 'link',
         }),
       ]),

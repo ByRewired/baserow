@@ -321,12 +321,6 @@
           'place_in_container': '',
           'type': 'heading',
         }),
-        dict({
-          'children': list([
-          ]),
-          'place_in_container': '',
-          'type': 'auth_form',
-        }),
       ]),
       'Project details': list([
         dict({
@@ -1426,6 +1420,66 @@
                 dict({
                   'children': list([
                   ]),
+                  'place_in_container': '0',
+                  'type': 'text',
+                }),
+                dict({
+                  'children': list([
+                  ]),
+                  'place_in_container': '0',
+                  'type': 'text',
+                }),
+                dict({
+                  'children': list([
+                  ]),
+                  'place_in_container': '0',
+                  'type': 'text',
+                }),
+                dict({
+                  'children': list([
+                  ]),
+                  'place_in_container': '0',
+                  'type': 'text',
+                }),
+                dict({
+                  'children': list([
+                  ]),
+                  'place_in_container': '0',
+                  'type': 'text',
+                }),
+                dict({
+                  'children': list([
+                  ]),
+                  'place_in_container': '0',
+                  'type': 'text',
+                }),
+                dict({
+                  'children': list([
+                  ]),
+                  'place_in_container': '1',
+                  'type': 'text',
+                }),
+                dict({
+                  'children': list([
+                  ]),
+                  'place_in_container': '1',
+                  'type': 'link',
+                }),
+                dict({
+                  'children': list([
+                  ]),
+                  'place_in_container': '1',
+                  'type': 'text',
+                }),
+                dict({
+                  'children': list([
+                  ]),
+                  'place_in_container': '1',
+                  'type': 'link',
+                }),
+                dict({
+                  'children': list([
+                  ]),
                   'place_in_container': '2',
                   'type': 'text',
                 }),
@@ -1440,66 +1494,6 @@
                   ]),
                   'place_in_container': '2',
                   'type': 'repeat',
-                }),
-                dict({
-                  'children': list([
-                  ]),
-                  'place_in_container': '0',
-                  'type': 'text',
-                }),
-                dict({
-                  'children': list([
-                  ]),
-                  'place_in_container': '0',
-                  'type': 'text',
-                }),
-                dict({
-                  'children': list([
-                  ]),
-                  'place_in_container': '0',
-                  'type': 'text',
-                }),
-                dict({
-                  'children': list([
-                  ]),
-                  'place_in_container': '0',
-                  'type': 'text',
-                }),
-                dict({
-                  'children': list([
-                  ]),
-                  'place_in_container': '0',
-                  'type': 'text',
-                }),
-                dict({
-                  'children': list([
-                  ]),
-                  'place_in_container': '0',
-                  'type': 'text',
-                }),
-                dict({
-                  'children': list([
-                  ]),
-                  'place_in_container': '1',
-                  'type': 'text',
-                }),
-                dict({
-                  'children': list([
-                  ]),
-                  'place_in_container': '1',
-                  'type': 'link',
-                }),
-                dict({
-                  'children': list([
-                  ]),
-                  'place_in_container': '1',
-                  'type': 'text',
-                }),
-                dict({
-                  'children': list([
-                  ]),
-                  'place_in_container': '1',
-                  'type': 'link',
                 }),
               ]),
               'place_in_container': '',

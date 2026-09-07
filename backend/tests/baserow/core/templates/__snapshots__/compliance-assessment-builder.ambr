@@ -113,6 +113,12 @@
               'children': list([
                 dict({
                   'children': list([
+                  ]),
+                  'place_in_container': '0',
+                  'type': 'text',
+                }),
+                dict({
+                  'children': list([
                     dict({
                       'children': list([
                       ]),
@@ -122,12 +128,6 @@
                   ]),
                   'place_in_container': '1',
                   'type': 'simple_container',
-                }),
-                dict({
-                  'children': list([
-                  ]),
-                  'place_in_container': '0',
-                  'type': 'text',
                 }),
               ]),
               'place_in_container': '',
@@ -184,12 +184,6 @@
           ]),
           'place_in_container': '',
           'type': 'heading',
-        }),
-        dict({
-          'children': list([
-          ]),
-          'place_in_container': '',
-          'type': 'auth_form',
         }),
       ]),
       'Non completed responses': list([

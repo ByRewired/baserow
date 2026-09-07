@@ -121,12 +121,6 @@
               'place_in_container': '',
               'type': 'heading',
             }),
-            dict({
-              'children': list([
-              ]),
-              'place_in_container': '',
-              'type': 'auth_form',
-            }),
           ]),
           'place_in_container': '',
           'type': 'simple_container',
@@ -214,12 +208,6 @@
                   ]),
                   'place_in_container': '',
                   'type': 'choice',
-                }),
-                dict({
-                  'children': list([
-                  ]),
-                  'place_in_container': '',
-                  'type': 'input_file',
                 }),
               ]),
               'place_in_container': '',

@@ -151,12 +151,6 @@
           'place_in_container': '',
           'type': 'heading',
         }),
-        dict({
-          'children': list([
-          ]),
-          'place_in_container': '',
-          'type': 'auth_form',
-        }),
       ]),
       '__shared__': list([
         dict({

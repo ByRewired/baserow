@@ -1485,12 +1485,6 @@
           'place_in_container': '',
           'type': 'heading',
         }),
-        dict({
-          'children': list([
-          ]),
-          'place_in_container': '',
-          'type': 'auth_form',
-        }),
       ]),
       'Pipeline add': list([
         dict({

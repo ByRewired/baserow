@@ -1421,12 +1421,6 @@
           'place_in_container': '',
           'type': 'link',
         }),
-        dict({
-          'children': list([
-          ]),
-          'place_in_container': '',
-          'type': 'auth_form',
-        }),
       ]),
       'Profile': list([
         dict({

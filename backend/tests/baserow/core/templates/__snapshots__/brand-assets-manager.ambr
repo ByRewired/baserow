@@ -49,54 +49,6 @@
             }),
             dict({
               'children': list([
-              ]),
-              'place_in_container': '0',
-              'type': 'text',
-            }),
-            dict({
-              'children': list([
-              ]),
-              'place_in_container': '0',
-              'type': 'text',
-            }),
-            dict({
-              'children': list([
-              ]),
-              'place_in_container': '0',
-              'type': 'text',
-            }),
-            dict({
-              'children': list([
-              ]),
-              'place_in_container': '0',
-              'type': 'text',
-            }),
-            dict({
-              'children': list([
-              ]),
-              'place_in_container': '0',
-              'type': 'text',
-            }),
-            dict({
-              'children': list([
-              ]),
-              'place_in_container': '0',
-              'type': 'text',
-            }),
-            dict({
-              'children': list([
-              ]),
-              'place_in_container': '0',
-              'type': 'text',
-            }),
-            dict({
-              'children': list([
-              ]),
-              'place_in_container': '0',
-              'type': 'text',
-            }),
-            dict({
-              'children': list([
                 dict({
                   'children': list([
                   ]),
@@ -112,6 +64,54 @@
               ]),
               'place_in_container': '2',
               'type': 'form_container',
+            }),
+            dict({
+              'children': list([
+              ]),
+              'place_in_container': '0',
+              'type': 'text',
+            }),
+            dict({
+              'children': list([
+              ]),
+              'place_in_container': '0',
+              'type': 'text',
+            }),
+            dict({
+              'children': list([
+              ]),
+              'place_in_container': '0',
+              'type': 'text',
+            }),
+            dict({
+              'children': list([
+              ]),
+              'place_in_container': '0',
+              'type': 'text',
+            }),
+            dict({
+              'children': list([
+              ]),
+              'place_in_container': '0',
+              'type': 'text',
+            }),
+            dict({
+              'children': list([
+              ]),
+              'place_in_container': '0',
+              'type': 'text',
+            }),
+            dict({
+              'children': list([
+              ]),
+              'place_in_container': '0',
+              'type': 'text',
+            }),
+            dict({
+              'children': list([
+              ]),
+              'place_in_container': '0',
+              'type': 'text',
             }),
           ]),
           'place_in_container': '',
@@ -168,12 +168,6 @@
           ]),
           'place_in_container': '',
           'type': 'heading',
-        }),
-        dict({
-          'children': list([
-          ]),
-          'place_in_container': '',
-          'type': 'auth_form',
         }),
       ]),
       '__shared__': list([

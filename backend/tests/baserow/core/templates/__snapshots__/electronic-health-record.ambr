@@ -109,12 +109,6 @@
           'place_in_container': '',
           'type': 'image',
         }),
-        dict({
-          'children': list([
-          ]),
-          'place_in_container': '',
-          'type': 'auth_form',
-        }),
       ]),
       'Patient file': list([
         dict({
