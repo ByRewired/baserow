@@ -18,6 +18,10 @@ from django.core.files.storage import Storage
 from django.db import transaction
 from django.db.models import QuerySet
 
+from loguru import logger
+
+from baserow.core.exceptions import InstanceTypeDoesNotExist
+
 from baserow.contrib.builder.elements.exceptions import (
     ElementDoesNotExist,
     ElementTypeDeactivated,
@@ -950,7 +954,17 @@ class ElementHandler:
             # We met an old element type name. Let's migrate it.
             element_type_name = old_element_type_map[element_type_name]
 
-        element_type = element_type_registry.get(element_type_name)
+        try:
+            element_type = element_type_registry.get(element_type_name)
+        except InstanceTypeDoesNotExist:
+            # Element types are contributed by plugins, so an export can name one
+            # this instance does not have. Skip that element rather than failing
+            # the whole page, the way an unknown view type is skipped on a table.
+            logger.warning(
+                f"Skipping a {element_type_name} element of page {page.name} "
+                "because that element type is not installed."
+            )
+            return None
 
         deferred_import_callback = element_type.before_import(
             serialized_element,

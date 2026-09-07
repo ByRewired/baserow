@@ -873,6 +873,10 @@ class PageHandler:
                 deferred_import_callbacks=deferred_import_callbacks,
             )
 
+            if imported_element is None:
+                # The element type is not installed, nothing was created.
+                continue
+
             imported_elements.append(imported_element)
 
             if progress:

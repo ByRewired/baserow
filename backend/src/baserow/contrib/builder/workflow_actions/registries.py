@@ -191,7 +191,13 @@ class BuilderWorkflowActionType(
         element_id = serialized_values["element_id"]
         import_context = {}
         if element_id:
-            imported_element_id = id_mapping["builder_page_elements"][element_id]
+            # The element is absent from the mapping when its type is not
+            # installed and the import skipped it. The action it carried has
+            # nothing left to act on, so it is skipped too.
+            imported_element_id = id_mapping["builder_page_elements"].get(element_id)
+            if imported_element_id is None:
+                return None
+
             import_context = ElementHandler().get_import_context_addition(
                 imported_element_id, cache.get("imported_element_map", None)
             )

@@ -51,6 +51,8 @@ from .data_providers.registries import database_data_provider_type_registry
 from .data_sync.registries import data_sync_type_registry
 from .db.atomic import read_repeatable_single_database_atomic_transaction
 from .export_serialized import DatabaseExportSerializedStructure
+from baserow.core.exceptions import InstanceTypeDoesNotExist
+
 from .field_rules.handlers import FieldRuleHandler
 from .field_rules.models import FieldRule
 from .fields.utils import DeferredFieldImporter, DeferredForeignKeyUpdater
@@ -658,9 +660,19 @@ class DatabaseApplicationType(ApplicationType):
             field_rules_handler = FieldRuleHandler(table)
             serialized_rules = serialized_table["field_rules"]
             for serialized_rule in serialized_rules:
-                field_rules_handler.import_rule(
-                    serialized_rule, id_mapping["database_fields"]
-                )
+                try:
+                    field_rules_handler.import_rule(
+                        serialized_rule, id_mapping["database_fields"]
+                    )
+                except InstanceTypeDoesNotExist:
+                    # Rule types are contributed by plugins, so an export can name
+                    # one this instance does not have. The table and its rows are
+                    # what matter, so skip the rule rather than failing the import.
+                    logger.warning(
+                        f"Skipping a {serialized_rule.get('type')} field rule of "
+                        f"table {table.name} because that rule type is not "
+                        "installed."
+                    )
 
     def _import_table_rows(
         self,

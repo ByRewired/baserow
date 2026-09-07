@@ -11,6 +11,7 @@ from baserow.contrib.database.views.models import (
     SORT_ORDER_CHOICES,
     View,
 )
+from baserow.core.app_auth_providers.models import AppAuthProvider
 from baserow.core.formula.field import FormulaField
 from baserow.core.integrations.models import Integration
 from baserow.core.services.models import (
@@ -20,6 +21,7 @@ from baserow.core.services.models import (
     ServiceFilterGroup,
     ServiceSort,
 )
+from baserow.core.user_sources.models import UserSource
 
 User = get_user_model()
 
@@ -362,4 +364,62 @@ class LocalBaserowTableServiceFieldMapping(models.Model):
         related_name="field_mappings",
         on_delete=models.CASCADE,
         help_text="The LocalBaserow Service that this field mapping relates to.",
+    )
+
+
+class LocalBaserowUserSource(UserSource):
+    """
+    A user source that reads its users from a table of the local Baserow instance.
+    One row is one user: a field holds the email address they log in with, another
+    the name shown in the application, and an optional one the role the visibility
+    rules are expressed in.
+    """
+
+    table = models.ForeignKey(
+        Table,
+        null=True,
+        default=None,
+        on_delete=models.SET_NULL,
+        help_text="The Baserow table containing the users.",
+    )
+    email_field = models.ForeignKey(
+        Field,
+        null=True,
+        default=None,
+        on_delete=models.SET_NULL,
+        related_name="user_source_email_fields",
+        help_text="The field holding the email address of the user.",
+    )
+    name_field = models.ForeignKey(
+        Field,
+        null=True,
+        default=None,
+        on_delete=models.SET_NULL,
+        related_name="user_source_name_fields",
+        help_text="The field holding the name of the user.",
+    )
+    role_field = models.ForeignKey(
+        Field,
+        null=True,
+        default=None,
+        on_delete=models.SET_NULL,
+        related_name="user_source_role_fields",
+        help_text="The field holding the role of the user. Without it every user "
+        "of this source shares the same default role.",
+    )
+
+
+class LocalBaserowPasswordAppAuthProvider(AppAuthProvider):
+    """
+    Lets the users of a `LocalBaserowUserSource` sign in with a password kept,
+    hashed, in one of the columns of the user table.
+    """
+
+    password_field = models.ForeignKey(
+        Field,
+        null=True,
+        default=None,
+        on_delete=models.SET_NULL,
+        related_name="local_baserow_password_auth_providers",
+        help_text="The field holding the hashed password of the user.",
     )

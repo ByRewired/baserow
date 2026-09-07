@@ -90,4 +90,22 @@ class IntegrationsConfig(AppConfig):
 
         settings_data_registry.register(InstanceSMTPSettingsDataType())
 
+        from baserow.contrib.integrations.local_baserow.user_source_types import (
+            LocalBaserowUserSourceType,
+        )
+        from baserow.core.user_sources.registries import user_source_type_registry
+
+        user_source_type_registry.register(LocalBaserowUserSourceType())
+
+        from baserow.contrib.integrations.local_baserow.app_auth_provider_types import (
+            LocalBaserowPasswordAppAuthProviderType,
+        )
+        from baserow.core.app_auth_providers.registries import (
+            app_auth_provider_type_registry,
+        )
+
+        app_auth_provider_type_registry.register(
+            LocalBaserowPasswordAppAuthProviderType()
+        )
+
         import baserow.contrib.integrations.signals  # noqa: F403, F401
