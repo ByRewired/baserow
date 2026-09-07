@@ -1090,7 +1090,7 @@ BASEROW_UPDATE_WORKSPACE_STORAGE_USAGE_HOURS = 24
 # sources are divided over the batches that fit in an hour, so that not every user
 # source is counted in the same task. Must be a divisor of 60.
 USER_SOURCE_COUNTING_TASK_INTERVAL_MINUTES = int(
-    os.getenv("BASEROW_USER_SOURCE_COUNTING_TASK_INTERVAL_MINUTES", "") or 10
+    os.getenv("BASEROW_USER_SOURCE_COUNTING_TASK_INTERVAL_MINUTES", "") or 15
 )
 
 ONE_AM_CRONTAB_STR = "0 1 * * *"
