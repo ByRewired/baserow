@@ -69,7 +69,6 @@ def test_local_baserow_service_type_dispatch_types():
         LocalBaserowRowsUpdatedServiceType.type: [DispatchTypes.EVENT],
         LocalBaserowRowsDeletedServiceType.type: [DispatchTypes.EVENT],
         LocalBaserowFieldsUpdatedServiceType.type: [DispatchTypes.EVENT],
-        "local_baserow_grouped_aggregate_rows": [DispatchTypes.DATA],
     }
 
 
