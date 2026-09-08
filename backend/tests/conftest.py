@@ -11,6 +11,9 @@ import pytest
 
 # noinspection PyUnresolvedReferences
 from baserow.test_utils.pytest_conftest import *  # noqa: F403, F401
+from baserow.test_utils.pytest_conftest import (  # noqa: F401
+    pytest_collection_modifyitems as _skip_by_command_line_flag,
+)
 
 
 def _fixture_teardown(self):
@@ -97,6 +100,10 @@ def on_db_connection(db):
 
 
 def pytest_collection_modifyitems(config, items):
+    # `import *` above already brought in a hook of this name, and defining one
+    # here replaces it rather than adding to it, so call it explicitly first.
+    _skip_by_command_line_flag(config, items)
+
     from baserow.contrib.database.views.registries import (
         view_ownership_type_registry,
     )

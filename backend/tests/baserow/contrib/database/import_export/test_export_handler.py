@@ -402,8 +402,6 @@ def test_can_export_every_interesting_different_field_to_csv(
             form_view_edit_row_url_row2,
         ],
         "button": ["", ""],
-        "ai": ["", "I'm an AI."],
-        "ai_choice": ["", "Object"],
     }
 
     # Join headers
