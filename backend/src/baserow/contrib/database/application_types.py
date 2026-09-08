@@ -407,6 +407,22 @@ class DatabaseApplicationType(ApplicationType):
         fields_without_dependencies: List[Field] = []
         for serialized_table in serialized_tables:
             table_instance = serialized_table["_object"]
+
+            # Field types are contributed by plugins, so an export can name one
+            # this instance does not have. Drop those columns rather than losing
+            # the whole table, the way an unknown view type is skipped.
+            installed_fields = []
+            for serialized_field in serialized_table["fields"]:
+                if serialized_field["type"] in field_type_registry.registry:
+                    installed_fields.append(serialized_field)
+                else:
+                    logger.warning(
+                        f"Skipping the {serialized_field['name']} field of table "
+                        f"{serialized_table['name']} because the "
+                        f"{serialized_field['type']} field type is not installed."
+                    )
+            serialized_table["fields"] = installed_fields
+
             for serialized_field in serialized_table["fields"]:
                 field_type = field_type_registry.get(serialized_field["type"])
                 field_deps = (
