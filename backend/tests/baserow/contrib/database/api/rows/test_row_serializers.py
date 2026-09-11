@@ -560,12 +560,6 @@ def test_get_row_serializer_with_user_field_names(
                 "password": True,
                 "form_view_edit_row": form_view_edit_row_url,
                 "button": None,
-                "ai": "I'm an AI.",
-                "ai_choice": {
-                    "color": "orange",
-                    "id": SelectOption.objects.get(value="Object").id,
-                    "value": "Object",
-                },
             }
         )
     )

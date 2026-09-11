@@ -662,6 +662,7 @@ def test_patch_view_field_options_as_template(api_client, data_fixture):
     assert response.status_code == HTTP_401_UNAUTHORIZED
 
 
+@pytest.mark.view_ownership
 @override_settings(PERMISSION_MANAGERS=["basic"])
 @pytest.mark.django_db
 def test_patch_view_validate_ownership_type_invalid_type(api_client, data_fixture):

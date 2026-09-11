@@ -143,6 +143,7 @@ def test_copy_view_configuration_errors(api_client, data_fixture):
     assert response.json()["error"] == "ERROR_USER_NOT_IN_GROUP"
 
 
+@pytest.mark.view_ownership
 @pytest.mark.django_db
 def test_cannot_copy_configuration_from_another_users_personal_view(
     api_client, data_fixture
