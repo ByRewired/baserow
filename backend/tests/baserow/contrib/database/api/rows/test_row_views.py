@@ -1073,10 +1073,6 @@ def test_list_rows_join_lookup(api_client, data_fixture, user_field_names):
             "blank": None,
             "row": True,
         },
-        "ai": {
-            "blank": None,
-            "row": "I'm an AI.",
-        },
     }
 
     looked_up_fields_row = {
