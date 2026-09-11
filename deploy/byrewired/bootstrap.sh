@@ -134,8 +134,10 @@ echo
 echo "Waiting for the first boot to finish. It runs the migrations and builds"
 echo "the search indexes, so a few minutes is normal."
 
+CID=$($DOCKER compose ps -q byrewired 2>/dev/null | head -1)
 for _ in $(seq 1 60); do
-  if $DOCKER compose ps --format '{{.Health}}' 2>/dev/null | grep -q healthy; then
+  STATE=$($DOCKER inspect -f '{{.State.Health.Status}}' "$CID" 2>/dev/null || echo unknown)
+  if [ "$STATE" = healthy ]; then
     HEALTHY=yes
     break
   fi
