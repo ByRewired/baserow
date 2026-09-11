@@ -5,6 +5,26 @@ Cloudflare Access in front. Nothing here costs money on the free tiers.
 
 The commands assume Ubuntu 22.04 or 24.04 on arm64 or amd64.
 
+## The short way
+
+On a fresh Ubuntu server, once you have a tunnel token from step 6:
+
+    curl -fsSL https://raw.githubusercontent.com/ByRewired/baserow/byrewired-db/deploy/byrewired/bootstrap.sh -o bootstrap.sh
+    bash bootstrap.sh
+
+It installs Docker, adds swap when the machine is small, clones, builds the
+three images, generates the keys, writes `.env` and starts everything. It asks
+for the public URL and the tunnel token at the beginning and nothing after
+that. Running it again is safe: the images rebuild, the data volume is left
+alone.
+
+Two things it cannot do for you, both in the Cloudflare dashboard: pointing
+the tunnel hostname at `http://byrewired:80`, and adding the Access policy in
+step 7. Do both.
+
+The rest of this file is the same thing by hand, and is worth reading when
+something does not work.
+
 ## 1. The server
 
 4GB of memory is the comfortable floor. The image runs PostgreSQL, Redis, the

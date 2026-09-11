@@ -27,11 +27,12 @@ services:
     networks:
       - byrewired
     healthcheck:
-      test: ["CMD", "curl", "-fsS", "http://localhost/api/_health/"]
+      # The command comes from the image, this only widens the window so a
+      # first boot that runs the migrations and builds the search indexes is
+      # not called unhealthy while it is still working.
+      start_period: 300s
       interval: 30s
-      timeout: 10s
-      # The first boot runs migrations and builds the search indexes.
-      start_period: 240s
+      timeout: 15s
       retries: 5
 
   tunnel:
