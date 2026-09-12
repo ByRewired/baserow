@@ -58,9 +58,11 @@ ARG GID
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+# The Nitro stage of the build is killed at 4GB, so the builder needs at least
+# the memory named in NODE_OPTIONS available to it.
 ENV YARN_CACHE_FOLDER=/tmp/.yarn-cache \
     NUXT_TELEMETRY_DISABLED=1 \
-    NODE_OPTIONS="--max-old-space-size=4096" \
+    NODE_OPTIONS="--max-old-space-size=8192" \
     NODE_ENV=production
 
 RUN mkdir -p /baserow/web-frontend && \

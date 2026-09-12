@@ -70,15 +70,28 @@ fi
 DOCKER="docker"
 docker info >/dev/null 2>&1 || DOCKER="sudo docker"
 
-# ── swap, on small machines ─────────────────────────────────────────────
+# ── memory ──────────────────────────────────────────────────────────────
+# Bundling the frontend needs an 8GB heap. Falling short of it does not fail
+# early with a clear message, it gets killed twenty minutes in, so make sure
+# the memory is there before starting.
 TOTAL_MB=$(free -m | awk '/^Mem:/{print $2}')
-if [ "$TOTAL_MB" -lt 3500 ] && [ ! -f /swapfile ]; then
-  say "Only ${TOTAL_MB}MB of memory, adding 4GB of swap"
-  sudo fallocate -l 4G /swapfile
-  sudo chmod 600 /swapfile
-  sudo mkswap /swapfile >/dev/null
-  sudo swapon /swapfile
-  echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab >/dev/null
+SWAP_MB=$(free -m | awk '/^Swap:/{print $2}')
+WANT_MB=10240
+
+if [ $((TOTAL_MB + SWAP_MB)) -lt "$WANT_MB" ]; then
+  NEED_MB=$((WANT_MB - TOTAL_MB - SWAP_MB))
+  say "Adding ${NEED_MB}MB of swap for the frontend build"
+  echo "Memory is ${TOTAL_MB}MB with ${SWAP_MB}MB of swap, and bundling the"
+  echo "frontend wants about 8GB. Swap makes it work, slowly."
+  SWAPFILE="/swapfile-byrewired"
+  if [ ! -f "$SWAPFILE" ]; then
+    sudo fallocate -l "${NEED_MB}M" "$SWAPFILE" 2>/dev/null \
+      || sudo dd if=/dev/zero of="$SWAPFILE" bs=1M count="$NEED_MB" status=none
+    sudo chmod 600 "$SWAPFILE"
+    sudo mkswap "$SWAPFILE" >/dev/null
+    sudo swapon "$SWAPFILE"
+    echo "$SWAPFILE none swap sw 0 0" | sudo tee -a /etc/fstab >/dev/null
+  fi
 fi
 
 # ── the code ────────────────────────────────────────────────────────────

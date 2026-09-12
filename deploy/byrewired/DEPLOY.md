@@ -27,9 +27,19 @@ something does not work.
 
 ## 1. The server
 
-4GB of memory is the comfortable floor. The image runs PostgreSQL, Redis, the
-API, a Node process rendering the pages and a Celery worker, and the renderer
-is the memory hungry one.
+4GB of memory is the comfortable floor to *run*. The image holds PostgreSQL,
+Redis, the API, a Node process rendering the pages and a Celery worker, and
+the renderer is the memory hungry one.
+
+*Building* asks for more. Bundling the frontend needs an 8GB heap, and falling
+short does not fail early with a useful message: it runs for twenty minutes
+and then the kernel kills it, leaving `cannot allocate memory`. On a machine
+with less, add swap to cover the gap, which is what `bootstrap.sh` does. Or
+build somewhere roomier and move the image across:
+
+    docker save byrewired/all-in-one:latest | gzip > byrewired.tar.gz
+    scp byrewired.tar.gz user@server:
+    ssh user@server 'gunzip -c byrewired.tar.gz | docker load'
 
 **Oracle Cloud, always free.** Compute, Instances, Create. Pick Ubuntu, shape
 `VM.Standard.A1.Flex`, and give it 2 OCPU and 12GB. That is inside the always
