@@ -157,6 +157,15 @@ first stranger through Access becomes the administrator.
 
 ## 9. Check it works
 
+From the server, before the Access policy is in the way:
+
+    bash deploy/byrewired/smoke-test.sh http://localhost
+
+It signs up, makes a workspace, a database, a table, a field and a row, and
+reads the row back. Delete the workspace it leaves behind afterwards.
+
+Then by hand, in a browser:
+
 - Sign in, create a workspace, create a database and a table.
 - Add a row and watch it appear in a second browser. If it does not, the
   websocket is not reaching the app, which almost always means
